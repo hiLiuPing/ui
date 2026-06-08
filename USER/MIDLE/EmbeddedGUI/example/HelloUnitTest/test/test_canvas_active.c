@@ -1,0 +1,590 @@
+#include "egui.h"
+#include "uicode_disp0.h"
+#include "test/egui_test.h"
+#include "test_canvas_active.h"
+#include <string.h>
+
+#define TEST_CANVAS_W 80
+#define TEST_CANVAS_H 40
+
+static egui_color_int_t test_pfb[TEST_CANVAS_W * TEST_CANVAS_H];
+static egui_color_int_t expected_pfb[TEST_CANVAS_W * TEST_CANVAS_H];
+static egui_canvas_t test_canvas;
+static egui_canvas_t test_canvas;
+static egui_canvas_t test_canvas;
+
+static egui_core_t *test_canvas_active_get_core(void)
+{
+    egui_core_t *core = uicode_get_core();
+
+    EGUI_ASSERT(core != NULL);
+    return core;
+}
+
+int egui_canvas_get_arc_fill_basic_row_angle_opaque_range(egui_canvas_t *self, egui_dim_t radius, egui_dim_t qy, int16_t start_angle, int16_t end_angle,
+                                                          egui_dim_t *qx_min, egui_dim_t *qx_max);
+
+static const uint16_t canvas_helper_image_data[] = {
+        0xF800, 0x07E0, 0x001F, 0xFFE0, 0xFFFF, 0x07FF, 0xF81F, 0x8410, 0x0000,
+};
+
+static const egui_image_std_info_t canvas_helper_image_info = {
+        .data_buf = canvas_helper_image_data,
+        .alpha_buf = NULL,
+        .data_type = EGUI_IMAGE_DATA_TYPE_RGB565,
+        .alpha_type = EGUI_IMAGE_ALPHA_TYPE_1,
+        .res_type = EGUI_RESOURCE_TYPE_INTERNAL,
+        .width = 3,
+        .height = 3,
+};
+
+EGUI_IMAGE_SUB_DEFINE_STATIC(egui_image_std_t, canvas_helper_image, &canvas_helper_image_info);
+
+#if EGUI_CONFIG_FUNCTION_SUPPORT_MASK
+static const uint16_t canvas_circle_mask_image_data[] = {
+        0xF800, 0xF800, 0xF800, 0xF800, 0xF800, 0x07E0, 0x07E0, 0x07E0, 0x07E0, 0x07E0, 0x001F, 0x001F, 0x001F,
+        0x001F, 0x001F, 0xFFE0, 0xFFE0, 0xFFE0, 0xFFE0, 0xFFE0, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
+};
+
+static const egui_image_std_info_t canvas_circle_mask_image_info = {
+        .data_buf = canvas_circle_mask_image_data,
+        .alpha_buf = NULL,
+        .data_type = EGUI_IMAGE_DATA_TYPE_RGB565,
+        .alpha_type = EGUI_IMAGE_ALPHA_TYPE_1,
+        .res_type = EGUI_RESOURCE_TYPE_INTERNAL,
+        .width = 5,
+        .height = 5,
+};
+
+EGUI_IMAGE_SUB_DEFINE_STATIC(egui_image_std_t, canvas_circle_mask_image, &canvas_circle_mask_image_info);
+#endif
+
+static void setup_canvas(const egui_region_t *pfb_region)
+{
+    egui_region_t base_region;
+
+    egui_canvas_init(&test_canvas, NULL, test_pfb, (egui_region_t *)pfb_region);
+    egui_region_init(&base_region, 30, 50, 80, 80);
+    egui_canvas_calc_work_region(&test_canvas, &base_region);
+}
+
+static void setup_canvas_local_full(void)
+{
+    egui_region_t pfb_region;
+    egui_region_t base_region;
+
+    memset(test_pfb, 0, sizeof(test_pfb));
+    egui_region_init(&pfb_region, 0, 0, TEST_CANVAS_W, TEST_CANVAS_H);
+    egui_canvas_init(&test_canvas, NULL, test_pfb, &pfb_region);
+    egui_region_init(&base_region, 0, 0, TEST_CANVAS_W, TEST_CANVAS_H);
+    egui_canvas_calc_work_region(&test_canvas, &base_region);
+}
+
+static void setup_canvas_local_clip(egui_dim_t x, egui_dim_t y, egui_dim_t width, egui_dim_t height)
+{
+    egui_region_t pfb_region;
+    egui_region_t base_region;
+
+    memset(test_pfb, 0, sizeof(test_pfb));
+    egui_region_init(&pfb_region, x, y, width, height);
+    egui_canvas_init(&test_canvas, NULL, test_pfb, &pfb_region);
+    egui_region_init(&base_region, x, y, width, height);
+    egui_canvas_calc_work_region(&test_canvas, &base_region);
+}
+
+static void test_canvas_get_core_returns_null_when_field_is_null(void)
+{
+    egui_canvas_t *canvas = &test_canvas_active_get_core()->canvas;
+
+    canvas->core = NULL;
+
+    EGUI_TEST_ASSERT_NULL(egui_canvas_get_core(canvas));
+}
+
+static void test_canvas_init_with_null_core_keeps_standalone_canvas_unowned(void)
+{
+    egui_region_t pfb_region;
+
+    egui_region_init(&pfb_region, 0, 0, TEST_CANVAS_W, TEST_CANVAS_H);
+    egui_canvas_init(&test_canvas, NULL, test_pfb, &pfb_region);
+
+    EGUI_TEST_ASSERT_NULL(egui_canvas_get_core(&test_canvas));
+    EGUI_TEST_ASSERT_NULL(test_canvas.core);
+}
+
+static void test_canvas_init_sets_owner_core_directly(void)
+{
+    egui_core_t *core = test_canvas_active_get_core();
+    egui_region_t pfb_region;
+    egui_canvas_t *canvas = &core->canvas;
+
+    egui_region_init(&pfb_region, 0, 0, TEST_CANVAS_W, TEST_CANVAS_H);
+    egui_canvas_init(canvas, core, test_pfb, &pfb_region);
+
+    EGUI_TEST_ASSERT_TRUE(canvas->core == core);
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_get_core(canvas) == core);
+}
+
+static void test_canvas_init_overrides_prebound_core_with_explicit_null(void)
+{
+    egui_core_t *core = test_canvas_active_get_core();
+    egui_region_t pfb_region;
+
+    egui_region_init(&pfb_region, 0, 0, TEST_CANVAS_W, TEST_CANVAS_H);
+    egui_canvas_init(&test_canvas, core, test_pfb, &pfb_region);
+    egui_canvas_init(&test_canvas, NULL, test_pfb, &pfb_region);
+
+    EGUI_TEST_ASSERT_NULL(test_canvas.core);
+}
+
+static void assert_clip_matches_expected(const egui_region_t *clip_region)
+{
+    egui_dim_t clip_width = clip_region->size.width;
+    egui_dim_t clip_height = clip_region->size.height;
+
+    for (egui_dim_t local_y = 0; local_y < clip_height; local_y++)
+    {
+        egui_dim_t screen_y = clip_region->location.y + local_y;
+
+        for (egui_dim_t local_x = 0; local_x < clip_width; local_x++)
+        {
+            egui_dim_t screen_x = clip_region->location.x + local_x;
+            egui_color_int_t expected = expected_pfb[screen_y * TEST_CANVAS_W + screen_x];
+
+            EGUI_TEST_ASSERT_EQUAL_INT((int)expected, (int)test_pfb[local_y * clip_width + local_x]);
+        }
+    }
+}
+
+static void test_canvas_is_region_active_inside(void)
+{
+    egui_region_t pfb_region;
+    egui_region_t region;
+
+    egui_region_init(&pfb_region, 40, 60, 20, 20);
+    setup_canvas(&pfb_region);
+
+    egui_region_init(&region, 45, 65, 10, 10);
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_is_region_active(&test_canvas, &region));
+}
+
+static void test_canvas_is_region_active_outside(void)
+{
+    egui_region_t pfb_region;
+    egui_region_t region;
+
+    egui_region_init(&pfb_region, 40, 60, 20, 20);
+    setup_canvas(&pfb_region);
+
+    egui_region_init(&region, 5, 5, 10, 10);
+    EGUI_TEST_ASSERT_FALSE(egui_canvas_is_region_active(&test_canvas, &region));
+}
+
+static void test_canvas_is_region_active_partial(void)
+{
+    egui_region_t pfb_region;
+    egui_region_t region;
+
+    egui_region_init(&pfb_region, 40, 60, 20, 20);
+    setup_canvas(&pfb_region);
+
+    egui_region_init(&region, 55, 75, 20, 10);
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_is_region_active(&test_canvas, &region));
+}
+
+static void test_canvas_is_region_active_edge(void)
+{
+    egui_region_t pfb_region;
+    egui_region_t region;
+
+    egui_region_init(&pfb_region, 40, 60, 20, 20);
+    setup_canvas(&pfb_region);
+
+    egui_region_init(&region, 60, 60, 10, 10);
+    EGUI_TEST_ASSERT_FALSE(egui_canvas_is_region_active(&test_canvas, &region));
+}
+
+static void test_canvas_round_rect_fill_tiny_size_falls_back_to_rect(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    egui_color_t color = EGUI_COLOR_RED;
+
+    setup_canvas_local_full();
+    egui_canvas_draw_round_rectangle_fill(canvas, 2, 3, 1, 1, 8, color, EGUI_ALPHA_100);
+
+    EGUI_TEST_ASSERT_EQUAL_INT((int)color.full, (int)test_pfb[3 * TEST_CANVAS_W + 2]);
+}
+
+static void test_canvas_round_rect_stroke_tiny_size_falls_back_to_fill(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    egui_color_t color = EGUI_COLOR_BLUE;
+
+    setup_canvas_local_full();
+    egui_canvas_draw_round_rectangle(canvas, 5, 6, 1, 1, 8, 2, color, EGUI_ALPHA_100);
+
+    EGUI_TEST_ASSERT_EQUAL_INT((int)color.full, (int)test_pfb[6 * TEST_CANVAS_W + 5]);
+}
+
+static void test_canvas_round_rect_corners_fill_tiny_size_falls_back_to_rect(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    egui_color_t color = EGUI_COLOR_GREEN;
+
+    setup_canvas_local_full();
+    egui_canvas_draw_round_rectangle_corners_fill(canvas, 8, 4, 1, 1, 6, 6, 6, 6, color, EGUI_ALPHA_100);
+
+    EGUI_TEST_ASSERT_EQUAL_INT((int)color.full, (int)test_pfb[4 * TEST_CANVAS_W + 8]);
+}
+
+static void test_canvas_round_rect_corners_stroke_tiny_size_falls_back_to_fill(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    egui_color_t color = EGUI_COLOR_ORANGE;
+
+    setup_canvas_local_full();
+    egui_canvas_draw_round_rectangle_corners(canvas, 11, 7, 1, 1, 6, 6, 6, 6, 2, color, EGUI_ALPHA_100);
+
+    EGUI_TEST_ASSERT_EQUAL_INT((int)color.full, (int)test_pfb[7 * TEST_CANVAS_W + 11]);
+}
+
+static void test_canvas_arc_sweep_helper_matches_direct_range(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    setup_canvas_local_full();
+    egui_canvas_draw_arc(canvas, 20, 20, 8, 0, 90, 2, EGUI_COLOR_RED, EGUI_ALPHA_100);
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    setup_canvas_local_full();
+    egui_canvas_draw_arc_sweep(canvas, 20, 20, 8, 90, -90, 2, EGUI_COLOR_RED, EGUI_ALPHA_100);
+
+    EGUI_TEST_ASSERT_TRUE(memcmp(expected_pfb, test_pfb, sizeof(test_pfb)) == 0);
+}
+
+static void assert_circle_fill_basic_row_matches_buffer(egui_dim_t center_x, egui_dim_t y, egui_dim_t radius, egui_dim_t row_index, egui_color_t color)
+{
+    const egui_circle_info_t *info = egui_canvas_get_circle_item(&test_canvas, radius);
+    const egui_circle_item_t *items = (const egui_circle_item_t *)info->items;
+    egui_dim_t start_offset = 0;
+    egui_dim_t valid_count = 0;
+    egui_dim_t fill_start = 0;
+    egui_dim_t fill_end = 0;
+    egui_dim_t total_width = (radius << 1) + 1;
+    egui_dim_t edge_end;
+    egui_dim_t right_edge_start;
+
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_get_circle_fill_basic_row_layout(&test_canvas, radius, row_index, &start_offset, &valid_count, &fill_start, &fill_end));
+
+    edge_end = start_offset + valid_count;
+    right_edge_start = total_width - edge_end;
+
+    for (egui_dim_t local_x = 0; local_x < total_width; local_x++)
+    {
+        egui_color_t expected = EGUI_COLOR_BLACK;
+        egui_dim_t screen_x = center_x - radius + local_x;
+
+        if (local_x >= fill_start && local_x < fill_end)
+        {
+            expected = color;
+        }
+        else if (local_x >= start_offset && local_x < edge_end)
+        {
+            egui_alpha_t pixel_alpha = egui_canvas_get_circle_corner_value_fixed_row(row_index, local_x, info, items);
+
+            expected = egui_rgb_mix(EGUI_COLOR_BLACK, color, pixel_alpha);
+        }
+        else if (local_x >= right_edge_start && local_x < total_width - start_offset)
+        {
+            egui_dim_t col_index = total_width - 1 - local_x;
+            egui_alpha_t pixel_alpha = egui_canvas_get_circle_corner_value_fixed_row(row_index, col_index, info, items);
+
+            expected = egui_rgb_mix(EGUI_COLOR_BLACK, color, pixel_alpha);
+        }
+
+        EGUI_TEST_ASSERT_EQUAL_INT((int)expected.full, (int)test_pfb[y * TEST_CANVAS_W + screen_x]);
+    }
+}
+
+static void test_canvas_circle_fill_basic_row_layout_matches_rendered_rows(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    enum
+    {
+        radius = 9,
+        center_x = 24,
+        center_y = 20,
+    };
+    egui_color_t color = EGUI_COLOR_RED;
+
+    setup_canvas_local_full();
+    egui_canvas_draw_circle_fill_basic(canvas, center_x, center_y, radius, color, EGUI_ALPHA_100);
+
+    for (egui_dim_t row_index = 0; row_index <= radius; row_index++)
+    {
+        egui_dim_t dy = radius - row_index;
+        egui_dim_t y_top = center_y - dy;
+        egui_dim_t y_bottom = center_y + dy;
+
+        assert_circle_fill_basic_row_matches_buffer(center_x, y_top, radius, row_index, color);
+        if (y_bottom != y_top)
+        {
+            assert_circle_fill_basic_row_matches_buffer(center_x, y_bottom, radius, row_index, color);
+        }
+    }
+}
+
+static void test_canvas_circle_fill_basic_legacy_clip_scales_with_circle_size(void)
+{
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_should_use_circle_fill_basic_legacy_clip(119, 15, 15));
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_should_use_circle_fill_basic_legacy_clip(119, 30, 30));
+    EGUI_TEST_ASSERT_FALSE(egui_canvas_should_use_circle_fill_basic_legacy_clip(47, 30, 30));
+}
+
+static void test_canvas_circle_fill_basic_legacy_clip_preserves_strip_fast_paths(void)
+{
+    EGUI_TEST_ASSERT_FALSE(egui_canvas_should_use_circle_fill_basic_legacy_clip(119, TEST_CANVAS_W, 1));
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_should_use_circle_fill_basic_legacy_clip(119, 1, TEST_CANVAS_H));
+    EGUI_TEST_ASSERT_FALSE(egui_canvas_should_use_circle_fill_basic_legacy_clip(119, 2, TEST_CANVAS_H));
+}
+
+static void test_canvas_circle_fill_basic_clipped_small_tile_matches_full_render(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    enum
+    {
+        radius = 10,
+        center_x = 26,
+        center_y = 18,
+    };
+    egui_color_t color = EGUI_COLOR_GREEN;
+    egui_region_t clip_region;
+
+    egui_region_init(&clip_region, 19, 11, 15, 15);
+
+    setup_canvas_local_full();
+    egui_canvas_draw_circle_fill_basic(canvas, center_x, center_y, radius, color, EGUI_ALPHA_100);
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    setup_canvas_local_clip(clip_region.location.x, clip_region.location.y, clip_region.size.width, clip_region.size.height);
+    egui_canvas_draw_circle_fill_basic(canvas, center_x - clip_region.location.x, center_y - clip_region.location.y, radius, color, EGUI_ALPHA_100);
+
+    assert_clip_matches_expected(&clip_region);
+}
+
+static void test_canvas_circle_fill_basic_clipped_fullwidth_strip_matches_full_render(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    enum
+    {
+        radius = 10,
+        center_x = 40,
+        center_y = 18,
+    };
+    egui_color_t color = EGUI_COLOR_BLUE;
+    egui_region_t clip_region;
+
+    egui_region_init(&clip_region, 0, 18, TEST_CANVAS_W, 1);
+
+    setup_canvas_local_full();
+    egui_canvas_draw_circle_fill_basic(canvas, center_x, center_y, radius, color, EGUI_ALPHA_100);
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    setup_canvas_local_clip(clip_region.location.x, clip_region.location.y, clip_region.size.width, clip_region.size.height);
+    egui_canvas_draw_circle_fill_basic(canvas, center_x - clip_region.location.x, center_y - clip_region.location.y, radius, color, EGUI_ALPHA_100);
+
+    assert_clip_matches_expected(&clip_region);
+}
+
+static void test_canvas_arc_fill_basic_angle_opaque_range_full_quadrant(void)
+{
+    egui_dim_t qx_min = 99;
+    egui_dim_t qx_max = 99;
+
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_get_arc_fill_basic_row_angle_opaque_range(NULL, 12, 6, 0, 90, &qx_min, &qx_max));
+    EGUI_TEST_ASSERT_EQUAL_INT(0, qx_min);
+    EGUI_TEST_ASSERT_EQUAL_INT(12, qx_max);
+}
+
+static void test_canvas_arc_fill_basic_angle_opaque_range_shrinks_45_to_90_sector(void)
+{
+    egui_dim_t qx_min = 99;
+    egui_dim_t qx_max = 99;
+
+    EGUI_TEST_ASSERT_TRUE(egui_canvas_get_arc_fill_basic_row_angle_opaque_range(NULL, 12, 6, 45, 90, &qx_min, &qx_max));
+    EGUI_TEST_ASSERT_EQUAL_INT(0, qx_min);
+    EGUI_TEST_ASSERT_EQUAL_INT(4, qx_max);
+}
+
+static void test_canvas_arc_fill_basic_angle_opaque_range_reports_empty_span(void)
+{
+    egui_dim_t qx_min = 0;
+    egui_dim_t qx_max = 0;
+
+    EGUI_TEST_ASSERT_FALSE(egui_canvas_get_arc_fill_basic_row_angle_opaque_range(NULL, 12, 6, 44, 46, &qx_min, &qx_max));
+}
+
+static void test_canvas_arc_fill_basic_clipped_fullheight_strip_matches_full_render(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    enum
+    {
+        center_x = 18,
+        center_y = 20,
+        radius = 12,
+    };
+    egui_color_t color = EGUI_COLOR_RED;
+    egui_region_t clip_region;
+
+    egui_region_init(&clip_region, 24, 8, 1, 24);
+
+    setup_canvas_local_full();
+    egui_canvas_draw_arc_fill_basic(canvas, center_x, center_y, radius, 0, 120, color, EGUI_ALPHA_100);
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    setup_canvas_local_clip(clip_region.location.x, clip_region.location.y, clip_region.size.width, clip_region.size.height);
+    egui_canvas_draw_arc_fill_basic(canvas, center_x - clip_region.location.x, center_y - clip_region.location.y, radius, 0, 120, color, EGUI_ALPHA_100);
+
+    assert_clip_matches_expected(&clip_region);
+}
+
+static void test_canvas_arc_fill_basic_clipped_small_tile_matches_full_render(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    enum
+    {
+        center_x = 32,
+        center_y = 20,
+        radius = 12,
+    };
+    egui_color_t color = EGUI_COLOR_BLUE;
+    egui_region_t clip_region;
+
+    egui_region_init(&clip_region, 26, 14, 15, 15);
+
+    setup_canvas_local_full();
+    egui_canvas_draw_arc_fill_basic(canvas, center_x, center_y, radius, 0, 120, color, EGUI_ALPHA_100);
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    setup_canvas_local_clip(clip_region.location.x, clip_region.location.y, clip_region.size.width, clip_region.size.height);
+    egui_canvas_draw_arc_fill_basic(canvas, center_x - clip_region.location.x, center_y - clip_region.location.y, radius, 0, 120, color, EGUI_ALPHA_100);
+
+    assert_clip_matches_expected(&clip_region);
+}
+
+static void test_canvas_image_rotate_helper_zero_angle_matches_draw_image(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    const egui_image_t *image = (const egui_image_t *)&canvas_helper_image;
+
+    setup_canvas_local_full();
+    egui_canvas_draw_image(canvas, image, 6, 7);
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    setup_canvas_local_full();
+    egui_canvas_draw_image_rotate(canvas, image, 6, 7, 360);
+
+    EGUI_TEST_ASSERT_TRUE(memcmp(expected_pfb, test_pfb, sizeof(test_pfb)) == 0);
+}
+
+static void test_canvas_text_rotate_helper_zero_angle_matches_draw_text(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    const egui_font_t *font = (const egui_font_t *)EGUI_CONFIG_FONT_DEFAULT;
+
+    setup_canvas_local_full();
+    egui_canvas_draw_text(canvas, font, "A", 8, 6, EGUI_COLOR_WHITE, EGUI_ALPHA_100);
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    setup_canvas_local_full();
+    egui_canvas_draw_text_rotate(canvas, font, "A", 8, 6, 360, EGUI_COLOR_WHITE, EGUI_ALPHA_100);
+
+    EGUI_TEST_ASSERT_TRUE(memcmp(expected_pfb, test_pfb, sizeof(test_pfb)) == 0);
+}
+
+#if EGUI_CONFIG_FUNCTION_SUPPORT_MASK
+static void test_canvas_circle_mask_draw_image_handles_cold_mask_cache(void)
+{
+    egui_canvas_t *canvas = &test_canvas;
+    enum
+    {
+        image_x = 18,
+        image_y = 9,
+        image_size = 5,
+    };
+    const egui_image_t *image = (const egui_image_t *)&canvas_circle_mask_image;
+    egui_mask_circle_t mask;
+    egui_mask_t *base = (egui_mask_t *)&mask;
+    int has_non_zero_pixel = 0;
+
+    memset(&mask, 0, sizeof(mask));
+    egui_mask_circle_init(base);
+    egui_mask_set_position(base, image_x, image_y);
+    egui_mask_set_size(base, image_size, image_size);
+
+    setup_canvas_local_full();
+    for (egui_dim_t y = 0; y < image_size; y++)
+    {
+        for (egui_dim_t x = 0; x < image_size; x++)
+        {
+            egui_color_t color;
+            egui_alpha_t alpha = EGUI_ALPHA_100;
+
+            color.full = EGUI_COLOR_RGB565_TRANS(canvas_circle_mask_image_data[y * image_size + x]);
+            base->api->mask_point(base, image_x + x, image_y + y, &color, &alpha);
+            if (alpha != 0)
+            {
+                has_non_zero_pixel = 1;
+                egui_canvas_draw_point(canvas, image_x + x, image_y + y, color, alpha);
+            }
+        }
+    }
+    memcpy(expected_pfb, test_pfb, sizeof(test_pfb));
+
+    memset(&mask, 0, sizeof(mask));
+    egui_mask_circle_init(base);
+    egui_mask_set_position(base, image_x, image_y);
+    egui_mask_set_size(base, image_size, image_size);
+
+    setup_canvas_local_full();
+    egui_canvas_set_mask(canvas, base);
+    egui_canvas_draw_image(canvas, image, image_x, image_y);
+    egui_canvas_clear_mask(canvas);
+
+    EGUI_TEST_ASSERT_TRUE(has_non_zero_pixel);
+    EGUI_TEST_ASSERT_TRUE(memcmp(expected_pfb, test_pfb, sizeof(test_pfb)) == 0);
+}
+#endif
+
+void test_canvas_active_run(void)
+{
+    EGUI_TEST_SUITE_BEGIN(canvas_active);
+    EGUI_TEST_RUN(test_canvas_get_core_returns_null_when_field_is_null);
+    EGUI_TEST_RUN(test_canvas_init_with_null_core_keeps_standalone_canvas_unowned);
+    EGUI_TEST_RUN(test_canvas_init_sets_owner_core_directly);
+    EGUI_TEST_RUN(test_canvas_init_overrides_prebound_core_with_explicit_null);
+    EGUI_TEST_RUN(test_canvas_is_region_active_inside);
+    EGUI_TEST_RUN(test_canvas_is_region_active_outside);
+    EGUI_TEST_RUN(test_canvas_is_region_active_partial);
+    EGUI_TEST_RUN(test_canvas_is_region_active_edge);
+    EGUI_TEST_RUN(test_canvas_round_rect_fill_tiny_size_falls_back_to_rect);
+    EGUI_TEST_RUN(test_canvas_round_rect_stroke_tiny_size_falls_back_to_fill);
+    EGUI_TEST_RUN(test_canvas_round_rect_corners_fill_tiny_size_falls_back_to_rect);
+    EGUI_TEST_RUN(test_canvas_round_rect_corners_stroke_tiny_size_falls_back_to_fill);
+    EGUI_TEST_RUN(test_canvas_arc_sweep_helper_matches_direct_range);
+    EGUI_TEST_RUN(test_canvas_circle_fill_basic_row_layout_matches_rendered_rows);
+    EGUI_TEST_RUN(test_canvas_circle_fill_basic_legacy_clip_scales_with_circle_size);
+    EGUI_TEST_RUN(test_canvas_circle_fill_basic_legacy_clip_preserves_strip_fast_paths);
+    EGUI_TEST_RUN(test_canvas_circle_fill_basic_clipped_small_tile_matches_full_render);
+    EGUI_TEST_RUN(test_canvas_circle_fill_basic_clipped_fullwidth_strip_matches_full_render);
+    EGUI_TEST_RUN(test_canvas_arc_fill_basic_angle_opaque_range_full_quadrant);
+    EGUI_TEST_RUN(test_canvas_arc_fill_basic_angle_opaque_range_shrinks_45_to_90_sector);
+    EGUI_TEST_RUN(test_canvas_arc_fill_basic_angle_opaque_range_reports_empty_span);
+    EGUI_TEST_RUN(test_canvas_arc_fill_basic_clipped_fullheight_strip_matches_full_render);
+    EGUI_TEST_RUN(test_canvas_arc_fill_basic_clipped_small_tile_matches_full_render);
+    EGUI_TEST_RUN(test_canvas_image_rotate_helper_zero_angle_matches_draw_image);
+    EGUI_TEST_RUN(test_canvas_text_rotate_helper_zero_angle_matches_draw_text);
+#if EGUI_CONFIG_FUNCTION_SUPPORT_MASK
+    EGUI_TEST_RUN(test_canvas_circle_mask_draw_image_handles_cold_mask_cache);
+#endif
+    EGUI_TEST_SUITE_END();
+}

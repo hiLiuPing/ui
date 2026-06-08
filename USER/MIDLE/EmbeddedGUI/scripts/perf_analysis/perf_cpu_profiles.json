@@ -1,0 +1,59 @@
+{
+    "profiles": {
+        "cortex-m3": {
+            "cpu_arch": "cortex-m3",
+            "qemu_cpu": "cortex-m3",
+            "qemu_machine": "mps2-an385",
+            "description": "Cortex-M3 (e.g., STM32F1, STM32F2)"
+        },
+        "cortex-m4": {
+            "cpu_arch": "cortex-m4",
+            "qemu_cpu": "cortex-m4",
+            "qemu_machine": "mps2-an386",
+            "description": "Cortex-M4 (e.g., STM32F4, STM32L4)"
+        },
+        "cortex-m7": {
+            "cpu_arch": "cortex-m7",
+            "qemu_cpu": "cortex-m7",
+            "qemu_machine": "mps2-an500",
+            "description": "Cortex-M7 (e.g., STM32F7, STM32H7)"
+        }
+    },
+    "defaults": {
+        "repeat_count": 100,
+        "regression_threshold_percent": 10,
+        "timeout_seconds": 300
+    },
+    "pfb_configs": {
+        "small": {
+            "pfb_width": 15,
+            "pfb_height": 15,
+            "description": "Small (SCREEN_WIDTH/16 x SCREEN_HEIGHT/16, 15x15)"
+        },
+        "middle": {
+            "pfb_width": 30,
+            "pfb_height": 30,
+            "description": "Middle (SCREEN_WIDTH/8 x SCREEN_HEIGHT/8, 30x30)"
+        },
+        "fullwidth": {
+            "pfb_width": 240,
+            "pfb_height": 1,
+            "description": "Full-width strip (SCREEN_WIDTH x 1, 240x1)"
+        },
+        "fullheight": {
+            "pfb_width": 1,
+            "pfb_height": 240,
+            "description": "Full-height strip (1 x SCREEN_HEIGHT, 1x240)"
+        },
+        "fullscreen": {
+            "pfb_width": 240,
+            "pfb_height": 240,
+            "description": "Full-screen (SCREEN_WIDTH x SCREEN_HEIGHT, 240x240)"
+        }
+    },
+    "spi_configs": [
+        {"name": "no_spi", "buffer_count": 1, "spi_mhz": 0, "desc": "No SPI (CPU only)"},
+        {"name": "spi16_buf2", "buffer_count": 2, "spi_mhz": 16, "desc": "16MHz SPI, dual buffer"},
+        {"name": "spi64_buf2", "buffer_count": 2, "spi_mhz": 64, "desc": "64MHz SPI, dual buffer"}
+    ]
+}

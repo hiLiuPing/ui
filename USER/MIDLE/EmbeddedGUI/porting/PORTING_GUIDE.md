@@ -1,0 +1,779 @@
+# EmbeddedGUI 移植指南
+
+本文档基于当前仓库的驱动层实现，说明如何把 EmbeddedGUI 移植到新的硬件平台，或如何为 `pc` / `emscripten` 这类模拟平台接入统一的驱动接口。
+
+> 当前推荐架构：**Bus IO + HAL Driver + Core**。
+> 新代码优先通过 `egui_setup_display()` 一次性完成 core、display、touch、uicode 绑定；底层 port 负责准备 `egui_display_driver_t`，并全局注册 `egui_platform_t`，触摸通过 `egui_hal_touch_register(core, touch, &config)` 绑定到指定 core。
+
+## 1. 架构概览
+
+EmbeddedGUI 当前采用三层结构：
+
+```
+┌──────────────────────────────────────────────┐
+│              EGUI Core (src/core/)            │
+│  egui_core / egui_input / egui_canvas         │
+└───────────────────────┬──────────────────────┘
+                        │
+        ┌───────────────┴────────────────┐
+        │                                │
+┌───────▼────────┐               ┌───────▼─────────┐
+│ HAL LCD Driver │               │ HAL Touch Driver│
+│ driver/lcd/    │               │ driver/touch/   │
+└───────┬────────┘               └───────┬─────────┘
+        │                                │
+   driver/bus/*                     driver/bus/*
+   GPIO / SPI / I2C / 8080          GPIO / I2C / SPI
+```
+
+职责划分如下：
+
+| 层级 | 必须 | 说明 |
+|------|------|------|
+| HAL LCD Driver | 是 | LCD 控制器驱动，如 `ST7789`、`ST7735`、`GC9A01` |
+| HAL Touch Driver | 否 | 触摸控制器驱动，如 `FT6336`、`STMPE610` |
+| Platform Driver | 是 | 提供断言、tick、延时、中断、可选资源加载 / mutex / timer / 内存加速等服务 |
+| Bus / GPIO Ops | 视硬件而定 | SPI / I2C / 8080 / GPIO 的底层实现 |
+
+说明：
+
+- MCU port 优先复用 `driver/lcd/`、`driver/touch/` 下的通用控制器驱动。
+- Porting 层为每个屏幕准备一个 `egui_display_driver_t`；`draw_area` 通常由 `egui_hal_lcd_register()` 自动桥接到 HAL LCD driver。
+- Touch 通过 `egui_hal_touch_register(core, &s_touch_driver, &touch_config)` 绑定到指定 core，不再需要手写 `port_touch_read` 适配函数。
+- `pc` / `emscripten` 不复用 `ST7701`、`GC9503` 之类硬件 LCD 驱动，而是使用 `porting/pc/egui_hal_sdl_sim.c` 中的专用 SDL 模拟驱动。
+- 不再需要为 PC 模拟层引入额外的像素路径抽象，例如 `EGUI_HAL_LCD_PIXEL_PATH_RAM` 一类宏。
+
+## 2. 快速开始
+
+推荐按下面顺序完成一次新 port：
+
+1. 复制 `porting/stm32g0/` 作为起点并按需裁剪板级驱动，或直接参考 `porting/stm32g0/Porting/egui_port_mcu.c`
+2. 实现 Bus / GPIO 操作层：SPI、I2C、8080、RST、DC、BL、INT 等
+3. 选择 LCD 驱动和可选 Touch 驱动，优先复用 `driver/lcd/`、`driver/touch/` 下已有实现
+4. 在 `egui_port_init()` 中实例化 HAL 驱动，调用 `egui_hal_lcd_register()` 准备显示桥接；如有触摸，准备好 HAL touch driver 实例
+5. 实现 `egui_platform_ops_t`，至少提供 `assert_handler`、`delay`、`get_tick_ms`、`interrupt_disable`、`interrupt_enable`；启用平台内存加速时补充 `memset_fast` / `memcpy_fast`
+6. 在 `app_egui_config.h` 中配置屏幕尺寸、颜色格式、PFB 大小、功能开关
+7. 主流程优先准备 `egui_display_setup_t` 并调用 `egui_setup_display(&core, &setup)`；现有单屏 port 也可以继续使用 `egui_init()` + 手动注册 display / platform / touch
+
+建议先做以下验证：
+
+```bash
+make all APP=HelloSimple PORT=pc
+make run
+
+make all APP=HelloBasic APP_SUB=button PORT=pc
+make run
+```
+
+先在 `pc` 验证渲染和点击，再切到 MCU 验证真实硬件，可以更快定位是“驱动问题”还是“业务 UI 问题”。
+
+## 3. Display Driver（显示驱动）
+
+### 3.1 推荐接口：`egui_hal_lcd_driver_t`
+
+LCD 控制器统一实现为 `egui_hal_lcd_driver_t`：
+
+```c
+typedef struct egui_hal_lcd_driver egui_hal_lcd_driver_t;
+
+struct egui_hal_lcd_driver {
+    const char *name;
+
+    int (*reset)(egui_hal_lcd_driver_t *self);
+    int (*init)(egui_hal_lcd_driver_t *self, const egui_hal_lcd_config_t *config);
+    void (*del)(egui_hal_lcd_driver_t *self);
+
+    void (*draw_area)(egui_hal_lcd_driver_t *self, int16_t x, int16_t y,
+                      int16_t w, int16_t h, const void *data, uint32_t len);
+
+    void (*mirror)(egui_hal_lcd_driver_t *self, uint8_t mirror_x, uint8_t mirror_y);
+    void (*swap_xy)(egui_hal_lcd_driver_t *self, uint8_t swap);
+    void (*set_power)(egui_hal_lcd_driver_t *self, uint8_t on);
+    void (*set_invert)(egui_hal_lcd_driver_t *self, uint8_t invert);
+
+    egui_panel_io_handle_t io;
+    void (*set_rst)(uint8_t level);
+    egui_hal_lcd_config_t config;
+    void *priv;
+    egui_core_t *bridge_core;
+};
+```
+
+最小必须能力：
+
+- `reset()`：硬件复位（RST 引脚低→高）
+- `init()`：控制器初始化序列
+- `draw_area()`：设置窗口并输出像素数据
+- `del()`：释放驱动资源（RST 拉低 + 清零结构体）
+
+生命周期：`factory_init` → `reset()` → `init()` → ... → `set_power(0)` → `del()`
+
+### 3.2 Port 层的典型接法
+
+port 层通常只负责“组装驱动”，而不是重写一份控制器逻辑。当前推荐把 LCD 桥接、Platform 注册和板级能力都集中在 `egui_port_init()`：
+
+```c
+#include "egui.h"
+#include "egui_lcd_st7789.h"
+#include "egui_hal_stm32g0.h"
+
+static egui_hal_lcd_driver_t s_lcd_driver;
+static egui_platform_t s_platform = {
+    .ops = &mcu_platform_ops,
+};
+
+static void port_display_set_brightness(egui_core_t *core, uint8_t level)
+{
+    EGUI_UNUSED(core);
+    egui_hal_stm32g0_set_backlight_level(level);
+}
+
+static const egui_display_driver_ops_t s_display_ops = {
+    .set_brightness = port_display_set_brightness,
+    .set_rotation = port_display_set_rotation,
+};
+static egui_display_driver_t s_display_driver = {
+    .ops = &s_display_ops,
+    .physical_width = EGUI_CONFIG_SCREEN_WIDTH,
+    .physical_height = EGUI_CONFIG_SCREEN_HEIGHT,
+    .rotation = EGUI_DISPLAY_ROTATION_0,
+    .brightness = 255,
+    .power_on = 1,
+};
+
+void egui_port_init(egui_core_t *core)
+{
+    EGUI_ASSERT(core != NULL);
+    egui_platform_register(&s_platform);
+
+    egui_lcd_st7789_init(&s_lcd_driver,
+                         egui_hal_stm32g0_get_lcd_spi_ops(),
+                         egui_hal_stm32g0_lcd_set_rst);
+
+    egui_hal_lcd_config_t lcd_config = {
+        .width = EGUI_CONFIG_SCREEN_WIDTH,
+        .height = EGUI_CONFIG_SCREEN_HEIGHT,
+        .color_depth = EGUI_CONFIG_COLOR_DEPTH,
+        .color_swap = 0,
+        .x_offset = 0,
+        .y_offset = 0,
+        .invert_color = 0,
+        .mirror_x = 0,
+        .mirror_y = 0,
+        .swap_xy = 0,
+        .custom_init = NULL,
+    };
+
+    egui_hal_lcd_register(&s_display_driver, &s_lcd_driver, &lcd_config);
+}
+```
+
+### 3.3 新增一个 LCD 控制器驱动
+
+如果仓库里还没有你的控制器，建议在 `driver/lcd/` 下新增 `egui_lcd_xxx.c/.h`，并把平台相关依赖都通过 bus/gpio ops 传进来。
+
+最小示例：
+
+```c
+static int my_lcd_init(egui_hal_lcd_driver_t *self, const egui_hal_lcd_config_t *config)
+{
+    memcpy(&self->config, config, sizeof(*config));
+    lcd_hw_reset();
+    lcd_send_init_cmds();
+    return 0;
+}
+
+static void my_lcd_draw_area(egui_hal_lcd_driver_t *self, int16_t x, int16_t y,
+                             int16_t w, int16_t h, const void *data, uint32_t len)
+{
+    EGUI_UNUSED(self);
+    lcd_set_window(x, y, x + w - 1, y + h - 1);
+    lcd_write_data((const uint8_t *)data, len);
+}
+```
+
+建议：
+
+- 控制器驱动只关注寄存器和时序，不要写死平台 HAL
+- SPI / I2C / 8080 / GPIO 一律通过 ops 访问
+- 旋转、背光、电源这些能力尽量走回调，不要放在业务层硬编码
+
+### 3.4 DMA 与双缓冲
+
+如果 `draw_area()` 走 DMA：
+
+- `draw_area()` 中启动 DMA 发送
+- DMA 完成回调里调用 `egui_pfb_notify_flush_complete(core)` 推进 PFB ring
+- 若 `EGUI_CONFIG_PFB_BUFFER_COUNT >= 2`，可以让下一块 PFB 渲染和上一块发送并行
+
+示例：
+
+```c
+EGUI_CONFIG_PFB_BUFFER_DECLARE(egui_pfb);
+
+static egui_core_t core;
+
+egui_init(&core, egui_pfb);
+```
+
+如果需要把 PFB 放到特定 RAM 段，可以在配置里覆盖：
+
+```c
+#define EGUI_CONFIG_PFB_BUFFER_SECTION_ATTR __attribute__((section(".bss.pfb_area")))
+```
+
+### 3.5 PC / emscripten 的特殊情况
+
+PC 和浏览器端不是真实 LCD 控制器，因此当前使用专用 SDL 模拟 HAL：
+
+- `porting/pc/egui_hal_sdl_sim.c`
+- `porting/pc/egui_port_pc.c`
+- `porting/emscripten/egui_port_emscripten.c`
+
+特点：
+
+- `SDL_LCD` 直接把像素块写入 SDL 帧缓冲
+- `SDL_TOUCH` 直接从 SDL 鼠标 / 触摸事件获取坐标
+- `egui_hal_lcd_register()` 负责把 SDL LCD HAL 桥接成 Core display driver
+- 触摸通过 `egui_hal_touch_register(core, touch, &config)` 绑定到对应 SDL 窗口所属的 core
+- emscripten 复用同一套 SDL 模拟 HAL，避免维护第二套”假 LCD 驱动”
+
+## 4. Platform Driver（平台驱动）
+
+### 4.1 接口定义
+
+平台驱动仍然通过 `egui_platform_ops_t` 提供基础系统能力：
+
+```c
+struct egui_platform_ops {
+#if EGUI_CONFIG_PLATFORM_CUSTOM_PRINTF
+    void (*vlog)(const char *fmt, va_list args);
+#endif
+    void (*assert_handler)(const char *file, int line);
+    void (*delay)(uint32_t ms);
+    uint32_t (*get_tick_ms)(void);
+#if EGUI_CONFIG_PLATFORM_CUSTOM_MEMORY_OP
+    void (*memset_fast)(void *s, int c, int n);
+    void (*memcpy_fast)(void *dst, const void *src, int n);
+#endif
+    egui_base_t (*interrupt_disable)(void);
+    void (*interrupt_enable)(egui_base_t level);
+    void (*load_external_resource)(egui_core_t *core, void *dest, uint32_t res_id, uint32_t start_offset, uint32_t size);
+    void (*timer_start)(egui_core_t *core, uint32_t expiry_time_ms);
+    void (*timer_stop)(egui_core_t *core);
+};
+```
+
+### 4.2 最小实现示例
+
+```c
+static uint32_t mcu_get_tick_ms(void)
+{
+    return HAL_GetTick();
+}
+
+static void mcu_delay(uint32_t ms)
+{
+    HAL_Delay(ms);
+}
+
+static void mcu_memset_fast(void *s, int c, int n)
+{
+    memset(s, c, n);
+}
+
+static egui_base_t mcu_interrupt_disable(void)
+{
+    egui_base_t level = __get_PRIMASK();
+    __disable_irq();
+    return level;
+}
+
+static void mcu_interrupt_enable(egui_base_t level)
+{
+    __set_PRIMASK(level);
+}
+```
+
+### 4.3 关键点
+
+- `get_tick_ms()` 必须返回单调递增的毫秒时间戳
+- 若启用了 `EGUI_CONFIG_PLATFORM_CUSTOM_MEMORY_OP`，`memset_fast()` / `memcpy_fast()` 需要保证与标准库语义一致；有 DMA 清零能力时可以在这里加速
+- `interrupt_disable/enable()` 用于保护输入队列等共享数据
+- `delay()` 在 `emscripten` 这类单线程环境中可以为空实现，避免阻塞主循环
+
+## 5. Touch Driver（触摸驱动，可选）
+
+### 5.1 推荐接口：`egui_hal_touch_driver_t`
+
+当前触摸驱动统一实现为 `egui_hal_touch_driver_t`，支持多点触摸：
+
+```c
+typedef struct egui_hal_touch_data {
+    uint8_t point_count;
+    uint8_t gesture;
+    egui_hal_touch_point_t points[EGUI_HAL_TOUCH_MAX_POINTS];
+} egui_hal_touch_data_t;
+
+struct egui_hal_touch_driver {
+    const char *name;
+    uint8_t max_points;
+
+    int (*reset)(egui_hal_touch_driver_t *self);
+    int (*init)(egui_hal_touch_driver_t *self, const egui_hal_touch_config_t *config);
+    void (*del)(egui_hal_touch_driver_t *self);
+    int (*read)(egui_hal_touch_driver_t *self, egui_core_t *core, egui_hal_touch_data_t *data);
+
+    egui_panel_io_handle_t io;
+    void (*set_rst)(uint8_t level);
+    void (*set_int)(uint8_t level);
+    uint8_t (*get_int)(void);
+    egui_hal_touch_config_t config;
+    void *priv;
+};
+```
+
+驱动只需要上报当前仍按下的触点：`point_count == 0` 表示全部释放；同一根手指保持按下期间应尽量保持稳定 `id`，Core 会根据前后两次采样自动推导 `DOWN`、`MOVE`、`POINTER_UP` 和 `UP`。
+
+### 5.2 Port 层接入方式
+
+通常在 `egui_port_init()` 中创建 touch driver，在 `egui_port_register_touch_driver(core)` 中把它绑定到指定 core：
+
+```c
+#include "egui_touch.h"
+#include "egui_touch_ft6336.h"
+
+static egui_hal_touch_driver_t s_touch_driver;
+
+void egui_port_init(egui_core_t *core)
+{
+    EGUI_UNUSED(core);
+    egui_touch_ft6336_init(&s_touch_driver,
+                           egui_hal_stm32g0_get_touch_i2c_ops(),
+                           egui_hal_stm32g0_get_touch_gpio_ops());
+}
+
+void egui_port_register_touch_driver(egui_core_t *core)
+{
+    egui_hal_touch_config_t touch_config = {
+        .width = EGUI_CONFIG_SCREEN_WIDTH,
+        .height = EGUI_CONFIG_SCREEN_HEIGHT,
+        .swap_xy = 0,
+        .mirror_x = 0,
+        .mirror_y = 0,
+    };
+
+    egui_hal_touch_register(core, &s_touch_driver, &touch_config);
+}
+```
+
+### 5.3 自定义触摸驱动时的最小能力
+
+```c
+static int my_touch_read(egui_hal_touch_driver_t *self, egui_core_t *core, egui_hal_touch_data_t *data)
+{
+    EGUI_UNUSED(self);
+    EGUI_UNUSED(core);
+    memset(data, 0, sizeof(*data));
+
+    if (!touch_ic_is_pressed())
+    {
+        return 0;
+    }
+
+    data->point_count = 1;
+    data->points[0].x = touch_ic_get_x();
+    data->points[0].y = touch_ic_get_y();
+    data->points[0].id = 0;
+    data->points[0].pressure = 1;
+    return 0;
+}
+```
+
+如果应用启用了触摸，需要在 `app_egui_config.h` 中设置：
+
+```c
+#define EGUI_CONFIG_FUNCTION_SUPPORT_TOUCH 1
+```
+
+## 6. Key Input（按键输入，可选）
+
+如果设备有物理按键，平台层直接调用 `egui_input_add_key()` 上报事件即可：
+
+```c
+int egui_input_add_key(uint8_t type, uint8_t key_code, uint8_t is_shift, uint8_t is_ctrl);
+```
+
+常用事件类型：
+
+- `EGUI_KEY_EVENT_ACTION_DOWN`
+- `EGUI_KEY_EVENT_ACTION_UP`
+- `EGUI_KEY_EVENT_ACTION_LONG_PRESS`
+- `EGUI_KEY_EVENT_ACTION_REPEAT`
+
+示例：
+
+```c
+void my_key_handler(void)
+{
+    uint8_t cur = gpio_read_key_pin();
+    if (cur && !prev_key_state)
+    {
+        egui_input_add_key(EGUI_KEY_EVENT_ACTION_DOWN, EGUI_KEY_CODE_ENTER, 0, 0);
+    }
+    else if (!cur && prev_key_state)
+    {
+        egui_input_add_key(EGUI_KEY_EVENT_ACTION_UP, EGUI_KEY_CODE_ENTER, 0, 0);
+    }
+    prev_key_state = cur;
+}
+```
+
+如果启用按键输入，需要在 `app_egui_config.h` 中设置：
+
+```c
+#define EGUI_CONFIG_FUNCTION_SUPPORT_KEY 1
+```
+
+## 7. 驱动注册与主循环
+
+### 7.1 `egui_port_init()`
+
+当前推荐把 LCD、Touch、Platform 相关单例准备都集中在 `egui_port_init()`，其中 Platform 在这里做全局注册，再由 `egui_setup_display()` 统一完成 core 初始化与 display/touch/uicode 绑定：
+
+```c
+static egui_hal_lcd_driver_t s_lcd_driver;
+static egui_hal_touch_driver_t s_touch_driver;
+static egui_platform_t s_platform = {
+    .ops = &mcu_platform_ops,
+};
+
+static const egui_display_driver_ops_t s_display_ops = {
+    .set_brightness = port_display_set_brightness,
+    .set_rotation = port_display_set_rotation,
+};
+static egui_display_driver_t s_display_driver = {
+    .ops = &s_display_ops,
+    .physical_width = EGUI_CONFIG_SCREEN_WIDTH,
+    .physical_height = EGUI_CONFIG_SCREEN_HEIGHT,
+    .rotation = EGUI_DISPLAY_ROTATION_0,
+    .brightness = 255,
+    .power_on = 1,
+};
+
+void egui_port_init(egui_core_t *core)
+{
+    egui_platform_register(&s_platform);
+
+    egui_lcd_st7789_init(&s_lcd_driver,
+                         egui_hal_stm32g0_get_lcd_spi_ops(),
+                         egui_hal_stm32g0_lcd_set_rst);
+
+    egui_hal_lcd_config_t lcd_config = {
+        .width = EGUI_CONFIG_SCREEN_WIDTH,
+        .height = EGUI_CONFIG_SCREEN_HEIGHT,
+        .color_depth = EGUI_CONFIG_COLOR_DEPTH,
+        .color_swap = 0,
+    };
+    egui_hal_lcd_register(&s_display_driver, &s_lcd_driver, &lcd_config);
+#if EGUI_CONFIG_FUNCTION_SUPPORT_TOUCH
+    egui_touch_ft6336_init(&s_touch_driver,
+                           egui_hal_stm32g0_get_touch_i2c_ops(),
+                           egui_hal_stm32g0_get_touch_gpio_ops());
+#endif
+
+}
+```
+
+### 7.2 主循环
+
+```c
+EGUI_CONFIG_PFB_BUFFER_DECLARE(egui_pfb);
+
+int main(void)
+{
+    egui_core_t core;
+    egui_color_int_t *pfb_bufs[EGUI_CONFIG_PFB_BUFFER_COUNT];
+    egui_display_setup_t setup;
+
+    system_hw_init();
+
+    for (int i = 0; i < EGUI_CONFIG_PFB_BUFFER_COUNT; i++)
+    {
+        pfb_bufs[i] = egui_pfb[i];
+    }
+
+    egui_port_init(&core);
+
+    setup.screen_width = EGUI_CONFIG_SCREEN_WIDTH;
+    setup.screen_height = EGUI_CONFIG_SCREEN_HEIGHT;
+    setup.pfb_width = EGUI_CONFIG_PFB_WIDTH;
+    setup.pfb_height = EGUI_CONFIG_PFB_HEIGHT;
+    setup.pfb_buffers = pfb_bufs;
+    setup.pfb_buffer_count = EGUI_CONFIG_PFB_BUFFER_COUNT;
+    setup.display_driver = egui_port_get_display_driver();
+    setup.render_config = NULL;
+#if EGUI_CONFIG_FUNCTION_SUPPORT_TOUCH
+    setup.touch_register = egui_port_register_touch_driver;
+#else
+    setup.touch_register = NULL;
+#endif
+    setup.uicode_init = uicode_disp0_init;
+    setup.display_id = 0;
+
+    egui_setup_display(&core, &setup);
+
+    while (1)
+    {
+        egui_polling_work(&core);
+    }
+}
+```
+
+调用顺序非常重要：
+
+`egui_port_init(&core)` → `egui_setup_display(&core, &setup)` → 循环 `egui_polling_work(&core)`
+
+### 7.3 RTOS 环境
+
+RTOS 下建议让 GUI 在单独任务中运行；如果其他任务要操作 UI，需要配合平台层 mutex：
+
+```c
+void gui_task(void *arg)
+{
+    egui_core_t core;
+    egui_color_int_t *pfb_bufs[EGUI_CONFIG_PFB_BUFFER_COUNT];
+    egui_display_setup_t setup;
+
+    for (int i = 0; i < EGUI_CONFIG_PFB_BUFFER_COUNT; i++)
+    {
+        pfb_bufs[i] = egui_pfb[i];
+    }
+
+    egui_port_init(&core);
+    setup.screen_width = EGUI_CONFIG_SCREEN_WIDTH;
+    setup.screen_height = EGUI_CONFIG_SCREEN_HEIGHT;
+    setup.pfb_width = EGUI_CONFIG_PFB_WIDTH;
+    setup.pfb_height = EGUI_CONFIG_PFB_HEIGHT;
+    setup.pfb_buffers = pfb_bufs;
+    setup.pfb_buffer_count = EGUI_CONFIG_PFB_BUFFER_COUNT;
+    setup.display_driver = egui_port_get_display_driver();
+    setup.render_config = NULL;
+#if EGUI_CONFIG_FUNCTION_SUPPORT_TOUCH
+    setup.touch_register = egui_port_register_touch_driver;
+#else
+    setup.touch_register = NULL;
+#endif
+    setup.uicode_init = uicode_disp0_init;
+    setup.display_id = 0;
+
+    egui_setup_display(&core, &setup);
+
+    while (1)
+    {
+        egui_polling_work(&core);
+        os_delay(1);
+    }
+}
+```
+
+## 8. 配置宏参考
+
+### 8.1 屏幕与 PFB
+
+常用配置：
+
+```c
+#define EGUI_CONFIG_SCREEN_WIDTH        240
+#define EGUI_CONFIG_SCREEN_HEIGHT       320
+#define EGUI_CONFIG_COLOR_DEPTH        16
+#define EGUI_CONFIG_COLOR_16_SWAP      0
+
+#define EGUI_CONFIG_PFB_WIDTH          40
+#define EGUI_CONFIG_PFB_HEIGHT         40
+```
+
+### 8.2 功能开关
+
+```c
+#define EGUI_CONFIG_FUNCTION_SUPPORT_TOUCH   1
+#define EGUI_CONFIG_FUNCTION_SUPPORT_KEY     0
+#define EGUI_CONFIG_FUNCTION_EXTERNAL_RESOURCE 0
+#define EGUI_CONFIG_FUNCTION_SOFTWARE_ROTATION_ENABLE 0
+```
+
+这里的 `EGUI_CONFIG_COLOR_16_SWAP` 主要表达“默认 runtime 值”。软件旋转则由 `EGUI_CONFIG_FUNCTION_SOFTWARE_ROTATION_ENABLE` 同时承担编译裁剪和默认 runtime 值。如果你的 port 需要按屏幕实例动态决定这些能力，优先通过 `egui_display_setup_t.render_config` 覆盖，而不是继续扩散全局宏。
+
+如果 display 已经启动，后续仍可调用 `egui_core_set_render_config(core, &config)` 动态切换；框架会自动触发一次整屏重绘来收敛新策略。
+
+示例：
+
+```c
+static egui_core_render_config_t sub_render_config = {
+    .color_16_swap = 1,
+    .software_rotation = 1,
+    .rotation_scratch = NULL,
+};
+
+egui_display_setup_t setup = {0};
+setup.screen_width = 128;
+setup.screen_height = 64;
+setup.pfb_width = 16;
+setup.pfb_height = 8;
+setup.pfb_buffers = sub_pfb_bufs;
+setup.pfb_buffer_count = 1;
+setup.display_driver = sub_driver;
+setup.render_config = &sub_render_config;
+setup.uicode_init = uicode_disp1_init;
+setup.display_id = 1;
+```
+
+### 8.3 按键参数
+
+如果平台启用了按键输入，可按需配置长按、重复触发等相关参数。
+
+### 8.4 PFB 大小建议
+
+建议优先保证：
+
+- `EGUI_CONFIG_PFB_WIDTH` 和 `EGUI_CONFIG_PFB_HEIGHT` 优先选为屏幕尺寸的整数约数
+- PFB 不要太小，否则 LCD 窗口切换过于频繁
+- PFB 也不要盲目太大，否则会推高 RAM 占用
+
+常见策略：
+
+- 小 RAM MCU：`屏宽 x 8` 或 `屏宽 x 16`
+- PC / emscripten：可以适当放大，优先保证调试流畅
+- DMA + 双缓冲：PFB 可适度增大以减少切块次数
+
+## 9. 高级功能
+
+### 9.1 2D 硬件加速
+
+如果平台有 DMA2D / PXP / GPU，可在 porting 层的 `egui_display_driver_ops_t` 中实现 `fill_rect`、`blit`、`blend` 等加速回调。
+
+### 9.2 帧同步（防撕裂）
+
+若 LCD 提供 TE / VSYNC：
+
+- 可以在底层实现等待 VSYNC 的机制
+- 避免在屏幕扫描过程中切换大面积数据
+- 对 RGB / MIPI / 高刷新屏尤其重要
+
+### 9.3 外部资源加载
+
+如果图片 / 字体在 SPI Flash、SD 卡或文件系统中，可实现：
+
+```c
+static void my_load_external_resource(egui_core_t *core, void *dest, uint32_t res_id,
+                                      uint32_t start_offset, uint32_t size)
+{
+    EGUI_UNUSED(core);
+    spi_flash_read(resource_addr + start_offset, dest, size);
+}
+```
+
+同时开启：
+
+```c
+#define EGUI_CONFIG_FUNCTION_EXTERNAL_RESOURCE 1
+```
+
+### 9.4 软件旋转
+
+如果 LCD 控制器本身不支持旋转，可以：
+
+- 开启 `EGUI_CONFIG_FUNCTION_SOFTWARE_ROTATION_ENABLE`
+- 让 LCD 驱动的 `set_rotation` 为空
+- 由框架在 PFB 输出阶段完成旋转
+
+如果是多屏或运行时动态配置，优先改为设置 `egui_display_setup_t.render_config->software_rotation`。90/270 度旋转需要 scratch buffer；未显式提供 `rotation_scratch` 时，框架会按当前 PFB 大小在 heap 上按需申请。
+
+### 9.5 屏幕开关机
+
+框架推荐使用高级 API：
+
+```c
+egui_screen_off(core);
+egui_screen_on(core);
+```
+
+显示驱动若实现了 `set_power()` 和 `set_brightness()`，即可统一接入关屏、开屏、背光控制流程。
+
+## 10. 文件结构模板
+
+### 10.1 MCU port 推荐目录
+
+```text
+porting/
+└── your_platform/
+    ├── Porting/
+    │   ├── egui_hal_your_platform.c   # Bus/GPIO ops 封装
+    │   ├── egui_hal_your_platform.h
+    │   ├── egui_port_mcu.c            # HAL Driver + Core driver registration + Platform 注册
+    │   └── port_main.c                # 主循环入口
+    ├── app_egui_config.h
+    └── build.mk
+```
+
+如果有新的 LCD / Touch 控制器驱动，建议放在公共驱动层，而不是塞回 porting：
+
+```text
+driver/
+├── bus/
+├── lcd/
+└── touch/
+```
+
+### 10.2 PC / emscripten 目录说明
+
+```text
+porting/
+├── pc/
+│   ├── egui_hal_sdl_sim.c
+│   ├── egui_port_pc.c
+│   ├── sdl_port.c
+│   └── main.c
+└── emscripten/
+    ├── egui_port_emscripten.c
+    ├── main_emscripten.c
+    └── build.mk
+```
+
+这两个 port 共享 SDL 模拟驱动逻辑，不再额外复制一套 LCD / Touch 控制器驱动。
+
+### 10.3 `build.mk` 示例
+
+```makefile
+SRC += $(EGUI_PORT_PATH)/Porting
+
+INCLUDE += $(EGUI_PORT_PATH)
+INCLUDE += $(EGUI_PORT_PATH)/Porting
+```
+
+### 10.4 构建输出约定
+
+当前构建规则约定如下：
+
+- `TARGET` 保持不变，默认仍是 `main`
+- 最终产物仍输出到 `output/main` 或 `output/main.exe`
+- 为避免切换 `APP` / `PORT` 时对象文件互相污染，目标文件放在 `output/obj/{APP}_{PORT}/`
+
+也就是说：**对象文件按 `APP + PORT` 隔离，最终可执行文件名不跟着变。**
+
+## 11. 移植检查清单
+
+- [ ] `egui_port_init()` 中已准备好 `egui_display_driver_t`，并已全局注册 `egui_platform_t`
+- [ ] 如启用触摸，已通过 `egui_hal_touch_register(core, touch, &config)` 绑定 HAL touch driver
+- [ ] LCD 驱动的 `draw_area()` 能正确输出像素
+- [ ] `get_tick_ms()` 返回单调递增毫秒时间戳
+- [ ] 若启用 `EGUI_CONFIG_PLATFORM_CUSTOM_MEMORY_OP`，`memset_fast()` / `memcpy_fast()` 行为正确
+- [ ] `app_egui_config.h` 中的屏幕尺寸、颜色格式、PFB 大小与硬件一致
+- [ ] PFB 大小合理，宽高尽量为屏幕尺寸的整数约数
+- [ ] 主流程调用顺序正确：推荐 `egui_port_init(&core)` → `egui_setup_display(&core, &setup)` → `egui_polling_work(&core)`；旧单屏 port 至少保证在注册 display / touch 前已全局注册 platform
+- [ ] `pc` port 下能正常渲染，并能完成鼠标点击 / 触摸输入
+- [ ] `emscripten` port 编译通过，页面可正常显示和交互
+- [ ] 目标 MCU port 编译通过，屏幕方向、颜色、触摸坐标都正确
+- [ ] 切换 driver 后，其他 port 不会因共享代码改动而编译失败或功能异常
+
+

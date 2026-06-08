@@ -1,0 +1,30 @@
+#ifndef _APP_EGUI_CONFIG_H_
+#define _APP_EGUI_CONFIG_H_
+
+/* Set up for C function definitions, even when using C++ */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG                     1
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_IMAGE_ELEMENT       0
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_GRADIENT            0
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_PATH_ARC            0
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_PATH_LENGTH         0
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_APPROX_TRIG         1
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_TRANSFORM_SKEW      0
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_PERCENT_DIAGONAL    0
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_SIMPLE_COLOR        1
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_STROKE_DASH         0
+#define EGUI_CONFIG_FUNCTION_IMAGE_RUNTIME_SVG_APPROX_STROKE_SCALE 1
+#define EGUI_CONFIG_FUNCTION_IMAGE_FORMAT_RGB565_4                 0
+#define EGUI_CONFIG_FUNCTION_IMAGE_FORMAT_RGB565_8                 1
+#define EGUI_CONFIG_REDUCE_IMAGE_CODE_SIZE                         1
+#define EGUI_CONFIG_PFB_BUFFER_COUNT                               1
+
+/* Ends C function definitions when using C++ */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _APP_EGUI_CONFIG_H_ */

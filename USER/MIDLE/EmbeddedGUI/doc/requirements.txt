@@ -1,0 +1,6 @@
+# DOC: used to generate docs
+
+sphinx
+furo
+myst-parser
+matplotlib

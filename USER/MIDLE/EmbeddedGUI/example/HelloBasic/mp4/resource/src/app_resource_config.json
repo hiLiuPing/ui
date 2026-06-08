@@ -1,0 +1,50 @@
+{
+    "img": [],
+    "font": [],
+    "mp4": [
+        {
+            "file": "test.mp4",
+            "name": "test_std",
+            "fps": 10,
+            "width": 240,
+            "height": 240,
+            "format": "rgb565",
+            "alpha": "0",
+            "external": "0",
+            "compress": "none"
+        },
+        {
+            "file": "test.mp4",
+            "name": "cmp_std",
+            "fps": 10,
+            "width": 80,
+            "height": 80,
+            "format": "rgb565",
+            "alpha": "0",
+            "external": "0",
+            "compress": "none"
+        },
+        {
+            "file": "test.mp4",
+            "name": "cmp_qoi",
+            "fps": 10,
+            "width": 80,
+            "height": 80,
+            "format": "rgb565",
+            "alpha": "0",
+            "external": "0",
+            "compress": "qoi"
+        },
+        {
+            "file": "test.mp4",
+            "name": "cmp_rle",
+            "fps": 10,
+            "width": 80,
+            "height": 80,
+            "format": "rgb565",
+            "alpha": "0",
+            "external": "0",
+            "compress": "rle"
+        }
+    ]
+}
