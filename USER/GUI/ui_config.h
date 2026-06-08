@@ -1,0 +1,15 @@
+#ifndef UI_CONFIG_H
+#define UI_CONFIG_H
+
+#define UI_FRAME_TICK_MS             10U
+#define UI_MESSAGE_QUEUE_LENGTH      16U
+#define UI_MESSAGE_PAYLOAD_SIZE      32U
+#define UI_MAX_PROPERTY_COUNT        16U
+#define UI_PROPERTY_STRING_LENGTH    64U
+#define UI_NAV_STACK_DEPTH_LIMIT     6U
+#define UI_DIRTY_REGION_CAPACITY     8U
+#define UI_ANIMATION_CAPACITY        8U
+#define UI_TASK_STACK_WORDS          1024U
+#define UI_TASK_PRIORITY             2U
+
+#endif /* UI_CONFIG_H */

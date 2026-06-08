@@ -43,4 +43,5 @@ stm32l471/app_freertos.o: ..\Core\Src\app_freertos.c \
   ..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\task.h \
-  ..\USER\MIDLE\FreeRTOS\Source\include\list.h ..\Core\Inc\main.h
+  ..\USER\MIDLE\FreeRTOS\Source\include\list.h ..\Core\Inc\main.h \
+  ..\USER\TASK\ui_task.h

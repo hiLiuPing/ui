@@ -1,0 +1,22 @@
+stm32l471/egui_trig_lut.o: \
+  ..\USER\MIDLE\EmbeddedGUI\src\core\egui_trig_lut.c \
+  ..\USER\MIDLE\EmbeddedGUI\src\core\egui_trig_lut.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\utils\egui_fixmath.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config.h \
+  ..\USER\GUI\app_egui_config.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_multi_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_core_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_anim_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_canvas_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_fast_path_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_font_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_widget_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_theme_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_debug_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_validate.h

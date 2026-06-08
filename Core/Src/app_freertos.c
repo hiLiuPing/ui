@@ -4,33 +4,26 @@
 #include "task.h"
 
 #include "main.h"
-
-static void StartDefaultTask(void *argument);
+#include "ui_task.h"
 
 void MX_FREERTOS_Init(void)
 {
-  BaseType_t status;
-
-  status = xTaskCreate(StartDefaultTask,
-                       "defaultTask",
-                       256U,
-                       NULL,
-                       tskIDLE_PRIORITY + 1U,
-                       NULL);
-  if (status != pdPASS)
+  if (UI_Task_Create() != pdPASS)
   {
     Error_Handler();
   }
 }
 
-static void StartDefaultTask(void *argument)
+void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
+                                   StackType_t **ppxIdleTaskStackBuffer,
+                                   uint32_t *pulIdleTaskStackSize)
 {
-  (void)argument;
+  static StaticTask_t idle_task_tcb;
+  static StackType_t idle_task_stack[configMINIMAL_STACK_SIZE];
 
-  for (;;)
-  {
-    vTaskDelay(pdMS_TO_TICKS(1000U));
-  }
+  *ppxIdleTaskTCBBuffer = &idle_task_tcb;
+  *ppxIdleTaskStackBuffer = idle_task_stack;
+  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
 }
 
 void vApplicationMallocFailedHook(void)

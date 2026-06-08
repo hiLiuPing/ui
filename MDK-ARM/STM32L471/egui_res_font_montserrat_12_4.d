@@ -1,0 +1,34 @@
+stm32l471/egui_res_font_montserrat_12_4.o: \
+  ..\USER\MIDLE\EmbeddedGUI\src\resource\egui_res_font_montserrat_12_4.c \
+  ..\USER\MIDLE\EmbeddedGUI\src\font\egui_font_std.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\font\egui_font.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\canvas\egui_canvas.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\core\egui_common.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\core\egui_predefs.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config.h \
+  ..\USER\GUI\app_egui_config.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_multi_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_core_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_anim_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_canvas_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_fast_path_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_font_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_widget_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_theme_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_debug_default.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config_validate.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\core\egui_typedef.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\core\egui_oop.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\utils\egui_fixmath.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\core\egui_region.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\mask\egui_mask.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\canvas\egui_canvas_gradient.h \
+  ..\USER\MIDLE\EmbeddedGUI\src\image\egui_image.h
