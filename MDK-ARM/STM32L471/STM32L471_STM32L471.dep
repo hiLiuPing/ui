@@ -1194,7 +1194,7 @@ I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim.h)(0x69AACD62)
 I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h)(0x69AACD62)
 I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h)(0x69AACD62)
 I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h)(0x69AACD62)
-F (../USER/APP/ui_app.c)(0x6A26D159)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_app.o -MD)
+F (../USER/APP/ui_app.c)(0x6A26DCC6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_app.o -MD)
 I (..\USER\APP\ui_app.h)(0x6A26C97A)
 I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
@@ -1238,26 +1238,31 @@ I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\GUI\ui_dirty_region.h)(0x6A26C979)
 I (..\USER\GUI\ui_types.h)(0x6A26C976)
-I (..\USER\GUI\ui_page_manager.h)(0x6A26C97A)
+I (..\USER\GUI\ui_fx_emitter.h)(0x6A26DB94)
+I (..\USER\GUI\ui_marquee.h)(0x6A26DBD9)
+I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D618)
+I (..\USER\GUI\ui_modal_manager.h)(0x6A26DB61)
 I (..\USER\GUI\ui_event.h)(0x6A26C976)
+I (..\USER\GUI\ui_page_manager.h)(0x6A26D698)
 I (..\USER\GUI\ui_message_bus.h)(0x6A26C977)
 I (..\USER\GUI\ui_page.h)(0x6A26C978)
 I (..\USER\GUI\ui_widget.h)(0x6A26C977)
-I (..\USER\GUI\ui_property_store.h)(0x6A26C977)
-I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D07F)
+I (..\USER\GUI\ui_property_binding.h)(0x6A26DB28)
+I (..\USER\GUI\ui_property_store.h)(0x6A26DAFF)
+I (..\USER\GUI\ui_virtual_list.h)(0x6A26DC13)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x603507D4)
 F (../USER/GUI/ui_animation.c)(0x6A26C979)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_animation.o -MD)
 I (..\USER\GUI\ui_animation.h)(0x6A26C979)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
 F (../USER/GUI/ui_dirty_region.c)(0x6A26C979)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_dirty_region.o -MD)
 I (..\USER\GUI\ui_dirty_region.h)(0x6A26C979)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\GUI\ui_types.h)(0x6A26C976)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
@@ -1308,6 +1313,115 @@ I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
 I (..\USER\GUI\ui_event.h)(0x6A26C976)
 I (..\USER\GUI\ui_widget.h)(0x6A26C977)
 I (..\USER\GUI\ui_types.h)(0x6A26C976)
+F (../USER/GUI/ui_fx_emitter.c)(0x6A26DBC4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_fx_emitter.o -MD)
+I (..\USER\GUI\ui_fx_emitter.h)(0x6A26DB94)
+I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
+I (..\Core\Inc\FreeRTOSConfig.h)(0x6A26C97B)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_version.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_armclang.h)(0x69AACD2D)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x602A3B7E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x603507C4)
+I (..\Drivers\CMSIS\Include\mpu_armv7.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h)(0x69AACD62)
+I (..\Core\Inc\stm32l4xx_hal_conf.h)(0x6A26BA69)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_def.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_ll_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_cortex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_exti.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ramfunc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h)(0x69AACD62)
+I (..\USER\MIDLE\FreeRTOS\Source\include\projdefs.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
+I (..\USER\GUI\ui_types.h)(0x6A26C976)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
+I (..\USER\GUI\ui_dirty_region.h)(0x6A26C979)
+I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D618)
+F (../USER/GUI/ui_input_event_queue.c)(0x6A26DAF3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_input_event_queue.o -MD)
+I (..\USER\GUI\ui_input_event_queue.h)(0x6A26DAD3)
+I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
+I (..\Core\Inc\FreeRTOSConfig.h)(0x6A26C97B)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_version.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_armclang.h)(0x69AACD2D)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x602A3B7E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x603507C4)
+I (..\Drivers\CMSIS\Include\mpu_armv7.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h)(0x69AACD62)
+I (..\Core\Inc\stm32l4xx_hal_conf.h)(0x6A26BA69)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_def.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_ll_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_cortex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_exti.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ramfunc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h)(0x69AACD62)
+I (..\USER\MIDLE\FreeRTOS\Source\include\projdefs.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
+I (..\USER\GUI\ui_event.h)(0x6A26C976)
+I (..\USER\MIDLE\FreeRTOS\Source\include\queue.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\task.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\list.h)(0x573F3A16)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
+F (../USER/GUI/ui_layer_manager.c)(0x6A26DB55)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_layer_manager.o -MD)
+I (..\USER\GUI\ui_layer_manager.h)(0x6A26DB47)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
+I (..\USER\GUI\ui_types.h)(0x6A26C976)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+F (../USER/GUI/ui_marquee.c)(0x6A26DF09)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_marquee.o -MD)
+I (..\USER\GUI\ui_marquee.h)(0x6A26DBD9)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
+I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D618)
+I (..\USER\GUI\ui_types.h)(0x6A26C976)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
 F (../USER/GUI/ui_message_bus.c)(0x6A26C9F0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_message_bus.o -MD)
 I (..\USER\GUI\ui_message_bus.h)(0x6A26C977)
 I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
@@ -1352,13 +1466,13 @@ I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\MIDLE\FreeRTOS\Source\include\queue.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\task.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\list.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
-F (../USER/GUI/ui_navigation.c)(0x6A26C978)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_navigation.o -MD)
-I (..\USER\GUI\ui_navigation.h)(0x6A26C978)
+F (../USER/GUI/ui_modal_manager.c)(0x6A26DB82)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_modal_manager.o -MD)
+I (..\USER\GUI\ui_modal_manager.h)(0x6A26DB61)
 I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
@@ -1401,14 +1515,64 @@ I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_event.h)(0x6A26C976)
+I (..\USER\GUI\ui_types.h)(0x6A26C976)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+I (..\USER\GUI\ui_dirty_region.h)(0x6A26C979)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
+I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D618)
+F (../USER/GUI/ui_navigation.c)(0x6A26D692)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_navigation.o -MD)
+I (..\USER\GUI\ui_navigation.h)(0x6A26D686)
+I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
+I (..\Core\Inc\FreeRTOSConfig.h)(0x6A26C97B)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_version.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_armclang.h)(0x69AACD2D)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x602A3B7E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x603507C4)
+I (..\Drivers\CMSIS\Include\mpu_armv7.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h)(0x69AACD62)
+I (..\Core\Inc\stm32l4xx_hal_conf.h)(0x6A26BA69)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_def.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_ll_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_cortex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_exti.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ramfunc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h)(0x69AACD62)
+I (..\USER\MIDLE\FreeRTOS\Source\include\projdefs.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\GUI\ui_page.h)(0x6A26C978)
 I (..\USER\GUI\ui_event.h)(0x6A26C976)
 I (..\USER\GUI\ui_message_bus.h)(0x6A26C977)
 I (..\USER\GUI\ui_widget.h)(0x6A26C977)
 I (..\USER\GUI\ui_types.h)(0x6A26C976)
-F (../USER/GUI/ui_page_manager.c)(0x6A26C97A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_page_manager.o -MD)
-I (..\USER\GUI\ui_page_manager.h)(0x6A26C97A)
+F (../USER/GUI/ui_page_manager.c)(0x6A26DC3B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_page_manager.o -MD)
+I (..\USER\GUI\ui_page_manager.h)(0x6A26D698)
 I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
@@ -1453,14 +1617,15 @@ I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
 I (..\USER\GUI\ui_event.h)(0x6A26C976)
 I (..\USER\GUI\ui_message_bus.h)(0x6A26C977)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\GUI\ui_page.h)(0x6A26C978)
 I (..\USER\GUI\ui_widget.h)(0x6A26C977)
 I (..\USER\GUI\ui_types.h)(0x6A26C976)
 I (..\USER\GUI\ui_focus_engine.h)(0x6A26C978)
-I (..\USER\GUI\ui_navigation.h)(0x6A26C978)
-F (../USER/GUI/ui_property_store.c)(0x6A26C977)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_property_store.o -MD)
-I (..\USER\GUI\ui_property_store.h)(0x6A26C977)
+I (..\USER\GUI\ui_modal_manager.h)(0x6A26DB61)
+I (..\USER\GUI\ui_navigation.h)(0x6A26D686)
+F (../USER/GUI/ui_property_store.c)(0x6A26DB1B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_property_store.o -MD)
+I (..\USER\GUI\ui_property_store.h)(0x6A26DAFF)
 I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
@@ -1503,12 +1668,61 @@ I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\MIDLE\FreeRTOS\Source\include\task.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\list.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
-F (../USER/GUI/ui_renderer_adapter.c)(0x6A26D0DF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_renderer_adapter.o -MD)
-I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D07F)
+F (../USER/GUI/ui_property_binding.c)(0x6A26DB3A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_property_binding.o -MD)
+I (..\USER\GUI\ui_property_binding.h)(0x6A26DB28)
+I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
+I (..\Core\Inc\FreeRTOSConfig.h)(0x6A26C97B)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_version.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_armclang.h)(0x69AACD2D)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x602A3B7E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x603507C4)
+I (..\Drivers\CMSIS\Include\mpu_armv7.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h)(0x69AACD62)
+I (..\Core\Inc\stm32l4xx_hal_conf.h)(0x6A26BA69)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_def.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_ll_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_cortex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_exti.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ramfunc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h)(0x69AACD62)
+I (..\USER\MIDLE\FreeRTOS\Source\include\projdefs.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
+I (..\USER\GUI\ui_types.h)(0x6A26C976)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
+I (..\USER\GUI\ui_dirty_region.h)(0x6A26C979)
+I (..\USER\GUI\ui_property_store.h)(0x6A26DAFF)
+F (../USER/GUI/ui_renderer_adapter.c)(0x6A26DC76)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_renderer_adapter.o -MD)
+I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D618)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
 I (..\USER\GUI\ui_types.h)(0x6A26C976)
 I (..\USER\BSP\OLED\lcd.h)(0x6A1272FC)
@@ -1548,6 +1762,8 @@ I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim.h)(0x69AACD62)
 I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h)(0x69AACD62)
 I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h)(0x69AACD62)
 I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h)(0x69AACD62)
+I (..\USER\GUI\ui_dirty_region.h)(0x6A26C979)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\MIDLE\EmbeddedGUI\src\canvas\egui_canvas.h)(0x6A15A3D3)
 I (..\USER\MIDLE\EmbeddedGUI\src\core\egui_common.h)(0x6A15A3D3)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
@@ -1581,6 +1797,55 @@ I (..\USER\MIDLE\EmbeddedGUI\src\font\egui_font.h)(0x6A15A3D3)
 I (..\USER\MIDLE\EmbeddedGUI\src\font\egui_font_std.h)(0x6A15A3D3)
 I (..\USER\MIDLE\EmbeddedGUI\src\resource\egui_icon_material_symbols.h)(0x6A15A3D3)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+F (../USER/GUI/ui_virtual_list.c)(0x6A26DC2E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_virtual_list.o -MD)
+I (..\USER\GUI\ui_virtual_list.h)(0x6A26DC13)
+I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
+I (..\Core\Inc\FreeRTOSConfig.h)(0x6A26C97B)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h)(0x69AACD62)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_version.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Include\cmsis_armclang.h)(0x69AACD2D)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x602A3B7E)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x603507C4)
+I (..\Drivers\CMSIS\Include\mpu_armv7.h)(0x69AACD2D)
+I (..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h)(0x69AACD62)
+I (..\Core\Inc\stm32l4xx_hal_conf.h)(0x6A26BA69)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_def.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_ll_dma.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_cortex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_exti.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_flash_ramfunc.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h)(0x69AACD62)
+I (..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h)(0x69AACD62)
+I (..\USER\MIDLE\FreeRTOS\Source\include\projdefs.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\portable.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h)(0x573F3A16)
+I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
+I (..\USER\GUI\ui_event.h)(0x6A26C976)
+I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D618)
+I (..\USER\GUI\ui_types.h)(0x6A26C976)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 F (../USER/GUI/ui_egui_runtime.c)(0x6A26D07F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_egui_runtime.o -MD)
 I (..\USER\MIDLE\EmbeddedGUI\src\core\egui_api.h)(0x6A15A3D3)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
@@ -2060,7 +2325,7 @@ I (..\USER\MIDLE\EmbeddedGUI\src\core\egui_region.h)(0x6A15A3D3)
 I (..\USER\MIDLE\EmbeddedGUI\src\mask\egui_mask.h)(0x6A15A3D3)
 I (..\USER\MIDLE\EmbeddedGUI\src\canvas\egui_canvas_gradient.h)(0x6A15A3D3)
 I (..\USER\MIDLE\EmbeddedGUI\src\image\egui_image.h)(0x6A15A3D3)
-F (../USER/TASK/ui_task.c)(0x6A26C97B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_task.o -MD)
+F (../USER/TASK/ui_task.c)(0x6A26DC5F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/ui_task.o -MD)
 I (..\USER\TASK\ui_task.h)(0x6A26C97B)
 I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x603507D0)
@@ -2107,17 +2372,22 @@ I (..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\task.h)(0x573F3A16)
 I (..\USER\MIDLE\FreeRTOS\Source\include\list.h)(0x573F3A16)
 I (..\USER\GUI\ui_animation.h)(0x6A26C979)
-I (..\USER\GUI\ui_config.h)(0x6A26D305)
+I (..\USER\GUI\ui_config.h)(0x6A26DC49)
 I (..\USER\APP\ui_app.h)(0x6A26C97A)
 I (..\USER\GUI\ui_dirty_region.h)(0x6A26C979)
 I (..\USER\GUI\ui_types.h)(0x6A26C976)
-I (..\USER\GUI\ui_message_bus.h)(0x6A26C977)
-I (..\USER\GUI\ui_page_manager.h)(0x6A26C97A)
+I (..\USER\GUI\ui_fx_emitter.h)(0x6A26DB94)
+I (..\USER\GUI\ui_input_event_queue.h)(0x6A26DAD3)
 I (..\USER\GUI\ui_event.h)(0x6A26C976)
+I (..\USER\GUI\ui_layer_manager.h)(0x6A26DB47)
+I (..\USER\GUI\ui_message_bus.h)(0x6A26C977)
+I (..\USER\GUI\ui_modal_manager.h)(0x6A26DB61)
+I (..\USER\GUI\ui_page_manager.h)(0x6A26D698)
 I (..\USER\GUI\ui_page.h)(0x6A26C978)
 I (..\USER\GUI\ui_widget.h)(0x6A26C977)
-I (..\USER\GUI\ui_property_store.h)(0x6A26C977)
-I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D07F)
+I (..\USER\GUI\ui_property_binding.h)(0x6A26DB28)
+I (..\USER\GUI\ui_property_store.h)(0x6A26DAFF)
+I (..\USER\GUI\ui_renderer_adapter.h)(0x6A26D618)
 F (../USER/MIDLE/FreeRTOS/Source/list.c)(0x573F3A16)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I ../Drivers/CMSIS/Include -I ../USER/MIDLE/FreeRTOS/Source/include -I ../USER/MIDLE/FreeRTOS/Source/portable/GCC/ARM_CM4F -I ../USER/APP -I ../USER/GUI -I ../USER/TASK -I ../USER/BSP/OLED -I ../USER/MIDLE/EmbeddedGUI/src-I./RTE/_STM32L471-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32L471xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L471xx-o stm32l471/list.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x603507D0)
 I (..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h)(0x573F3A16)

@@ -1442,6 +1442,29 @@ Section Cross References
     ui_focus_engine.o(.text.UI_FocusEngine_FindNextSiblingFocusable) refers to ui_focus_engine.o(.text.UI_FocusEngine_FindFirstFocusable) for UI_FocusEngine_FindFirstFocusable
     ui_focus_engine.o(.text.UI_FocusEngine_FindNextSiblingFocusable) refers to ui_focus_engine.o(.bss.g_focus_root) for g_focus_root
     ui_focus_engine.o(.ARM.exidx.text.UI_FocusEngine_FindNextSiblingFocusable) refers to ui_focus_engine.o(.text.UI_FocusEngine_FindNextSiblingFocusable) for [Anonymous Symbol]
+    ui_fx_emitter.o(.text.UI_FXEmitter_Init) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
+    ui_fx_emitter.o(.text.UI_FXEmitter_Init) refers to memseta.o(.text) for __aeabi_memclr4
+    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Init) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Init) for [Anonymous Symbol]
+    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
+    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to memseta.o(.text) for __aeabi_memclr4
+    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.text.UI_FXEmitter_DefaultBehavior) for UI_FXEmitter_DefaultBehavior
+    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.text.UI_FXEmitter_ResetParticle) for UI_FXEmitter_ResetParticle
+    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
+    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Start) for [Anonymous Symbol]
+    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_DefaultBehavior) refers to ui_fx_emitter.o(.text.UI_FXEmitter_DefaultBehavior) for [Anonymous Symbol]
+    ui_fx_emitter.o(.text.UI_FXEmitter_ResetParticle) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
+    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_ResetParticle) refers to ui_fx_emitter.o(.text.UI_FXEmitter_ResetParticle) for [Anonymous Symbol]
+    ui_fx_emitter.o(.text.UI_FXEmitter_Stop) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
+    ui_fx_emitter.o(.text.UI_FXEmitter_Stop) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
+    ui_fx_emitter.o(.text.UI_FXEmitter_Stop) refers to memseta.o(.text) for __aeabi_memclr4
+    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Stop) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Stop) for [Anonymous Symbol]
+    ui_fx_emitter.o(.text.UI_FXEmitter_Update) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
+    ui_fx_emitter.o(.text.UI_FXEmitter_Update) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
+    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Update) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Update) for [Anonymous Symbol]
+    ui_fx_emitter.o(.text.UI_FXEmitter_Draw) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
+    ui_fx_emitter.o(.text.UI_FXEmitter_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_Color) for UI_RendererAdapter_Color
+    ui_fx_emitter.o(.text.UI_FXEmitter_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawLine) for UI_RendererAdapter_DrawLine
+    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Draw) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Draw) for [Anonymous Symbol]
     ui_input_event_queue.o(.text.UI_InputEventQueue_Init) refers to ui_input_event_queue.o(.bss.g_input_event_queue) for g_input_event_queue
     ui_input_event_queue.o(.text.UI_InputEventQueue_Init) refers to ui_input_event_queue.o(.bss.g_input_event_queue_storage) for g_input_event_queue_storage
     ui_input_event_queue.o(.text.UI_InputEventQueue_Init) refers to ui_input_event_queue.o(.bss.g_input_event_queue_cb) for g_input_event_queue_cb
@@ -1454,22 +1477,32 @@ Section Cross References
     ui_input_event_queue.o(.text.UI_InputEventQueue_Receive) refers to ui_input_event_queue.o(.bss.g_input_event_queue) for g_input_event_queue
     ui_input_event_queue.o(.text.UI_InputEventQueue_Receive) refers to queue.o(.text.xQueueGenericReceive) for xQueueGenericReceive
     ui_input_event_queue.o(.ARM.exidx.text.UI_InputEventQueue_Receive) refers to ui_input_event_queue.o(.text.UI_InputEventQueue_Receive) for [Anonymous Symbol]
-    ui_property_binding.o(.text.UI_PropertyBinding_Init) refers to ui_property_binding.o(.bss.g_property_bindings) for g_property_bindings
-    ui_property_binding.o(.text.UI_PropertyBinding_Init) refers to memseta.o(.text) for __aeabi_memclr4
-    ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_Init) refers to ui_property_binding.o(.text.UI_PropertyBinding_Init) for [Anonymous Symbol]
-    ui_property_binding.o(.text.UI_PropertyBinding_BindRect) refers to ui_property_binding.o(.bss.g_property_bindings) for g_property_bindings
-    ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_BindRect) refers to ui_property_binding.o(.text.UI_PropertyBinding_BindRect) for [Anonymous Symbol]
-    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_binding.o(.bss.g_property_bindings) for g_property_bindings
-    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_store.o(.text.UI_PropertyStore_IsFrontDirty) for UI_PropertyStore_IsFrontDirty
-    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
-    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_store.o(.text.UI_PropertyStore_ClearFrontDirty) for UI_PropertyStore_ClearFrontDirty
-    ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) for [Anonymous Symbol]
     ui_layer_manager.o(.text.UI_LayerManager_Init) refers to ui_layer_manager.o(.bss.g_layers) for g_layers
     ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_Init) refers to ui_layer_manager.o(.text.UI_LayerManager_Init) for [Anonymous Symbol]
     ui_layer_manager.o(.text.UI_LayerManager_SetDrawCallback) refers to ui_layer_manager.o(.bss.g_layers) for g_layers
     ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_SetDrawCallback) refers to ui_layer_manager.o(.text.UI_LayerManager_SetDrawCallback) for [Anonymous Symbol]
     ui_layer_manager.o(.text.UI_LayerManager_Draw) refers to ui_layer_manager.o(.bss.g_layers) for g_layers
     ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_Draw) refers to ui_layer_manager.o(.text.UI_LayerManager_Draw) for [Anonymous Symbol]
+    ui_marquee.o(.ARM.exidx.text.UI_Marquee_Init) refers to ui_marquee.o(.text.UI_Marquee_Init) for [Anonymous Symbol]
+    ui_marquee.o(.ARM.exidx.text.UI_Marquee_Update) refers to ui_marquee.o(.text.UI_Marquee_Update) for [Anonymous Symbol]
+    ui_marquee.o(.text.UI_Marquee_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawTextInRect) for UI_RendererAdapter_DrawTextInRect
+    ui_marquee.o(.ARM.exidx.text.UI_Marquee_Draw) refers to ui_marquee.o(.text.UI_Marquee_Draw) for [Anonymous Symbol]
+    ui_message_bus.o(.text.UI_MessageBus_Init) refers to ui_message_bus.o(.bss.g_ui_message_queue) for g_ui_message_queue
+    ui_message_bus.o(.text.UI_MessageBus_Init) refers to ui_message_bus.o(.bss.g_ui_message_queue_storage) for g_ui_message_queue_storage
+    ui_message_bus.o(.text.UI_MessageBus_Init) refers to ui_message_bus.o(.bss.g_ui_message_queue_cb) for g_ui_message_queue_cb
+    ui_message_bus.o(.text.UI_MessageBus_Init) refers to queue.o(.text.xQueueGenericCreateStatic) for xQueueGenericCreateStatic
+    ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Init) refers to ui_message_bus.o(.text.UI_MessageBus_Init) for [Anonymous Symbol]
+    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to ui_message_bus.o(.bss.g_ui_message_queue) for g_ui_message_queue
+    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to memseta.o(.text) for __aeabi_memclr4
+    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to memcpya.o(.text) for __aeabi_memcpy
+    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to tasks.o(.text.xTaskGetTickCountFromISR) for xTaskGetTickCountFromISR
+    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to queue.o(.text.xQueueGenericSendFromISR) for xQueueGenericSendFromISR
+    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to tasks.o(.text.xTaskGetTickCount) for xTaskGetTickCount
+    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to queue.o(.text.xQueueGenericSend) for xQueueGenericSend
+    ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Publish) refers to ui_message_bus.o(.text.UI_MessageBus_Publish) for [Anonymous Symbol]
+    ui_message_bus.o(.text.UI_MessageBus_Receive) refers to ui_message_bus.o(.bss.g_ui_message_queue) for g_ui_message_queue
+    ui_message_bus.o(.text.UI_MessageBus_Receive) refers to queue.o(.text.xQueueGenericReceive) for xQueueGenericReceive
+    ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Receive) refers to ui_message_bus.o(.text.UI_MessageBus_Receive) for [Anonymous Symbol]
     ui_modal_manager.o(.text.UI_ModalManager_Init) refers to ui_modal_manager.o(.bss.g_modal) for g_modal
     ui_modal_manager.o(.text.UI_ModalManager_Init) refers to memseta.o(.text) for __aeabi_memclr4
     ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Init) refers to ui_modal_manager.o(.text.UI_ModalManager_Init) for [Anonymous Symbol]
@@ -1496,55 +1529,6 @@ Section Cross References
     ui_modal_manager.o(.text.UI_ModalManager_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawRect) for UI_RendererAdapter_DrawRect
     ui_modal_manager.o(.text.UI_ModalManager_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawTextInRect) for UI_RendererAdapter_DrawTextInRect
     ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Draw) refers to ui_modal_manager.o(.text.UI_ModalManager_Draw) for [Anonymous Symbol]
-    ui_fx_emitter.o(.text.UI_FXEmitter_Init) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
-    ui_fx_emitter.o(.text.UI_FXEmitter_Init) refers to memseta.o(.text) for __aeabi_memclr4
-    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Init) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Init) for [Anonymous Symbol]
-    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
-    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to memseta.o(.text) for __aeabi_memclr4
-    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.text.UI_FXEmitter_DefaultBehavior) for UI_FXEmitter_DefaultBehavior
-    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.text.UI_FXEmitter_ResetParticle) for UI_FXEmitter_ResetParticle
-    ui_fx_emitter.o(.text.UI_FXEmitter_Start) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
-    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Start) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Start) for [Anonymous Symbol]
-    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_DefaultBehavior) refers to ui_fx_emitter.o(.text.UI_FXEmitter_DefaultBehavior) for [Anonymous Symbol]
-    ui_fx_emitter.o(.text.UI_FXEmitter_ResetParticle) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
-    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_ResetParticle) refers to ui_fx_emitter.o(.text.UI_FXEmitter_ResetParticle) for [Anonymous Symbol]
-    ui_fx_emitter.o(.text.UI_FXEmitter_Stop) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
-    ui_fx_emitter.o(.text.UI_FXEmitter_Stop) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
-    ui_fx_emitter.o(.text.UI_FXEmitter_Stop) refers to memseta.o(.text) for __aeabi_memclr4
-    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Stop) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Stop) for [Anonymous Symbol]
-    ui_fx_emitter.o(.text.UI_FXEmitter_Update) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
-    ui_fx_emitter.o(.text.UI_FXEmitter_Update) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
-    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Update) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Update) for [Anonymous Symbol]
-    ui_fx_emitter.o(.text.UI_FXEmitter_Draw) refers to ui_fx_emitter.o(.bss.g_fx_emitter) for g_fx_emitter
-    ui_fx_emitter.o(.text.UI_FXEmitter_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_Color) for UI_RendererAdapter_Color
-    ui_fx_emitter.o(.text.UI_FXEmitter_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawLine) for UI_RendererAdapter_DrawLine
-    ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Draw) refers to ui_fx_emitter.o(.text.UI_FXEmitter_Draw) for [Anonymous Symbol]
-    ui_marquee.o(.ARM.exidx.text.UI_Marquee_Init) refers to ui_marquee.o(.text.UI_Marquee_Init) for [Anonymous Symbol]
-    ui_marquee.o(.ARM.exidx.text.UI_Marquee_Update) refers to ui_marquee.o(.text.UI_Marquee_Update) for [Anonymous Symbol]
-    ui_marquee.o(.text.UI_Marquee_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawTextInRect) for UI_RendererAdapter_DrawTextInRect
-    ui_marquee.o(.ARM.exidx.text.UI_Marquee_Draw) refers to ui_marquee.o(.text.UI_Marquee_Draw) for [Anonymous Symbol]
-    ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Init) refers to ui_virtual_list.o(.text.UI_VirtualList_Init) for [Anonymous Symbol]
-    ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_HandleEvent) refers to ui_virtual_list.o(.text.UI_VirtualList_HandleEvent) for [Anonymous Symbol]
-    ui_virtual_list.o(.text.UI_VirtualList_Draw) refers to ui_virtual_list.o(.rodata.str1.1) for .L.str.1
-    ui_virtual_list.o(.text.UI_VirtualList_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawListItem) for UI_RendererAdapter_DrawListItem
-    ui_virtual_list.o(.text.UI_VirtualList_Draw) refers to memseta.o(.text) for __aeabi_memclr4
-    ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Draw) refers to ui_virtual_list.o(.text.UI_VirtualList_Draw) for [Anonymous Symbol]
-    ui_message_bus.o(.text.UI_MessageBus_Init) refers to ui_message_bus.o(.bss.g_ui_message_queue) for g_ui_message_queue
-    ui_message_bus.o(.text.UI_MessageBus_Init) refers to ui_message_bus.o(.bss.g_ui_message_queue_storage) for g_ui_message_queue_storage
-    ui_message_bus.o(.text.UI_MessageBus_Init) refers to ui_message_bus.o(.bss.g_ui_message_queue_cb) for g_ui_message_queue_cb
-    ui_message_bus.o(.text.UI_MessageBus_Init) refers to queue.o(.text.xQueueGenericCreateStatic) for xQueueGenericCreateStatic
-    ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Init) refers to ui_message_bus.o(.text.UI_MessageBus_Init) for [Anonymous Symbol]
-    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to ui_message_bus.o(.bss.g_ui_message_queue) for g_ui_message_queue
-    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to memseta.o(.text) for __aeabi_memclr4
-    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to memcpya.o(.text) for __aeabi_memcpy
-    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to tasks.o(.text.xTaskGetTickCountFromISR) for xTaskGetTickCountFromISR
-    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to queue.o(.text.xQueueGenericSendFromISR) for xQueueGenericSendFromISR
-    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to tasks.o(.text.xTaskGetTickCount) for xTaskGetTickCount
-    ui_message_bus.o(.text.UI_MessageBus_Publish) refers to queue.o(.text.xQueueGenericSend) for xQueueGenericSend
-    ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Publish) refers to ui_message_bus.o(.text.UI_MessageBus_Publish) for [Anonymous Symbol]
-    ui_message_bus.o(.text.UI_MessageBus_Receive) refers to ui_message_bus.o(.bss.g_ui_message_queue) for g_ui_message_queue
-    ui_message_bus.o(.text.UI_MessageBus_Receive) refers to queue.o(.text.xQueueGenericReceive) for xQueueGenericReceive
-    ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Receive) refers to ui_message_bus.o(.text.UI_MessageBus_Receive) for [Anonymous Symbol]
     ui_navigation.o(.text.UI_Navigation_Init) refers to ui_navigation.o(.bss.g_navigation_stack) for g_navigation_stack
     ui_navigation.o(.ARM.exidx.text.UI_Navigation_Init) refers to ui_navigation.o(.text.UI_Navigation_Init) for [Anonymous Symbol]
     ui_navigation.o(.text.UI_Navigation_Push) refers to ui_navigation.o(.bss.g_navigation_stack) for g_navigation_stack
@@ -1622,6 +1606,16 @@ Section Cross References
     ui_property_store.o(.ARM.exidx.text.UI_PropertyStore_IsFrontDirty) refers to ui_property_store.o(.text.UI_PropertyStore_IsFrontDirty) for [Anonymous Symbol]
     ui_property_store.o(.text.UI_PropertyStore_ClearFrontDirty) refers to ui_property_store.o(.bss.g_prop_frontend_buffer) for g_prop_frontend_buffer
     ui_property_store.o(.ARM.exidx.text.UI_PropertyStore_ClearFrontDirty) refers to ui_property_store.o(.text.UI_PropertyStore_ClearFrontDirty) for [Anonymous Symbol]
+    ui_property_binding.o(.text.UI_PropertyBinding_Init) refers to ui_property_binding.o(.bss.g_property_bindings) for g_property_bindings
+    ui_property_binding.o(.text.UI_PropertyBinding_Init) refers to memseta.o(.text) for __aeabi_memclr4
+    ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_Init) refers to ui_property_binding.o(.text.UI_PropertyBinding_Init) for [Anonymous Symbol]
+    ui_property_binding.o(.text.UI_PropertyBinding_BindRect) refers to ui_property_binding.o(.bss.g_property_bindings) for g_property_bindings
+    ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_BindRect) refers to ui_property_binding.o(.text.UI_PropertyBinding_BindRect) for [Anonymous Symbol]
+    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_binding.o(.bss.g_property_bindings) for g_property_bindings
+    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_store.o(.text.UI_PropertyStore_IsFrontDirty) for UI_PropertyStore_IsFrontDirty
+    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_dirty_region.o(.text.UI_DirtyRegion_Invalidate) for UI_DirtyRegion_Invalidate
+    ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_store.o(.text.UI_PropertyStore_ClearFrontDirty) for UI_PropertyStore_ClearFrontDirty
+    ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_UpdateDirtyRegions) refers to ui_property_binding.o(.text.UI_PropertyBinding_UpdateDirtyRegions) for [Anonymous Symbol]
     ui_renderer_adapter.o(.text.UI_RendererAdapter_Init) refers to lcd_init.o(.text.LCD_Init) for LCD_Init
     ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_Init) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_Init) for [Anonymous Symbol]
     ui_renderer_adapter.o(.text.UI_RendererAdapter_BeginFrame) refers to ui_renderer_adapter.o(.bss.g_render_command_count) for g_render_command_count
@@ -1728,6 +1722,12 @@ Section Cross References
     ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_MaxInt16) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_MaxInt16) for [Anonymous Symbol]
     ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_MinInt16) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_MinInt16) for [Anonymous Symbol]
     ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_LineOutCode) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_LineOutCode) for [Anonymous Symbol]
+    ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Init) refers to ui_virtual_list.o(.text.UI_VirtualList_Init) for [Anonymous Symbol]
+    ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_HandleEvent) refers to ui_virtual_list.o(.text.UI_VirtualList_HandleEvent) for [Anonymous Symbol]
+    ui_virtual_list.o(.text.UI_VirtualList_Draw) refers to ui_virtual_list.o(.rodata.str1.1) for .L.str.1
+    ui_virtual_list.o(.text.UI_VirtualList_Draw) refers to ui_renderer_adapter.o(.text.UI_RendererAdapter_DrawListItem) for UI_RendererAdapter_DrawListItem
+    ui_virtual_list.o(.text.UI_VirtualList_Draw) refers to memseta.o(.text) for __aeabi_memclr4
+    ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Draw) refers to ui_virtual_list.o(.text.UI_VirtualList_Draw) for [Anonymous Symbol]
     ui_egui_runtime.o(.ARM.exidx.text.egui_api_log) refers to ui_egui_runtime.o(.text.egui_api_log) for [Anonymous Symbol]
     ui_egui_runtime.o(.text.egui_api_assert) refers to main.o(.text.Error_Handler) for Error_Handler
     ui_egui_runtime.o(.ARM.exidx.text.egui_api_assert) refers to ui_egui_runtime.o(.text.egui_api_assert) for [Anonymous Symbol]
@@ -4130,28 +4130,6 @@ Removing Unused input sections from the image.
     Removing ui_focus_engine.o(.ARM.exidx.text.UI_FocusEngine_GetFocused), (8 bytes).
     Removing ui_focus_engine.o(.ARM.exidx.text.UI_FocusEngine_HandleEvent), (8 bytes).
     Removing ui_focus_engine.o(.ARM.exidx.text.UI_FocusEngine_FindNextSiblingFocusable), (8 bytes).
-    Removing ui_input_event_queue.o(.text), (0 bytes).
-    Removing ui_input_event_queue.o(.ARM.exidx.text.UI_InputEventQueue_Init), (8 bytes).
-    Removing ui_input_event_queue.o(.text.UI_InputEventQueue_Publish), (54 bytes).
-    Removing ui_input_event_queue.o(.ARM.exidx.text.UI_InputEventQueue_Publish), (8 bytes).
-    Removing ui_input_event_queue.o(.ARM.exidx.text.UI_InputEventQueue_Receive), (8 bytes).
-    Removing ui_property_binding.o(.text), (0 bytes).
-    Removing ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_Init), (8 bytes).
-    Removing ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_BindRect), (8 bytes).
-    Removing ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_UpdateDirtyRegions), (8 bytes).
-    Removing ui_layer_manager.o(.text), (0 bytes).
-    Removing ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_Init), (8 bytes).
-    Removing ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_SetDrawCallback), (8 bytes).
-    Removing ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_Draw), (8 bytes).
-    Removing ui_modal_manager.o(.text), (0 bytes).
-    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Init), (8 bytes).
-    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Show), (8 bytes).
-    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Dismiss), (8 bytes).
-    Removing ui_modal_manager.o(.text.UI_ModalManager_IsActive), (12 bytes).
-    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_IsActive), (8 bytes).
-    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_HandleEvent), (8 bytes).
-    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Process), (8 bytes).
-    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Draw), (8 bytes).
     Removing ui_fx_emitter.o(.text), (0 bytes).
     Removing ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Init), (8 bytes).
     Removing ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Start), (8 bytes).
@@ -4161,19 +4139,33 @@ Removing Unused input sections from the image.
     Removing ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Stop), (8 bytes).
     Removing ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Update), (8 bytes).
     Removing ui_fx_emitter.o(.ARM.exidx.text.UI_FXEmitter_Draw), (8 bytes).
+    Removing ui_input_event_queue.o(.text), (0 bytes).
+    Removing ui_input_event_queue.o(.ARM.exidx.text.UI_InputEventQueue_Init), (8 bytes).
+    Removing ui_input_event_queue.o(.text.UI_InputEventQueue_Publish), (54 bytes).
+    Removing ui_input_event_queue.o(.ARM.exidx.text.UI_InputEventQueue_Publish), (8 bytes).
+    Removing ui_input_event_queue.o(.ARM.exidx.text.UI_InputEventQueue_Receive), (8 bytes).
+    Removing ui_layer_manager.o(.text), (0 bytes).
+    Removing ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_Init), (8 bytes).
+    Removing ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_SetDrawCallback), (8 bytes).
+    Removing ui_layer_manager.o(.ARM.exidx.text.UI_LayerManager_Draw), (8 bytes).
     Removing ui_marquee.o(.text), (0 bytes).
     Removing ui_marquee.o(.ARM.exidx.text.UI_Marquee_Init), (8 bytes).
     Removing ui_marquee.o(.ARM.exidx.text.UI_Marquee_Update), (8 bytes).
     Removing ui_marquee.o(.ARM.exidx.text.UI_Marquee_Draw), (8 bytes).
-    Removing ui_virtual_list.o(.text), (0 bytes).
-    Removing ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Init), (8 bytes).
-    Removing ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_HandleEvent), (8 bytes).
-    Removing ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Draw), (8 bytes).
     Removing ui_message_bus.o(.text), (0 bytes).
     Removing ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Init), (8 bytes).
     Removing ui_message_bus.o(.text.UI_MessageBus_Publish), (134 bytes).
     Removing ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Publish), (8 bytes).
     Removing ui_message_bus.o(.ARM.exidx.text.UI_MessageBus_Receive), (8 bytes).
+    Removing ui_modal_manager.o(.text), (0 bytes).
+    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Init), (8 bytes).
+    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Show), (8 bytes).
+    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Dismiss), (8 bytes).
+    Removing ui_modal_manager.o(.text.UI_ModalManager_IsActive), (12 bytes).
+    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_IsActive), (8 bytes).
+    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_HandleEvent), (8 bytes).
+    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Process), (8 bytes).
+    Removing ui_modal_manager.o(.ARM.exidx.text.UI_ModalManager_Draw), (8 bytes).
     Removing ui_navigation.o(.text), (0 bytes).
     Removing ui_navigation.o(.ARM.exidx.text.UI_Navigation_Init), (8 bytes).
     Removing ui_navigation.o(.ARM.exidx.text.UI_Navigation_Push), (8 bytes).
@@ -4212,6 +4204,10 @@ Removing Unused input sections from the image.
     Removing ui_property_store.o(.ARM.exidx.text.UI_PropertyStore_GetFrontString), (8 bytes).
     Removing ui_property_store.o(.ARM.exidx.text.UI_PropertyStore_IsFrontDirty), (8 bytes).
     Removing ui_property_store.o(.ARM.exidx.text.UI_PropertyStore_ClearFrontDirty), (8 bytes).
+    Removing ui_property_binding.o(.text), (0 bytes).
+    Removing ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_Init), (8 bytes).
+    Removing ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_BindRect), (8 bytes).
+    Removing ui_property_binding.o(.ARM.exidx.text.UI_PropertyBinding_UpdateDirtyRegions), (8 bytes).
     Removing ui_renderer_adapter.o(.text), (0 bytes).
     Removing ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_Init), (8 bytes).
     Removing ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_BeginFrame), (8 bytes).
@@ -4250,6 +4246,10 @@ Removing Unused input sections from the image.
     Removing ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_MaxInt16), (8 bytes).
     Removing ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_MinInt16), (8 bytes).
     Removing ui_renderer_adapter.o(.ARM.exidx.text.UI_RendererAdapter_LineOutCode), (8 bytes).
+    Removing ui_virtual_list.o(.text), (0 bytes).
+    Removing ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Init), (8 bytes).
+    Removing ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_HandleEvent), (8 bytes).
+    Removing ui_virtual_list.o(.ARM.exidx.text.UI_VirtualList_Draw), (8 bytes).
     Removing ui_egui_runtime.o(.text), (0 bytes).
     Removing ui_egui_runtime.o(.text.egui_api_log), (2 bytes).
     Removing ui_egui_runtime.o(.ARM.exidx.text.egui_api_log), (8 bytes).
@@ -6203,15 +6203,15 @@ Memory Map of the image
     0x08004e7a   0x08004e7a   0x00000002   PAD
     0x08004e7c   0x08004e7c   0x0000004a   Code   RO         1463    .text.UI_DirtyRegion_Take  ui_dirty_region.o
     0x08004ec6   0x08004ec6   0x00000002   PAD
-    0x08004ec8   0x08004ec8   0x0000005c   Code   RO         1573    .text.UI_FXEmitter_DefaultBehavior  ui_fx_emitter.o
-    0x08004f24   0x08004f24   0x0000004a   Code   RO         1581    .text.UI_FXEmitter_Draw  ui_fx_emitter.o
+    0x08004ec8   0x08004ec8   0x0000005c   Code   RO         1503    .text.UI_FXEmitter_DefaultBehavior  ui_fx_emitter.o
+    0x08004f24   0x08004f24   0x0000004a   Code   RO         1511    .text.UI_FXEmitter_Draw  ui_fx_emitter.o
     0x08004f6e   0x08004f6e   0x00000002   PAD
-    0x08004f70   0x08004f70   0x00000012   Code   RO         1569    .text.UI_FXEmitter_Init  ui_fx_emitter.o
+    0x08004f70   0x08004f70   0x00000012   Code   RO         1499    .text.UI_FXEmitter_Init  ui_fx_emitter.o
     0x08004f82   0x08004f82   0x00000002   PAD
-    0x08004f84   0x08004f84   0x00000086   Code   RO         1575    .text.UI_FXEmitter_ResetParticle  ui_fx_emitter.o
+    0x08004f84   0x08004f84   0x00000086   Code   RO         1505    .text.UI_FXEmitter_ResetParticle  ui_fx_emitter.o
     0x0800500a   0x0800500a   0x00000002   PAD
-    0x0800500c   0x0800500c   0x00000070   Code   RO         1571    .text.UI_FXEmitter_Start  ui_fx_emitter.o
-    0x0800507c   0x0800507c   0x00000040   Code   RO         1579    .text.UI_FXEmitter_Update  ui_fx_emitter.o
+    0x0800500c   0x0800500c   0x00000070   Code   RO         1501    .text.UI_FXEmitter_Start  ui_fx_emitter.o
+    0x0800507c   0x0800507c   0x00000040   Code   RO         1509    .text.UI_FXEmitter_Update  ui_fx_emitter.o
     0x080050bc   0x080050bc   0x0000002c   Code   RO         1481    .text.UI_FocusEngine_FindFirstFocusable  ui_focus_engine.o
     0x080050e8   0x080050e8   0x0000002a   Code   RO         1487    .text.UI_FocusEngine_FindNextSiblingFocusable  ui_focus_engine.o
     0x08005112   0x08005112   0x00000002   PAD
@@ -6220,124 +6220,124 @@ Memory Map of the image
     0x08005178   0x08005178   0x0000002c   Code   RO         1479    .text.UI_FocusEngine_SetFocused  ui_focus_engine.o
     0x080051a4   0x080051a4   0x00000016   Code   RO         1477    .text.UI_FocusEngine_SetRoot  ui_focus_engine.o
     0x080051ba   0x080051ba   0x00000002   PAD
-    0x080051bc   0x080051bc   0x00000042   Code   RO         1499    .text.UI_InputEventQueue_Init  ui_input_event_queue.o
+    0x080051bc   0x080051bc   0x00000042   Code   RO         1522    .text.UI_InputEventQueue_Init  ui_input_event_queue.o
     0x080051fe   0x080051fe   0x00000002   PAD
-    0x08005200   0x08005200   0x00000028   Code   RO         1503    .text.UI_InputEventQueue_Receive  ui_input_event_queue.o
-    0x08005228   0x08005228   0x0000002c   Code   RO         1535    .text.UI_LayerManager_Draw  ui_layer_manager.o
-    0x08005254   0x08005254   0x0000001c   Code   RO         1531    .text.UI_LayerManager_Init  ui_layer_manager.o
-    0x08005270   0x08005270   0x0000001a   Code   RO         1533    .text.UI_LayerManager_SetDrawCallback  ui_layer_manager.o
+    0x08005200   0x08005200   0x00000028   Code   RO         1526    .text.UI_InputEventQueue_Receive  ui_input_event_queue.o
+    0x08005228   0x08005228   0x0000002c   Code   RO         1543    .text.UI_LayerManager_Draw  ui_layer_manager.o
+    0x08005254   0x08005254   0x0000001c   Code   RO         1539    .text.UI_LayerManager_Init  ui_layer_manager.o
+    0x08005270   0x08005270   0x0000001a   Code   RO         1541    .text.UI_LayerManager_SetDrawCallback  ui_layer_manager.o
     0x0800528a   0x0800528a   0x00000002   PAD
-    0x0800528c   0x0800528c   0x00000068   Code   RO         1596    .text.UI_Marquee_Draw  ui_marquee.o
-    0x080052f4   0x080052f4   0x0000001a   Code   RO         1592    .text.UI_Marquee_Init  ui_marquee.o
+    0x0800528c   0x0800528c   0x00000068   Code   RO         1558    .text.UI_Marquee_Draw  ui_marquee.o
+    0x080052f4   0x080052f4   0x0000001a   Code   RO         1554    .text.UI_Marquee_Init  ui_marquee.o
     0x0800530e   0x0800530e   0x00000002   PAD
-    0x08005310   0x08005310   0x00000046   Code   RO         1594    .text.UI_Marquee_Update  ui_marquee.o
+    0x08005310   0x08005310   0x00000046   Code   RO         1556    .text.UI_Marquee_Update  ui_marquee.o
     0x08005356   0x08005356   0x00000002   PAD
-    0x08005358   0x08005358   0x00000042   Code   RO         1621    .text.UI_MessageBus_Init  ui_message_bus.o
+    0x08005358   0x08005358   0x00000042   Code   RO         1568    .text.UI_MessageBus_Init  ui_message_bus.o
     0x0800539a   0x0800539a   0x00000002   PAD
-    0x0800539c   0x0800539c   0x00000028   Code   RO         1625    .text.UI_MessageBus_Receive  ui_message_bus.o
-    0x080053c4   0x080053c4   0x00000024   Code   RO         1550    .text.UI_ModalManager_Dismiss  ui_modal_manager.o
-    0x080053e8   0x080053e8   0x0000011a   Code   RO         1558    .text.UI_ModalManager_Draw  ui_modal_manager.o
+    0x0800539c   0x0800539c   0x00000028   Code   RO         1572    .text.UI_MessageBus_Receive  ui_message_bus.o
+    0x080053c4   0x080053c4   0x00000024   Code   RO         1589    .text.UI_ModalManager_Dismiss  ui_modal_manager.o
+    0x080053e8   0x080053e8   0x0000011a   Code   RO         1597    .text.UI_ModalManager_Draw  ui_modal_manager.o
     0x08005502   0x08005502   0x00000002   PAD
-    0x08005504   0x08005504   0x00000030   Code   RO         1554    .text.UI_ModalManager_HandleEvent  ui_modal_manager.o
-    0x08005534   0x08005534   0x00000012   Code   RO         1546    .text.UI_ModalManager_Init  ui_modal_manager.o
+    0x08005504   0x08005504   0x00000030   Code   RO         1593    .text.UI_ModalManager_HandleEvent  ui_modal_manager.o
+    0x08005534   0x08005534   0x00000012   Code   RO         1585    .text.UI_ModalManager_Init  ui_modal_manager.o
     0x08005546   0x08005546   0x00000002   PAD
-    0x08005548   0x08005548   0x00000028   Code   RO         1556    .text.UI_ModalManager_Process  ui_modal_manager.o
-    0x08005570   0x08005570   0x00000070   Code   RO         1548    .text.UI_ModalManager_Show  ui_modal_manager.o
-    0x080055e0   0x080055e0   0x00000018   Code   RO         1646    .text.UI_Navigation_GetActive  ui_navigation.o
-    0x080055f8   0x080055f8   0x0000001c   Code   RO         1638    .text.UI_Navigation_Init  ui_navigation.o
-    0x08005614   0x08005614   0x00000058   Code   RO         1640    .text.UI_Navigation_Push  ui_navigation.o
-    0x0800566c   0x0800566c   0x0000006a   Code   RO         1642    .text.UI_Navigation_Replace  ui_navigation.o
+    0x08005548   0x08005548   0x00000028   Code   RO         1595    .text.UI_ModalManager_Process  ui_modal_manager.o
+    0x08005570   0x08005570   0x00000070   Code   RO         1587    .text.UI_ModalManager_Show  ui_modal_manager.o
+    0x080055e0   0x080055e0   0x00000018   Code   RO         1616    .text.UI_Navigation_GetActive  ui_navigation.o
+    0x080055f8   0x080055f8   0x0000001c   Code   RO         1608    .text.UI_Navigation_Init  ui_navigation.o
+    0x08005614   0x08005614   0x00000058   Code   RO         1610    .text.UI_Navigation_Push  ui_navigation.o
+    0x0800566c   0x0800566c   0x0000006a   Code   RO         1612    .text.UI_Navigation_Replace  ui_navigation.o
     0x080056d6   0x080056d6   0x00000002   PAD
-    0x080056d8   0x080056d8   0x00000034   Code   RO         1671    .text.UI_PageManager_DispatchEvent  ui_page_manager.o
-    0x0800570c   0x0800570c   0x00000016   Code   RO         1675    .text.UI_PageManager_DrawActivePage  ui_page_manager.o
+    0x080056d8   0x080056d8   0x00000034   Code   RO         1641    .text.UI_PageManager_DispatchEvent  ui_page_manager.o
+    0x0800570c   0x0800570c   0x00000016   Code   RO         1645    .text.UI_PageManager_DrawActivePage  ui_page_manager.o
     0x08005722   0x08005722   0x00000002   PAD
-    0x08005724   0x08005724   0x00000018   Code   RO         1669    .text.UI_PageManager_HandleMessage  ui_page_manager.o
-    0x0800573c   0x0800573c   0x0000001a   Code   RO         1657    .text.UI_PageManager_Init  ui_page_manager.o
+    0x08005724   0x08005724   0x00000018   Code   RO         1639    .text.UI_PageManager_HandleMessage  ui_page_manager.o
+    0x0800573c   0x0800573c   0x0000001a   Code   RO         1627    .text.UI_PageManager_Init  ui_page_manager.o
     0x08005756   0x08005756   0x00000002   PAD
-    0x08005758   0x08005758   0x00000026   Code   RO         1659    .text.UI_PageManager_OpenRoot  ui_page_manager.o
+    0x08005758   0x08005758   0x00000026   Code   RO         1629    .text.UI_PageManager_OpenRoot  ui_page_manager.o
     0x0800577e   0x0800577e   0x00000002   PAD
-    0x08005780   0x08005780   0x00000016   Code   RO         1673    .text.UI_PageManager_ProcessActivePage  ui_page_manager.o
+    0x08005780   0x08005780   0x00000016   Code   RO         1643    .text.UI_PageManager_ProcessActivePage  ui_page_manager.o
     0x08005796   0x08005796   0x00000002   PAD
-    0x08005798   0x08005798   0x00000026   Code   RO         1665    .text.UI_PageManager_Replace  ui_page_manager.o
+    0x08005798   0x08005798   0x00000026   Code   RO         1635    .text.UI_PageManager_Replace  ui_page_manager.o
     0x080057be   0x080057be   0x00000002   PAD
-    0x080057c0   0x080057c0   0x00000014   Code   RO         1661    .text.UI_PageManager_SyncFocusRoot  ui_page_manager.o
-    0x080057d4   0x080057d4   0x0000007e   Code   RO         1518    .text.UI_PropertyBinding_BindRect  ui_property_binding.o
+    0x080057c0   0x080057c0   0x00000014   Code   RO         1631    .text.UI_PageManager_SyncFocusRoot  ui_page_manager.o
+    0x080057d4   0x080057d4   0x0000007e   Code   RO         1694    .text.UI_PropertyBinding_BindRect  ui_property_binding.o
     0x08005852   0x08005852   0x00000002   PAD
-    0x08005854   0x08005854   0x00000012   Code   RO         1516    .text.UI_PropertyBinding_Init  ui_property_binding.o
+    0x08005854   0x08005854   0x00000012   Code   RO         1692    .text.UI_PropertyBinding_Init  ui_property_binding.o
     0x08005866   0x08005866   0x00000002   PAD
-    0x08005868   0x08005868   0x00000038   Code   RO         1520    .text.UI_PropertyBinding_UpdateDirtyRegions  ui_property_binding.o
-    0x080058a0   0x080058a0   0x00000026   Code   RO         1710    .text.UI_PropertyStore_ClearFrontDirty  ui_property_store.o
+    0x08005868   0x08005868   0x00000038   Code   RO         1696    .text.UI_PropertyBinding_UpdateDirtyRegions  ui_property_binding.o
+    0x080058a0   0x080058a0   0x00000026   Code   RO         1680    .text.UI_PropertyStore_ClearFrontDirty  ui_property_store.o
     0x080058c6   0x080058c6   0x00000002   PAD
-    0x080058c8   0x080058c8   0x00000024   Code   RO         1702    .text.UI_PropertyStore_FindReadableSlot  ui_property_store.o
-    0x080058ec   0x080058ec   0x00000042   Code   RO         1694    .text.UI_PropertyStore_FindWritableSlot  ui_property_store.o
+    0x080058c8   0x080058c8   0x00000024   Code   RO         1672    .text.UI_PropertyStore_FindReadableSlot  ui_property_store.o
+    0x080058ec   0x080058ec   0x00000042   Code   RO         1664    .text.UI_PropertyStore_FindWritableSlot  ui_property_store.o
     0x0800592e   0x0800592e   0x00000002   PAD
-    0x08005930   0x08005930   0x00000016   Code   RO         1704    .text.UI_PropertyStore_GetFrontInt  ui_property_store.o
+    0x08005930   0x08005930   0x00000016   Code   RO         1674    .text.UI_PropertyStore_GetFrontInt  ui_property_store.o
     0x08005946   0x08005946   0x00000002   PAD
-    0x08005948   0x08005948   0x00000024   Code   RO         1688    .text.UI_PropertyStore_Init  ui_property_store.o
-    0x0800596c   0x0800596c   0x00000016   Code   RO         1708    .text.UI_PropertyStore_IsFrontDirty  ui_property_store.o
+    0x08005948   0x08005948   0x00000024   Code   RO         1658    .text.UI_PropertyStore_Init  ui_property_store.o
+    0x0800596c   0x0800596c   0x00000016   Code   RO         1678    .text.UI_PropertyStore_IsFrontDirty  ui_property_store.o
     0x08005982   0x08005982   0x00000002   PAD
-    0x08005984   0x08005984   0x0000001c   Code   RO         1692    .text.UI_PropertyStore_SetInt  ui_property_store.o
-    0x080059a0   0x080059a0   0x00000032   Code   RO         1698    .text.UI_PropertyStore_SetString  ui_property_store.o
+    0x08005984   0x08005984   0x0000001c   Code   RO         1662    .text.UI_PropertyStore_SetInt  ui_property_store.o
+    0x080059a0   0x080059a0   0x00000032   Code   RO         1668    .text.UI_PropertyStore_SetString  ui_property_store.o
     0x080059d2   0x080059d2   0x00000002   PAD
-    0x080059d4   0x080059d4   0x00000054   Code   RO         1690    .text.UI_PropertyStore_SyncFront  ui_property_store.o
-    0x08005a28   0x08005a28   0x0000003e   Code   RO         1748    .text.UI_RendererAdapter_AllocCommand  ui_renderer_adapter.o
+    0x080059d4   0x080059d4   0x00000054   Code   RO         1660    .text.UI_PropertyStore_SyncFront  ui_property_store.o
+    0x08005a28   0x08005a28   0x0000003e   Code   RO         1733    .text.UI_RendererAdapter_AllocCommand  ui_renderer_adapter.o
     0x08005a66   0x08005a66   0x00000002   PAD
-    0x08005a68   0x08005a68   0x0000000e   Code   RO         1732    .text.UI_RendererAdapter_BackgroundColor  ui_renderer_adapter.o
+    0x08005a68   0x08005a68   0x0000000e   Code   RO         1717    .text.UI_RendererAdapter_BackgroundColor  ui_renderer_adapter.o
     0x08005a76   0x08005a76   0x00000002   PAD
-    0x08005a78   0x08005a78   0x0000000e   Code   RO         1724    .text.UI_RendererAdapter_BeginFrame  ui_renderer_adapter.o
+    0x08005a78   0x08005a78   0x0000000e   Code   RO         1709    .text.UI_RendererAdapter_BeginFrame  ui_renderer_adapter.o
     0x08005a86   0x08005a86   0x00000002   PAD
-    0x08005a88   0x08005a88   0x00000012   Code   RO         1764    .text.UI_RendererAdapter_ClampInt16  ui_renderer_adapter.o
+    0x08005a88   0x08005a88   0x00000012   Code   RO         1749    .text.UI_RendererAdapter_ClampInt16  ui_renderer_adapter.o
     0x08005a9a   0x08005a9a   0x00000002   PAD
-    0x08005a9c   0x08005a9c   0x00000008   Code   RO         1772    .text.UI_RendererAdapter_ClampPercent  ui_renderer_adapter.o
-    0x08005aa4   0x08005aa4   0x00000236   Code   RO         1758    .text.UI_RendererAdapter_ClipLine  ui_renderer_adapter.o
+    0x08005a9c   0x08005a9c   0x00000008   Code   RO         1757    .text.UI_RendererAdapter_ClampPercent  ui_renderer_adapter.o
+    0x08005aa4   0x08005aa4   0x00000236   Code   RO         1743    .text.UI_RendererAdapter_ClipLine  ui_renderer_adapter.o
     0x08005cda   0x08005cda   0x00000002   PAD
-    0x08005cdc   0x08005cdc   0x00000108   Code   RO         1752    .text.UI_RendererAdapter_ClipRect  ui_renderer_adapter.o
-    0x08005de4   0x08005de4   0x00000008   Code   RO         1742    .text.UI_RendererAdapter_Color  ui_renderer_adapter.o
-    0x08005dec   0x08005dec   0x0000006c   Code   RO         1782    .text.UI_RendererAdapter_DrawBadge  ui_renderer_adapter.o
-    0x08005e58   0x08005e58   0x0000009e   Code   RO         1768    .text.UI_RendererAdapter_DrawButton  ui_renderer_adapter.o
+    0x08005cdc   0x08005cdc   0x00000108   Code   RO         1737    .text.UI_RendererAdapter_ClipRect  ui_renderer_adapter.o
+    0x08005de4   0x08005de4   0x00000008   Code   RO         1727    .text.UI_RendererAdapter_Color  ui_renderer_adapter.o
+    0x08005dec   0x08005dec   0x0000006c   Code   RO         1767    .text.UI_RendererAdapter_DrawBadge  ui_renderer_adapter.o
+    0x08005e58   0x08005e58   0x0000009e   Code   RO         1753    .text.UI_RendererAdapter_DrawButton  ui_renderer_adapter.o
     0x08005ef6   0x08005ef6   0x00000002   PAD
-    0x08005ef8   0x08005ef8   0x000000d2   Code   RO         1778    .text.UI_RendererAdapter_DrawCheckbox  ui_renderer_adapter.o
+    0x08005ef8   0x08005ef8   0x000000d2   Code   RO         1763    .text.UI_RendererAdapter_DrawCheckbox  ui_renderer_adapter.o
     0x08005fca   0x08005fca   0x00000002   PAD
-    0x08005fcc   0x08005fcc   0x0000011a   Code   RO         1734    .text.UI_RendererAdapter_DrawCommand  ui_renderer_adapter.o
+    0x08005fcc   0x08005fcc   0x0000011a   Code   RO         1719    .text.UI_RendererAdapter_DrawCommand  ui_renderer_adapter.o
     0x080060e6   0x080060e6   0x00000002   PAD
-    0x080060e8   0x080060e8   0x0000006c   Code   RO         1750    .text.UI_RendererAdapter_DrawFillRect  ui_renderer_adapter.o
-    0x08006154   0x08006154   0x000000aa   Code   RO         1786    .text.UI_RendererAdapter_DrawIconBox  ui_renderer_adapter.o
+    0x080060e8   0x080060e8   0x0000006c   Code   RO         1735    .text.UI_RendererAdapter_DrawFillRect  ui_renderer_adapter.o
+    0x08006154   0x08006154   0x000000aa   Code   RO         1771    .text.UI_RendererAdapter_DrawIconBox  ui_renderer_adapter.o
     0x080061fe   0x080061fe   0x00000002   PAD
-    0x08006200   0x08006200   0x00000072   Code   RO         1756    .text.UI_RendererAdapter_DrawLine  ui_renderer_adapter.o
+    0x08006200   0x08006200   0x00000072   Code   RO         1741    .text.UI_RendererAdapter_DrawLine  ui_renderer_adapter.o
     0x08006272   0x08006272   0x00000002   PAD
-    0x08006274   0x08006274   0x000000c8   Code   RO         1780    .text.UI_RendererAdapter_DrawListItem  ui_renderer_adapter.o
-    0x0800633c   0x0800633c   0x00000054   Code   RO         1766    .text.UI_RendererAdapter_DrawPanel  ui_renderer_adapter.o
-    0x08006390   0x08006390   0x0000009e   Code   RO         1770    .text.UI_RendererAdapter_DrawProgressBar  ui_renderer_adapter.o
+    0x08006274   0x08006274   0x000000c8   Code   RO         1765    .text.UI_RendererAdapter_DrawListItem  ui_renderer_adapter.o
+    0x0800633c   0x0800633c   0x00000054   Code   RO         1751    .text.UI_RendererAdapter_DrawPanel  ui_renderer_adapter.o
+    0x08006390   0x08006390   0x0000009e   Code   RO         1755    .text.UI_RendererAdapter_DrawProgressBar  ui_renderer_adapter.o
     0x0800642e   0x0800642e   0x00000002   PAD
-    0x08006430   0x08006430   0x00000078   Code   RO         1754    .text.UI_RendererAdapter_DrawRect  ui_renderer_adapter.o
-    0x080064a8   0x080064a8   0x000000da   Code   RO         1774    .text.UI_RendererAdapter_DrawSlider  ui_renderer_adapter.o
+    0x08006430   0x08006430   0x00000078   Code   RO         1739    .text.UI_RendererAdapter_DrawRect  ui_renderer_adapter.o
+    0x080064a8   0x080064a8   0x000000da   Code   RO         1759    .text.UI_RendererAdapter_DrawSlider  ui_renderer_adapter.o
     0x08006582   0x08006582   0x00000002   PAD
-    0x08006584   0x08006584   0x00000100   Code   RO         1784    .text.UI_RendererAdapter_DrawSparkline  ui_renderer_adapter.o
-    0x08006684   0x08006684   0x0000006e   Code   RO         1746    .text.UI_RendererAdapter_DrawText  ui_renderer_adapter.o
+    0x08006584   0x08006584   0x00000100   Code   RO         1769    .text.UI_RendererAdapter_DrawSparkline  ui_renderer_adapter.o
+    0x08006684   0x08006684   0x0000006e   Code   RO         1731    .text.UI_RendererAdapter_DrawText  ui_renderer_adapter.o
     0x080066f2   0x080066f2   0x00000002   PAD
-    0x080066f4   0x080066f4   0x00000080   Code   RO         1760    .text.UI_RendererAdapter_DrawTextInRect  ui_renderer_adapter.o
-    0x08006774   0x08006774   0x00000088   Code   RO         1776    .text.UI_RendererAdapter_DrawToggle  ui_renderer_adapter.o
-    0x080067fc   0x080067fc   0x000000e4   Code   RO         1726    .text.UI_RendererAdapter_EndFrame  ui_renderer_adapter.o
-    0x080068e0   0x080068e0   0x00000024   Code   RO         1762    .text.UI_RendererAdapter_EstimateTextWidth  ui_renderer_adapter.o
-    0x08006904   0x08006904   0x0000001a   Code   RO         1730    .text.UI_RendererAdapter_FillStripe  ui_renderer_adapter.o
+    0x080066f4   0x080066f4   0x00000080   Code   RO         1745    .text.UI_RendererAdapter_DrawTextInRect  ui_renderer_adapter.o
+    0x08006774   0x08006774   0x00000088   Code   RO         1761    .text.UI_RendererAdapter_DrawToggle  ui_renderer_adapter.o
+    0x080067fc   0x080067fc   0x000000e4   Code   RO         1711    .text.UI_RendererAdapter_EndFrame  ui_renderer_adapter.o
+    0x080068e0   0x080068e0   0x00000024   Code   RO         1747    .text.UI_RendererAdapter_EstimateTextWidth  ui_renderer_adapter.o
+    0x08006904   0x08006904   0x0000001a   Code   RO         1715    .text.UI_RendererAdapter_FillStripe  ui_renderer_adapter.o
     0x0800691e   0x0800691e   0x00000002   PAD
-    0x08006920   0x08006920   0x00000004   Code   RO         1738    .text.UI_RendererAdapter_GetHeight  ui_renderer_adapter.o
-    0x08006924   0x08006924   0x00000006   Code   RO         1736    .text.UI_RendererAdapter_GetWidth  ui_renderer_adapter.o
+    0x08006920   0x08006920   0x00000004   Code   RO         1723    .text.UI_RendererAdapter_GetHeight  ui_renderer_adapter.o
+    0x08006924   0x08006924   0x00000006   Code   RO         1721    .text.UI_RendererAdapter_GetWidth  ui_renderer_adapter.o
     0x0800692a   0x0800692a   0x00000002   PAD
-    0x0800692c   0x0800692c   0x00000008   Code   RO         1722    .text.UI_RendererAdapter_Init  ui_renderer_adapter.o
-    0x08006934   0x08006934   0x00000040   Code   RO         1792    .text.UI_RendererAdapter_LineOutCode  ui_renderer_adapter.o
-    0x08006974   0x08006974   0x00000008   Code   RO         1788    .text.UI_RendererAdapter_MaxInt16  ui_renderer_adapter.o
-    0x0800697c   0x0800697c   0x00000008   Code   RO         1790    .text.UI_RendererAdapter_MinInt16  ui_renderer_adapter.o
-    0x08006984   0x08006984   0x00000014   Code   RO         1740    .text.UI_RendererAdapter_RGB565  ui_renderer_adapter.o
-    0x08006998   0x08006998   0x0000003c   Code   RO         1728    .text.UI_RendererAdapter_StripeIntersectsDirty  ui_renderer_adapter.o
+    0x0800692c   0x0800692c   0x00000008   Code   RO         1707    .text.UI_RendererAdapter_Init  ui_renderer_adapter.o
+    0x08006934   0x08006934   0x00000040   Code   RO         1777    .text.UI_RendererAdapter_LineOutCode  ui_renderer_adapter.o
+    0x08006974   0x08006974   0x00000008   Code   RO         1773    .text.UI_RendererAdapter_MaxInt16  ui_renderer_adapter.o
+    0x0800697c   0x0800697c   0x00000008   Code   RO         1775    .text.UI_RendererAdapter_MinInt16  ui_renderer_adapter.o
+    0x08006984   0x08006984   0x00000014   Code   RO         1725    .text.UI_RendererAdapter_RGB565  ui_renderer_adapter.o
+    0x08006998   0x08006998   0x0000003c   Code   RO         1713    .text.UI_RendererAdapter_StripeIntersectsDirty  ui_renderer_adapter.o
     0x080069d4   0x080069d4   0x000000dc   Code   RO         2297    .text.UI_Task_Create  ui_task.o
     0x08006ab0   0x08006ab0   0x00000008   Code   RO         2299    .text.UI_Task_DrawBaseLayer  ui_task.o
     0x08006ab8   0x08006ab8   0x00000008   Code   RO         2301    .text.UI_Task_DrawFxLayer  ui_task.o
     0x08006ac0   0x08006ac0   0x00000008   Code   RO         2303    .text.UI_Task_DrawTopLayer  ui_task.o
     0x08006ac8   0x08006ac8   0x00000070   Code   RO         2305    .text.UI_Task_Run   ui_task.o
-    0x08006b38   0x08006b38   0x000000b8   Code   RO         1610    .text.UI_VirtualList_Draw  ui_virtual_list.o
-    0x08006bf0   0x08006bf0   0x00000080   Code   RO         1608    .text.UI_VirtualList_HandleEvent  ui_virtual_list.o
-    0x08006c70   0x08006c70   0x00000040   Code   RO         1606    .text.UI_VirtualList_Init  ui_virtual_list.o
+    0x08006b38   0x08006b38   0x000000b8   Code   RO         1794    .text.UI_VirtualList_Draw  ui_virtual_list.o
+    0x08006bf0   0x08006bf0   0x00000080   Code   RO         1792    .text.UI_VirtualList_HandleEvent  ui_virtual_list.o
+    0x08006c70   0x08006c70   0x00000040   Code   RO         1790    .text.UI_VirtualList_Init  ui_virtual_list.o
     0x08006cb0   0x08006cb0   0x00000010   Code   RO          106    .text.USART1_IRQHandler  stm32l4xx_it.o
     0x08006cc0   0x08006cc0   0x00000002   Code   RO          100    .text.UsageFault_Handler  stm32l4xx_it.o
     0x08006cc2   0x08006cc2   0x00000002   PAD
@@ -6526,7 +6526,7 @@ Memory Map of the image
     0x0800af64   0x0800af64   0x0000003c   Data   RO         1428    .rodata.g_app_page_models  ui_app.o
     0x0800afa0   0x0800afa0   0x00000100   Data   RO         2138    .rodata.s_utf8_length_table  egui_font.o
     0x0800b0a0   0x0800b0a0   0x0000009e   Data   RO         1429    .rodata.str1.1      ui_app.o
-    0x0800b13e   0x0800b13e   0x00000015   Data   RO         1612    .rodata.str1.1      ui_virtual_list.o
+    0x0800b13e   0x0800b13e   0x00000015   Data   RO         1796    .rodata.str1.1      ui_virtual_list.o
     0x0800b153   0x0800b153   0x00000033   Data   RO         2205    .rodata.str1.1      egui_font_std.o
     0x0800b186   0x0800b186   0x00000002   PAD
     0x0800b188   0x0800b188   0x00000020   Data   RO         2926    Region$$Table       anon$$obj.o
@@ -6572,24 +6572,24 @@ Memory Map of the image
     0x20000288        -       0x00000040   Zero   RW         1465    .bss.g_dirty_regions  ui_dirty_region.o
     0x200002c8        -       0x00000004   Zero   RW         1490    .bss.g_focus_current  ui_focus_engine.o
     0x200002cc        -       0x00000004   Zero   RW         1489    .bss.g_focus_root   ui_focus_engine.o
-    0x200002d0        -       0x000000b4   Zero   RW         1583    .bss.g_fx_emitter   ui_fx_emitter.o
-    0x20000384        -       0x00000004   Zero   RW         1505    .bss.g_input_event_queue  ui_input_event_queue.o
-    0x20000388        -       0x00000048   Zero   RW         1507    .bss.g_input_event_queue_cb  ui_input_event_queue.o
-    0x200003d0        -       0x00000060   Zero   RW         1506    .bss.g_input_event_queue_storage  ui_input_event_queue.o
-    0x20000430        -       0x00000020   Zero   RW         1537    .bss.g_layers       ui_layer_manager.o
-    0x20000450        -       0x00000064   Zero   RW         1560    .bss.g_modal        ui_modal_manager.o
-    0x200004b4        -       0x0000001c   Zero   RW         1648    .bss.g_navigation_stack  ui_navigation.o
-    0x200004d0        -       0x00000004   Zero   RW         1679    .bss.g_page_factory  ui_page_manager.o
-    0x200004d4        -       0x00000440   Zero   RW         1712    .bss.g_prop_backend_buffer  ui_property_store.o
-    0x20000914        -       0x00000440   Zero   RW         1713    .bss.g_prop_frontend_buffer  ui_property_store.o
-    0x20000d54        -       0x000000c0   Zero   RW         1522    .bss.g_property_bindings  ui_property_binding.o
-    0x20000e14        -       0x00000002   Zero   RW         1794    .bss.g_render_command_count  ui_renderer_adapter.o
-    0x20000e16        -       0x00002800   Zero   RW         1796    .bss.g_render_commands  ui_renderer_adapter.o
-    0x20003616        -       0x00003580   Zero   RW         1795    .bss.g_render_stripe  ui_renderer_adapter.o
+    0x200002d0        -       0x000000b4   Zero   RW         1513    .bss.g_fx_emitter   ui_fx_emitter.o
+    0x20000384        -       0x00000004   Zero   RW         1528    .bss.g_input_event_queue  ui_input_event_queue.o
+    0x20000388        -       0x00000048   Zero   RW         1530    .bss.g_input_event_queue_cb  ui_input_event_queue.o
+    0x200003d0        -       0x00000060   Zero   RW         1529    .bss.g_input_event_queue_storage  ui_input_event_queue.o
+    0x20000430        -       0x00000020   Zero   RW         1545    .bss.g_layers       ui_layer_manager.o
+    0x20000450        -       0x00000064   Zero   RW         1599    .bss.g_modal        ui_modal_manager.o
+    0x200004b4        -       0x0000001c   Zero   RW         1618    .bss.g_navigation_stack  ui_navigation.o
+    0x200004d0        -       0x00000004   Zero   RW         1649    .bss.g_page_factory  ui_page_manager.o
+    0x200004d4        -       0x00000440   Zero   RW         1682    .bss.g_prop_backend_buffer  ui_property_store.o
+    0x20000914        -       0x00000440   Zero   RW         1683    .bss.g_prop_frontend_buffer  ui_property_store.o
+    0x20000d54        -       0x000000c0   Zero   RW         1698    .bss.g_property_bindings  ui_property_binding.o
+    0x20000e14        -       0x00000002   Zero   RW         1779    .bss.g_render_command_count  ui_renderer_adapter.o
+    0x20000e16        -       0x00002800   Zero   RW         1781    .bss.g_render_commands  ui_renderer_adapter.o
+    0x20003616        -       0x00003580   Zero   RW         1780    .bss.g_render_stripe  ui_renderer_adapter.o
     0x20006b96   0x0800b2a4   0x00000002   PAD
-    0x20006b98        -       0x00000004   Zero   RW         1627    .bss.g_ui_message_queue  ui_message_bus.o
-    0x20006b9c        -       0x00000048   Zero   RW         1629    .bss.g_ui_message_queue_cb  ui_message_bus.o
-    0x20006be4        -       0x00000280   Zero   RW         1628    .bss.g_ui_message_queue_storage  ui_message_bus.o
+    0x20006b98        -       0x00000004   Zero   RW         1574    .bss.g_ui_message_queue  ui_message_bus.o
+    0x20006b9c        -       0x00000048   Zero   RW         1576    .bss.g_ui_message_queue_cb  ui_message_bus.o
+    0x20006be4        -       0x00000280   Zero   RW         1575    .bss.g_ui_message_queue_storage  ui_message_bus.o
     0x20006e64        -       0x00000004   Zero   RW         2307    .bss.g_ui_task_handle  ui_task.o
     0x20006e68        -       0x00001000   Zero   RW         2309    .bss.g_ui_task_stack  ui_task.o
     0x20007e68        -       0x00000054   Zero   RW         2310    .bss.g_ui_task_tcb  ui_task.o

@@ -1,8 +1,8 @@
-stm32l471\ui_virtual_list.o: ..\USER\GUI\ui_virtual_list.c \
+stm32l471/ui_virtual_list.o: ..\USER\GUI\ui_virtual_list.c \
   ..\USER\GUI\ui_virtual_list.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h \
-  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
-  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h \
@@ -10,8 +10,8 @@ stm32l471\ui_virtual_list.o: ..\USER\GUI\ui_virtual_list.c \
   ..\Drivers\CMSIS\Include\cmsis_version.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\Drivers\CMSIS\Include\cmsis_armclang.h \
-  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_compat.h \
-  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_acle.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
   ..\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h \
@@ -43,5 +43,5 @@ stm32l471\ui_virtual_list.o: ..\USER\GUI\ui_virtual_list.c \
   ..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h \
   ..\USER\GUI\ui_event.h ..\USER\GUI\ui_renderer_adapter.h \
-  ..\USER\GUI\ui_types.h C:\Keil_v5\ARM\ARMCLANG\bin\..\include\string.h \
+  ..\USER\GUI\ui_types.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\USER\GUI\ui_config.h
