@@ -308,7 +308,7 @@ static void UI_App_DrawHome(void)
   UI_RendererAdapter_DrawText(&g_app_viewport, 199, 72, "Property dualbuf", green.muted);
   UI_RendererAdapter_DrawText(&g_app_viewport, 199, 91, heartbeat_line, green.accent);
 
-  UI_RendererAdapter_DrawIconBox(&g_app_viewport, &card2, "EGUI", "Renderer Adapter", &amber);
+  UI_RendererAdapter_DrawIconBox(&g_app_viewport, &card2, "LVGL", "Renderer Adapter", &amber);
   UI_RendererAdapter_DrawText(&g_app_viewport, 338, 72, "LCD BSP flush", amber.muted);
   UI_RendererAdapter_DrawText(&g_app_viewport, 338, 91, frame_line, amber.accent);
 }
@@ -398,8 +398,8 @@ static void UI_App_DrawSettings(void)
   UI_RendererAdapter_DrawIconBox(&g_app_viewport, &item0, "A", "Adapter only", &blue);
   UI_RendererAdapter_DrawIconBox(&g_app_viewport, &item1, "P", "PFB stripes", &green);
   UI_RendererAdapter_DrawIconBox(&g_app_viewport, &item2, "S", "Static memory", &amber);
-  UI_RendererAdapter_DrawIconBox(&g_app_viewport, &item3, "L", "LVGL ready API", &blue);
-  UI_RendererAdapter_DrawCheckbox(&g_app_viewport, &cb0, 1U, "no egui in page", &green);
+  UI_RendererAdapter_DrawIconBox(&g_app_viewport, &item3, "L", "LVGL backend", &blue);
+  UI_RendererAdapter_DrawCheckbox(&g_app_viewport, &cb0, 1U, "no backend leak", &green);
   UI_RendererAdapter_DrawCheckbox(&g_app_viewport, &cb1, 1U, "service isolated", &green);
   UI_RendererAdapter_DrawToggle(&g_app_viewport, &toggle, 1U, &amber);
 }
@@ -415,8 +415,8 @@ static void UI_App_PageCreate(ui_page_context_t *page)
   g_app_viewport.width = UI_RendererAdapter_GetWidth();
   g_app_viewport.height = UI_RendererAdapter_GetHeight();
 
-  UI_PropertyStore_SetString(UI_APP_PROP_TITLE_ID, "EmbeddedGUI Demo");
-  UI_PropertyStore_SetString(UI_APP_PROP_STATUS_ID, "Renderer adapter ready");
+  UI_PropertyStore_SetString(UI_APP_PROP_TITLE_ID, "LVGL Demo");
+  UI_PropertyStore_SetString(UI_APP_PROP_STATUS_ID, "LVGL renderer ready");
   UI_PropertyStore_SetString(UI_APP_PROP_SERVICE_ID, "MessageBus + PropertyStore");
   UI_PropertyStore_SetInt(UI_APP_PROP_HEARTBEAT_ID, g_app_heartbeat);
   UI_PropertyStore_SetInt(UI_APP_PROP_PROGRESS_ID, g_app_progress);

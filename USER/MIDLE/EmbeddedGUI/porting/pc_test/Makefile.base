@@ -1,2 +1,0 @@
-# Reuse the PC port build rules
-include porting/pc/Makefile.base

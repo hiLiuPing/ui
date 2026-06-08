@@ -1,10 +1,10 @@
 #include "ui_renderer_adapter.h"
 
 #include "lcd.h"
+#include "ui_config.h"
 #include "ui_dirty_region.h"
 
-#include "canvas/egui_canvas.h"
-#include "resource/egui_resource.h"
+#include "lvgl.h"
 
 #include <string.h>
 
@@ -37,7 +37,49 @@ typedef struct
 
 static ui_render_cmd_t g_render_commands[UI_RENDERER_COMMAND_CAPACITY];
 static uint16_t g_render_command_count;
-static egui_color_int_t g_render_stripe[LCD_W * UI_RENDERER_STRIPE_HEIGHT];
+static lv_color_t g_render_stripe[LCD_W * UI_RENDERER_STRIPE_HEIGHT];
+static lv_color_t g_lvgl_disp_buffer[LCD_W * UI_RENDERER_STRIPE_HEIGHT];
+static lv_disp_draw_buf_t g_lvgl_draw_buf;
+static lv_disp_drv_t g_lvgl_disp_drv;
+static lv_disp_t *g_lvgl_display;
+static lv_obj_t *g_lvgl_canvas;
+static uint8_t g_lvgl_ready;
+
+static void UI_RendererAdapter_LVGLFlush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p)
+{
+  int32_t width;
+  int32_t height;
+
+  if ((disp_drv == NULL) || (area == NULL) || (color_p == NULL))
+  {
+    if (disp_drv != NULL)
+    {
+      lv_disp_flush_ready(disp_drv);
+    }
+    return;
+  }
+
+  if ((area->x2 < 0) || (area->y2 < 0) || (area->x1 >= LCD_W) || (area->y1 >= LCD_H))
+  {
+    lv_disp_flush_ready(disp_drv);
+    return;
+  }
+
+  width = area->x2 - area->x1 + 1;
+  height = area->y2 - area->y1 + 1;
+  if ((width <= 0) || (height <= 0))
+  {
+    lv_disp_flush_ready(disp_drv);
+    return;
+  }
+
+  LCD_DrawRGB565Buffer((uint16_t)area->x1,
+                       (uint16_t)area->y1,
+                       (uint16_t)width,
+                       (uint16_t)height,
+                       (const uint16_t *)color_p);
+  lv_disp_flush_ready(disp_drv);
+}
 
 static int UI_RendererAdapter_StripeIntersectsDirty(uint16_t y,
                                                     uint16_t height,
@@ -67,12 +109,16 @@ static uint16_t UI_RendererAdapter_BackgroundColor(void)
   return UI_RendererAdapter_RGB565(8U, 18U, 30U);
 }
 
-static egui_color_t UI_RendererAdapter_ToEguiColor(uint16_t color)
+static lv_color_t UI_RendererAdapter_ToLvColor(uint16_t color)
 {
-  egui_color_t egui_color;
+  uint8_t red5 = (uint8_t)((color >> 11) & 0x1FU);
+  uint8_t green6 = (uint8_t)((color >> 5) & 0x3FU);
+  uint8_t blue5 = (uint8_t)(color & 0x1FU);
+  uint8_t red8 = (uint8_t)((red5 << 3) | (red5 >> 2));
+  uint8_t green8 = (uint8_t)((green6 << 2) | (green6 >> 4));
+  uint8_t blue8 = (uint8_t)((blue5 << 3) | (blue5 >> 2));
 
-  egui_color.full = color;
-  return egui_color;
+  return lv_color_make(red8, green8, blue8);
 }
 
 static int16_t UI_RendererAdapter_MaxInt16(int16_t a, int16_t b)
@@ -332,7 +378,7 @@ static ui_render_cmd_t *UI_RendererAdapter_AllocCommand(ui_render_cmd_type_t typ
   return cmd;
 }
 
-static void UI_RendererAdapter_FillStripe(uint16_t color, uint16_t count)
+static void UI_RendererAdapter_FillStripe(lv_color_t color, uint16_t count)
 {
   uint16_t i;
 
@@ -342,38 +388,94 @@ static void UI_RendererAdapter_FillStripe(uint16_t color, uint16_t count)
   }
 }
 
-static void UI_RendererAdapter_DrawCommand(egui_canvas_t *canvas, const ui_render_cmd_t *cmd)
+static const lv_font_t *UI_RendererAdapter_GetFont(ui_font_size_t font_size)
 {
-  egui_color_t color;
-  const egui_font_t *font = (const egui_font_t *)&egui_res_font_montserrat_12_4;
+  switch (font_size)
+  {
+  case UI_FONT_SIZE_12:
+  default:
+    return &lv_font_montserrat_12;
+  }
+}
+
+static void UI_RendererAdapter_DrawCommand(lv_obj_t *canvas, const ui_render_cmd_t *cmd, int16_t stripe_y)
+{
+  lv_color_t color;
+  int16_t local_x1;
+  int16_t local_y1;
+  int16_t local_x2;
+  int16_t local_y2;
 
   if ((canvas == NULL) || (cmd == NULL))
   {
     return;
   }
 
-  color = UI_RendererAdapter_ToEguiColor(cmd->color);
+  color = UI_RendererAdapter_ToLvColor(cmd->color);
+  local_x1 = cmd->x1;
+  local_y1 = (int16_t)(cmd->y1 - stripe_y);
+  local_x2 = cmd->x2;
+  local_y2 = (int16_t)(cmd->y2 - stripe_y);
 
   switch (cmd->type)
   {
   case UI_RENDER_CMD_TEXT:
-    egui_canvas_draw_text(canvas, font, cmd->text, cmd->x1, cmd->y1, color, EGUI_ALPHA_100);
+  {
+    lv_draw_label_dsc_t text_dsc;
+
+    lv_draw_label_dsc_init(&text_dsc);
+    text_dsc.color = color;
+    text_dsc.opa = LV_OPA_COVER;
+    text_dsc.font = UI_RendererAdapter_GetFont(UI_FONT_SIZE_12);
+    text_dsc.align = LV_TEXT_ALIGN_LEFT;
+    lv_canvas_draw_text(canvas, local_x1, local_y1, LCD_W, &text_dsc, cmd->text);
     break;
+  }
 
   case UI_RENDER_CMD_LINE:
-    egui_canvas_draw_line(canvas, cmd->x1, cmd->y1, cmd->x2, cmd->y2, 1, color, EGUI_ALPHA_100);
+  {
+    lv_draw_line_dsc_t line_dsc;
+    lv_point_t points[2];
+
+    lv_draw_line_dsc_init(&line_dsc);
+    line_dsc.color = color;
+    line_dsc.width = 1;
+    line_dsc.opa = LV_OPA_COVER;
+    points[0].x = local_x1;
+    points[0].y = local_y1;
+    points[1].x = local_x2;
+    points[1].y = local_y2;
+    lv_canvas_draw_line(canvas, points, 2U, &line_dsc);
     break;
+  }
 
   case UI_RENDER_CMD_FILL_RECT:
-    egui_canvas_draw_rectangle_fill(canvas, cmd->x1, cmd->y1, cmd->width, cmd->height, color, EGUI_ALPHA_100);
+  {
+    lv_draw_rect_dsc_t rect_dsc;
+
+    lv_draw_rect_dsc_init(&rect_dsc);
+    rect_dsc.radius = 0;
+    rect_dsc.bg_color = color;
+    rect_dsc.bg_opa = LV_OPA_COVER;
+    rect_dsc.border_opa = LV_OPA_TRANSP;
+    lv_canvas_draw_rect(canvas, local_x1, local_y1, cmd->width, cmd->height, &rect_dsc);
     break;
+  }
 
   case UI_RENDER_CMD_RECT:
-    egui_canvas_draw_line(canvas, cmd->x1, cmd->y1, cmd->x2, cmd->y1, 1, color, EGUI_ALPHA_100);
-    egui_canvas_draw_line(canvas, cmd->x1, cmd->y2, cmd->x2, cmd->y2, 1, color, EGUI_ALPHA_100);
-    egui_canvas_draw_line(canvas, cmd->x1, cmd->y1, cmd->x1, cmd->y2, 1, color, EGUI_ALPHA_100);
-    egui_canvas_draw_line(canvas, cmd->x2, cmd->y1, cmd->x2, cmd->y2, 1, color, EGUI_ALPHA_100);
+  {
+    lv_draw_rect_dsc_t rect_dsc;
+
+    lv_draw_rect_dsc_init(&rect_dsc);
+    rect_dsc.radius = 0;
+    rect_dsc.bg_opa = LV_OPA_TRANSP;
+    rect_dsc.border_width = 1;
+    rect_dsc.border_color = color;
+    rect_dsc.border_opa = LV_OPA_COVER;
+    rect_dsc.border_side = LV_BORDER_SIDE_FULL;
+    lv_canvas_draw_rect(canvas, local_x1, local_y1, cmd->width, cmd->height, &rect_dsc);
     break;
+  }
 
   default:
     break;
@@ -382,7 +484,39 @@ static void UI_RendererAdapter_DrawCommand(egui_canvas_t *canvas, const ui_rende
 
 void UI_RendererAdapter_Init(void)
 {
+  if (g_lvgl_ready != 0U)
+  {
+    return;
+  }
+
   LCD_Init();
+  lv_init();
+
+  lv_disp_draw_buf_init(&g_lvgl_draw_buf,
+                        g_lvgl_disp_buffer,
+                        NULL,
+                        (uint32_t)(LCD_W * UI_RENDERER_STRIPE_HEIGHT));
+
+  lv_disp_drv_init(&g_lvgl_disp_drv);
+  g_lvgl_disp_drv.hor_res = LCD_W;
+  g_lvgl_disp_drv.ver_res = LCD_H;
+  g_lvgl_disp_drv.flush_cb = UI_RendererAdapter_LVGLFlush;
+  g_lvgl_disp_drv.draw_buf = &g_lvgl_draw_buf;
+  g_lvgl_display = lv_disp_drv_register(&g_lvgl_disp_drv);
+
+  if (g_lvgl_display != NULL)
+  {
+    g_lvgl_canvas = lv_canvas_create(lv_scr_act());
+    lv_obj_add_flag(g_lvgl_canvas, LV_OBJ_FLAG_HIDDEN);
+    lv_canvas_set_buffer(g_lvgl_canvas,
+                         g_render_stripe,
+                         LCD_W,
+                         UI_RENDERER_STRIPE_HEIGHT,
+                         LV_IMG_CF_TRUE_COLOR);
+  }
+
+  g_render_command_count = 0U;
+  g_lvgl_ready = 1U;
 }
 
 void UI_RendererAdapter_BeginFrame(void)
@@ -394,22 +528,19 @@ void UI_RendererAdapter_EndFrame(void)
 {
   uint16_t y;
   uint16_t command_index;
-  egui_canvas_t canvas;
-  egui_region_t screen_region;
-  egui_region_t stripe_region;
   ui_rect_t dirty_rects[UI_DIRTY_REGION_CAPACITY];
   size_t dirty_count;
+  lv_color_t background;
 
   dirty_count = UI_DirtyRegion_Take(dirty_rects, UI_DIRTY_REGION_CAPACITY);
-  if (dirty_count == 0U)
+  lv_tick_inc(UI_FRAME_TICK_MS);
+
+  if ((dirty_count == 0U) || (g_lvgl_canvas == NULL))
   {
     return;
   }
 
-  screen_region.location.x = 0;
-  screen_region.location.y = 0;
-  screen_region.size.width = LCD_W;
-  screen_region.size.height = LCD_H;
+  background = UI_RendererAdapter_ToLvColor(UI_RendererAdapter_BackgroundColor());
 
   for (y = 0U; y < LCD_H; y = (uint16_t)(y + UI_RENDERER_STRIPE_HEIGHT))
   {
@@ -420,22 +551,15 @@ void UI_RendererAdapter_EndFrame(void)
       continue;
     }
 
-    UI_RendererAdapter_FillStripe(UI_RendererAdapter_BackgroundColor(), (uint16_t)(LCD_W * stripe_height));
-
-    stripe_region.location.x = 0;
-    stripe_region.location.y = y;
-    stripe_region.size.width = LCD_W;
-    stripe_region.size.height = stripe_height;
-
-    egui_canvas_init(&canvas, NULL, g_render_stripe, &stripe_region);
-    egui_canvas_calc_work_region(&canvas, &screen_region);
+    UI_RendererAdapter_FillStripe(background, (uint16_t)(LCD_W * UI_RENDERER_STRIPE_HEIGHT));
+    lv_canvas_fill_bg(g_lvgl_canvas, background, LV_OPA_COVER);
 
     for (command_index = 0U; command_index < g_render_command_count; ++command_index)
     {
-      UI_RendererAdapter_DrawCommand(&canvas, &g_render_commands[command_index]);
+      UI_RendererAdapter_DrawCommand(g_lvgl_canvas, &g_render_commands[command_index], (int16_t)y);
     }
 
-    LCD_DrawRGB565Buffer(0U, y, LCD_W, stripe_height, g_render_stripe);
+    LCD_DrawRGB565Buffer(0U, y, LCD_W, stripe_height, (const uint16_t *)g_render_stripe);
   }
 }
 
@@ -571,8 +695,8 @@ void UI_RendererAdapter_DrawRect(const ui_viewport_t *viewport,
 
   cmd->x1 = x;
   cmd->y1 = y;
-  cmd->x2 = x + width - 1;
-  cmd->y2 = y + height - 1;
+  cmd->width = width;
+  cmd->height = height;
   cmd->color = color;
 }
 
