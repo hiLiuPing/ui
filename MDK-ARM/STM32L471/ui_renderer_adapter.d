@@ -36,6 +36,7 @@ stm32l471\ui_renderer_adapter.o: ..\USER\GUI\ui_renderer_adapter.c \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_tim_ex.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h \
+  ..\USER\GUI\ui_dirty_region.h ..\USER\GUI\ui_config.h \
   ..\USER\MIDLE\EmbeddedGUI\src\canvas\egui_canvas.h \
   ..\USER\MIDLE\EmbeddedGUI\src\core\egui_common.h \
   C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdbool.h \

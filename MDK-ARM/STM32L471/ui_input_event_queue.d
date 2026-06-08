@@ -1,4 +1,5 @@
-stm32l471\ui_app.o: ..\USER\APP\ui_app.c ..\USER\APP\ui_app.h \
+stm32l471\ui_input_event_queue.o: ..\USER\GUI\ui_input_event_queue.c \
+  ..\USER\GUI\ui_input_event_queue.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h \
   C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
   C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h \
@@ -41,13 +42,6 @@ stm32l471\ui_app.o: ..\USER\APP\ui_app.c ..\USER\APP\ui_app.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\deprecated_definitions.h \
   ..\USER\MIDLE\FreeRTOS\Source\portable\GCC\ARM_CM4F\portmacro.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h \
-  ..\USER\GUI\ui_config.h ..\USER\GUI\ui_dirty_region.h \
-  ..\USER\GUI\ui_config.h ..\USER\GUI\ui_types.h \
-  ..\USER\GUI\ui_fx_emitter.h ..\USER\GUI\ui_marquee.h \
-  ..\USER\GUI\ui_renderer_adapter.h ..\USER\GUI\ui_modal_manager.h \
-  ..\USER\GUI\ui_event.h ..\USER\GUI\ui_page_manager.h \
-  ..\USER\GUI\ui_message_bus.h ..\USER\GUI\ui_page.h \
-  ..\USER\GUI\ui_widget.h ..\USER\GUI\ui_property_binding.h \
-  ..\USER\GUI\ui_property_store.h ..\USER\GUI\ui_renderer_adapter.h \
-  ..\USER\GUI\ui_types.h ..\USER\GUI\ui_virtual_list.h \
-  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdio.h
+  ..\USER\GUI\ui_event.h ..\USER\MIDLE\FreeRTOS\Source\include\queue.h \
+  ..\USER\MIDLE\FreeRTOS\Source\include\task.h \
+  ..\USER\MIDLE\FreeRTOS\Source\include\list.h ..\USER\GUI\ui_config.h

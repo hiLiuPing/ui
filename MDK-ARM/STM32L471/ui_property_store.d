@@ -1,8 +1,8 @@
-stm32l471/ui_property_store.o: ..\USER\GUI\ui_property_store.c \
+stm32l471\ui_property_store.o: ..\USER\GUI\ui_property_store.c \
   ..\USER\GUI\ui_property_store.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h \
@@ -10,8 +10,8 @@ stm32l471/ui_property_store.o: ..\USER\GUI\ui_property_store.c \
   ..\Drivers\CMSIS\Include\cmsis_version.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\Drivers\CMSIS\Include\cmsis_armclang.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_acle.h \
   ..\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h \
@@ -44,4 +44,4 @@ stm32l471/ui_property_store.o: ..\USER\GUI\ui_property_store.c \
   ..\USER\MIDLE\FreeRTOS\Source\include\mpu_wrappers.h \
   ..\USER\GUI\ui_config.h ..\USER\MIDLE\FreeRTOS\Source\include\task.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\list.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\string.h

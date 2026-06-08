@@ -595,9 +595,34 @@
               <FilePath>../USER/GUI/ui_focus_engine.c</FilePath>
             </File>
             <File>
+              <FileName>ui_fx_emitter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../USER/GUI/ui_fx_emitter.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_input_event_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../USER/GUI/ui_input_event_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_layer_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../USER/GUI/ui_layer_manager.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_marquee.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../USER/GUI/ui_marquee.c</FilePath>
+            </File>
+            <File>
               <FileName>ui_message_bus.c</FileName>
               <FileType>1</FileType>
               <FilePath>../USER/GUI/ui_message_bus.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_modal_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../USER/GUI/ui_modal_manager.c</FilePath>
             </File>
             <File>
               <FileName>ui_navigation.c</FileName>
@@ -615,9 +640,19 @@
               <FilePath>../USER/GUI/ui_property_store.c</FilePath>
             </File>
             <File>
+              <FileName>ui_property_binding.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../USER/GUI/ui_property_binding.c</FilePath>
+            </File>
+            <File>
               <FileName>ui_renderer_adapter.c</FileName>
               <FileType>1</FileType>
               <FilePath>../USER/GUI/ui_renderer_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_virtual_list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../USER/GUI/ui_virtual_list.c</FilePath>
             </File>
             <File>
               <FileName>ui_egui_runtime.c</FileName>

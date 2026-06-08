@@ -1,7 +1,7 @@
-stm32l471/ui_task.o: ..\USER\TASK\ui_task.c ..\USER\TASK\ui_task.h \
+stm32l471\ui_task.o: ..\USER\TASK\ui_task.c ..\USER\TASK\ui_task.h \
   ..\USER\MIDLE\FreeRTOS\Source\include\FreeRTOS.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l471xx.h \
@@ -9,8 +9,8 @@ stm32l471/ui_task.o: ..\USER\TASK\ui_task.c ..\USER\TASK\ui_task.h \
   ..\Drivers\CMSIS\Include\cmsis_version.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\Drivers\CMSIS\Include\cmsis_armclang.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_acle.h \
   ..\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h \
@@ -46,7 +46,10 @@ stm32l471/ui_task.o: ..\USER\TASK\ui_task.c ..\USER\TASK\ui_task.h \
   ..\USER\GUI\ui_animation.h ..\USER\GUI\ui_config.h \
   ..\USER\APP\ui_app.h ..\USER\GUI\ui_config.h \
   ..\USER\GUI\ui_dirty_region.h ..\USER\GUI\ui_types.h \
-  ..\USER\GUI\ui_message_bus.h ..\USER\GUI\ui_page_manager.h \
-  ..\USER\GUI\ui_event.h ..\USER\GUI\ui_message_bus.h \
+  ..\USER\GUI\ui_fx_emitter.h ..\USER\GUI\ui_input_event_queue.h \
+  ..\USER\GUI\ui_event.h ..\USER\GUI\ui_layer_manager.h \
+  ..\USER\GUI\ui_message_bus.h ..\USER\GUI\ui_modal_manager.h \
+  ..\USER\GUI\ui_page_manager.h ..\USER\GUI\ui_message_bus.h \
   ..\USER\GUI\ui_page.h ..\USER\GUI\ui_widget.h \
-  ..\USER\GUI\ui_property_store.h ..\USER\GUI\ui_renderer_adapter.h
+  ..\USER\GUI\ui_property_binding.h ..\USER\GUI\ui_property_store.h \
+  ..\USER\GUI\ui_renderer_adapter.h

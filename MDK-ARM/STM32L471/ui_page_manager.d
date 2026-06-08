@@ -45,4 +45,4 @@ stm32l471\ui_page_manager.o: ..\USER\GUI\ui_page_manager.c \
   ..\USER\GUI\ui_event.h ..\USER\GUI\ui_message_bus.h \
   ..\USER\GUI\ui_config.h ..\USER\GUI\ui_page.h ..\USER\GUI\ui_widget.h \
   ..\USER\GUI\ui_types.h ..\USER\GUI\ui_focus_engine.h \
-  ..\USER\GUI\ui_navigation.h
+  ..\USER\GUI\ui_modal_manager.h ..\USER\GUI\ui_navigation.h

@@ -1,6 +1,7 @@
 #include "ui_renderer_adapter.h"
 
 #include "lcd.h"
+#include "ui_dirty_region.h"
 
 #include "canvas/egui_canvas.h"
 #include "resource/egui_resource.h"
@@ -37,6 +38,29 @@ typedef struct
 static ui_render_cmd_t g_render_commands[UI_RENDERER_COMMAND_CAPACITY];
 static uint16_t g_render_command_count;
 static egui_color_int_t g_render_stripe[LCD_W * UI_RENDERER_STRIPE_HEIGHT];
+
+static int UI_RendererAdapter_StripeIntersectsDirty(uint16_t y,
+                                                    uint16_t height,
+                                                    const ui_rect_t *dirty_rects,
+                                                    size_t dirty_count)
+{
+  size_t i;
+  int16_t stripe_top = (int16_t)y;
+  int16_t stripe_bottom = (int16_t)(y + height);
+
+  for (i = 0U; i < dirty_count; ++i)
+  {
+    int16_t dirty_top = dirty_rects[i].y;
+    int16_t dirty_bottom = (int16_t)(dirty_rects[i].y + dirty_rects[i].height);
+
+    if ((dirty_rects[i].height > 0) && (stripe_bottom > dirty_top) && (stripe_top < dirty_bottom))
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
 
 static uint16_t UI_RendererAdapter_BackgroundColor(void)
 {
@@ -373,6 +397,14 @@ void UI_RendererAdapter_EndFrame(void)
   egui_canvas_t canvas;
   egui_region_t screen_region;
   egui_region_t stripe_region;
+  ui_rect_t dirty_rects[UI_DIRTY_REGION_CAPACITY];
+  size_t dirty_count;
+
+  dirty_count = UI_DirtyRegion_Take(dirty_rects, UI_DIRTY_REGION_CAPACITY);
+  if (dirty_count == 0U)
+  {
+    return;
+  }
 
   screen_region.location.x = 0;
   screen_region.location.y = 0;
@@ -382,6 +414,11 @@ void UI_RendererAdapter_EndFrame(void)
   for (y = 0U; y < LCD_H; y = (uint16_t)(y + UI_RENDERER_STRIPE_HEIGHT))
   {
     uint16_t stripe_height = ((y + UI_RENDERER_STRIPE_HEIGHT) <= LCD_H) ? UI_RENDERER_STRIPE_HEIGHT : (uint16_t)(LCD_H - y);
+
+    if (UI_RendererAdapter_StripeIntersectsDirty(y, stripe_height, dirty_rects, dirty_count) == 0)
+    {
+      continue;
+    }
 
     UI_RendererAdapter_FillStripe(UI_RendererAdapter_BackgroundColor(), (uint16_t)(LCD_W * stripe_height));
 

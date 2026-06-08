@@ -41,5 +41,7 @@ BaseType_t UI_PropertyStore_SetString(uint16_t property_id, const char *value);
 const ui_prop_slot_t *UI_PropertyStore_GetFrontSlot(uint16_t property_id);
 int32_t UI_PropertyStore_GetFrontInt(uint16_t property_id, int32_t default_value);
 const char *UI_PropertyStore_GetFrontString(uint16_t property_id, const char *default_value);
+uint8_t UI_PropertyStore_IsFrontDirty(uint16_t property_id);
+void UI_PropertyStore_ClearFrontDirty(uint16_t property_id);
 
 #endif /* UI_PROPERTY_STORE_H */

@@ -2,10 +2,15 @@
 
 #include "ui_config.h"
 #include "ui_dirty_region.h"
+#include "ui_fx_emitter.h"
+#include "ui_marquee.h"
+#include "ui_modal_manager.h"
 #include "ui_page_manager.h"
+#include "ui_property_binding.h"
 #include "ui_property_store.h"
 #include "ui_renderer_adapter.h"
 #include "ui_types.h"
+#include "ui_virtual_list.h"
 
 #include <stdio.h>
 
@@ -48,6 +53,8 @@ static uint8_t g_app_toggle_on = 1U;
 static uint8_t g_app_checkbox_on = 1U;
 static uint8_t g_app_selected_row;
 static uint8_t g_app_active_page_index;
+static ui_virtual_list_t g_app_virtual_list;
+static ui_marquee_t g_app_marquee;
 
 static void UI_App_PageCreate(ui_page_context_t *page);
 static void UI_App_PageEnter(ui_page_context_t *page);
@@ -57,6 +64,8 @@ static void UI_App_PageExit(ui_page_context_t *page);
 static void UI_App_PageDestroy(ui_page_context_t *page);
 static void UI_App_PageHandleMessage(ui_page_context_t *page, const ui_msg_t *msg);
 static void UI_App_PageHandleEvent(ui_page_context_t *page, const ui_event_t *event);
+static void UI_App_ListGetItemText(uint32_t index, char *out_buf, uint16_t buf_len);
+static void UI_App_ListOnItemClick(uint32_t index);
 
 static ui_page_context_t g_home_page =
 {
@@ -220,6 +229,25 @@ static void UI_App_OpenPageIndex(uint8_t index)
   (void)UI_PageManager_Replace(UI_App_PageIdFromIndex(g_app_active_page_index));
 }
 
+static void UI_App_ListGetItemText(uint32_t index, char *out_buf, uint16_t buf_len)
+{
+  if ((out_buf == NULL) || (buf_len == 0U))
+  {
+    return;
+  }
+
+  (void)snprintf(out_buf, buf_len, "Provider item %lu", (unsigned long)index);
+}
+
+static void UI_App_ListOnItemClick(uint32_t index)
+{
+  ui_rect_t modal_rect = { 92, 42, 244, 58 };
+  char message[40];
+
+  (void)snprintf(message, sizeof(message), "virtual row %lu selected", (unsigned long)index);
+  (void)UI_ModalManager_Show(&modal_rect, "Virtual List", message, 90U, NULL, NULL);
+}
+
 static void UI_App_DrawChrome(uint16_t page_id)
 {
   uint8_t i;
@@ -255,6 +283,8 @@ static void UI_App_DrawHome(void)
 {
   char heartbeat_line[28];
   char frame_line[28];
+  ui_text_style_t marquee_style;
+  ui_rect_t marquee_rect = { 12, 31, 190, 14 };
   ui_render_style_t blue = UI_App_Style(UI_App_Color(61U, 174U, 235U));
   ui_render_style_t green = UI_App_Style(UI_App_Color(87U, 220U, 142U));
   ui_render_style_t amber = UI_App_Style(UI_App_Color(246U, 184U, 82U));
@@ -264,6 +294,11 @@ static void UI_App_DrawHome(void)
 
   (void)snprintf(heartbeat_line, sizeof(heartbeat_line), "heartbeat %ld", (long)UI_PropertyStore_GetFrontInt(UI_APP_PROP_HEARTBEAT_ID, 0));
   (void)snprintf(frame_line, sizeof(frame_line), "frame %lu", (unsigned long)g_app_frame_count);
+
+  marquee_style.color = blue.muted;
+  marquee_style.font_size = UI_FONT_SIZE_12;
+  marquee_style.align = UI_TEXT_ALIGN_LEFT;
+  UI_Marquee_Draw(&g_app_marquee, &g_app_viewport, &marquee_rect, &marquee_style);
 
   UI_RendererAdapter_DrawIconBox(&g_app_viewport, &card0, "UI", "Page lifecycle", &blue);
   UI_RendererAdapter_DrawText(&g_app_viewport, 60, 72, "one task", blue.muted);
@@ -311,18 +346,13 @@ static void UI_App_DrawList(void)
   ui_render_style_t blue = UI_App_Style(UI_App_Color(61U, 174U, 235U));
   ui_render_style_t green = UI_App_Style(UI_App_Color(87U, 220U, 142U));
   ui_render_style_t amber = UI_App_Style(UI_App_Color(246U, 184U, 82U));
-  ui_rect_t row0 = { 12, 36, 260, 22 };
-  ui_rect_t row1 = { 12, 61, 260, 22 };
-  ui_rect_t row2 = { 12, 86, 260, 22 };
-  ui_rect_t row3 = { 12, 111, 260, 22 };
+  ui_rect_t list_rect = { 12, 36, 260, 96 };
   ui_rect_t badge0 = { 294, 40, 84, 20 };
   ui_rect_t badge1 = { 294, 68, 84, 20 };
   ui_rect_t badge2 = { 294, 96, 84, 20 };
 
-  UI_RendererAdapter_DrawListItem(&g_app_viewport, &row0, "Dashboard", "cards and status", g_app_selected_row == 0U, &blue);
-  UI_RendererAdapter_DrawListItem(&g_app_viewport, &row1, "Controls", "button input demo", g_app_selected_row == 1U, &green);
-  UI_RendererAdapter_DrawListItem(&g_app_viewport, &row2, "Telemetry", "chart from store", g_app_selected_row == 2U, &amber);
-  UI_RendererAdapter_DrawListItem(&g_app_viewport, &row3, "Settings", "porting options", g_app_selected_row == 3U, &blue);
+  (void)green;
+  UI_VirtualList_Draw(&g_app_virtual_list, &g_app_viewport, &list_rect, &blue);
   UI_RendererAdapter_DrawBadge(&g_app_viewport, &badge0, "READY", &green);
   UI_RendererAdapter_DrawBadge(&g_app_viewport, &badge1, "STATIC", &blue);
   UI_RendererAdapter_DrawBadge(&g_app_viewport, &badge2, "LVGL OK", &amber);
@@ -376,6 +406,10 @@ static void UI_App_DrawSettings(void)
 
 static void UI_App_PageCreate(ui_page_context_t *page)
 {
+  ui_rect_t progress_rect = { 12, 82, 384, 30 };
+  ui_rect_t heartbeat_rect = { 151, 40, 126, 78 };
+  ui_rect_t temperature_rect = { 218, 82, 178, 30 };
+
   (void)page;
 
   g_app_viewport.width = UI_RendererAdapter_GetWidth();
@@ -388,6 +422,9 @@ static void UI_App_PageCreate(ui_page_context_t *page)
   UI_PropertyStore_SetInt(UI_APP_PROP_PROGRESS_ID, g_app_progress);
   UI_PropertyStore_SetInt(UI_APP_PROP_TEMPERATURE_ID, g_app_temperature);
   UI_PropertyStore_SetInt(UI_APP_PROP_MODE_ID, 1);
+  (void)UI_PropertyBinding_BindRect(UI_APP_PROP_HEARTBEAT_ID, &heartbeat_rect);
+  (void)UI_PropertyBinding_BindRect(UI_APP_PROP_PROGRESS_ID, &progress_rect);
+  (void)UI_PropertyBinding_BindRect(UI_APP_PROP_TEMPERATURE_ID, &temperature_rect);
 }
 
 static void UI_App_PageEnter(ui_page_context_t *page)
@@ -409,6 +446,12 @@ static void UI_App_PageProcess(ui_page_context_t *page)
     UI_PropertyStore_SetInt(UI_APP_PROP_HEARTBEAT_ID, g_app_heartbeat);
     UI_PropertyStore_SetInt(UI_APP_PROP_PROGRESS_ID, g_app_progress);
     UI_PropertyStore_SetInt(UI_APP_PROP_TEMPERATURE_ID, g_app_temperature);
+    UI_App_InvalidateFull();
+  }
+
+  UI_Marquee_Update(&g_app_marquee, 190);
+  if ((g_app_frame_count % 2U) == 0U)
+  {
     UI_App_InvalidateFull();
   }
 }
@@ -476,11 +519,26 @@ static void UI_App_PageHandleEvent(ui_page_context_t *page, const ui_event_t *ev
     return;
   }
 
-  if ((event->type == UI_KEY_RIGHT) || (event->type == UI_KEY_DOWN))
+  if ((g_app_active_page_index == UI_App_FindPageIndex(UI_APP_PAGE_LIST_ID)) &&
+      ((event->type == UI_KEY_UP) || (event->type == UI_KEY_DOWN) ||
+       (event->type == UI_KEY_ENTER) || (event->type == UI_KEY_CLICK)))
+  {
+    (void)UI_VirtualList_HandleEvent(&g_app_virtual_list, event);
+    UI_App_InvalidateFull();
+  }
+  else if (event->type == UI_KEY_RIGHT)
   {
     UI_App_OpenPageIndex((uint8_t)((g_app_active_page_index + 1U) % page_count));
   }
-  else if ((event->type == UI_KEY_LEFT) || (event->type == UI_KEY_UP))
+  else if (event->type == UI_KEY_LEFT)
+  {
+    UI_App_OpenPageIndex((g_app_active_page_index == 0U) ? (uint8_t)(page_count - 1U) : (uint8_t)(g_app_active_page_index - 1U));
+  }
+  else if (event->type == UI_KEY_DOWN)
+  {
+    UI_App_OpenPageIndex((uint8_t)((g_app_active_page_index + 1U) % page_count));
+  }
+  else if (event->type == UI_KEY_UP)
   {
     UI_App_OpenPageIndex((g_app_active_page_index == 0U) ? (uint8_t)(page_count - 1U) : (uint8_t)(g_app_active_page_index - 1U));
   }
@@ -490,17 +548,22 @@ static void UI_App_PageHandleEvent(ui_page_context_t *page, const ui_event_t *ev
   }
   else if ((event->type == UI_KEY_ENTER) || (event->type == UI_KEY_CLICK))
   {
+    ui_rect_t modal_rect = { 92, 42, 244, 58 };
     g_app_toggle_on = (g_app_toggle_on == 0U) ? 1U : 0U;
     g_app_checkbox_on = (g_app_checkbox_on == 0U) ? 1U : 0U;
     g_app_selected_row = (uint8_t)((g_app_selected_row + 1U) % 4U);
     g_app_progress = (g_app_progress + 10) % 101;
     UI_PropertyStore_SetInt(UI_APP_PROP_PROGRESS_ID, g_app_progress);
+    (void)UI_ModalManager_Show(&modal_rect, "Top Window", "modal intercepted input", 60U, NULL, NULL);
     UI_App_InvalidateFull();
   }
 }
 
 BaseType_t UI_App_Init(void)
 {
+  ui_list_provider_t provider;
+  ui_viewport_t fx_viewport = { 0, 0, 428, 142, 0, 0 };
+
   g_app_frame_count = 0U;
   g_app_heartbeat = 0;
   g_app_progress = 35;
@@ -509,6 +572,13 @@ BaseType_t UI_App_Init(void)
   g_app_checkbox_on = 1U;
   g_app_selected_row = 0U;
   g_app_active_page_index = 0U;
+
+  provider.total_items = 20U;
+  provider.get_item_text = UI_App_ListGetItemText;
+  provider.on_item_click = UI_App_ListOnItemClick;
+  UI_VirtualList_Init(&g_app_virtual_list, &provider, 4U, 24);
+  UI_Marquee_Init(&g_app_marquee, "Generic UI Framework: viewport clipped marquee component", 420);
+  (void)UI_FXEmitter_Start(&fx_viewport, NULL);
 
   UI_PageManager_Init(UI_App_PageFactory);
   return UI_PageManager_OpenRoot(UI_APP_PAGE_HOME_ID);

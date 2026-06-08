@@ -1,6 +1,7 @@
 #include "ui_page_manager.h"
 
 #include "ui_focus_engine.h"
+#include "ui_modal_manager.h"
 #include "ui_navigation.h"
 
 static ui_page_factory_fn g_page_factory = NULL;
@@ -16,6 +17,7 @@ void UI_PageManager_Init(ui_page_factory_fn factory)
   g_page_factory = factory;
   UI_Navigation_Init();
   UI_FocusEngine_Init();
+  UI_ModalManager_Init();
 }
 
 BaseType_t UI_PageManager_OpenRoot(uint16_t page_id)
@@ -111,6 +113,11 @@ void UI_PageManager_HandleMessage(const ui_msg_t *msg)
 void UI_PageManager_DispatchEvent(const ui_event_t *event)
 {
   ui_page_context_t *active = UI_Navigation_GetActive();
+
+  if (UI_ModalManager_HandleEvent(event) == pdPASS)
+  {
+    return;
+  }
 
   if (UI_FocusEngine_HandleEvent(event) == pdPASS)
   {

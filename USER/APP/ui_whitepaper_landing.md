@@ -9,6 +9,7 @@
 - 已采用 428x142 实屏尺寸和 16 行 stripe PFB 刷屏，避免常驻整屏 framebuffer，RAM 成本可控。
 - 已扩展 5 个真实可显示页面：Home、Controls、List、Data、Settings，覆盖常见控件和数据展示。
 - 已新增 `UI_PageManager_Replace()`，适合嵌入式仪表盘左右切页，不会反复压深导航栈。
+- 已补齐输入事件队列、属性绑定、图层调度、Top Window 模态、FX 粒子、Marquee、Virtual List Provider 等白皮书缺失模块。
 
 ## 2. 分层边界
 
@@ -61,11 +62,21 @@ Page 层禁止依赖：
 - UI Task 每帧先消费消息，再同步 Property Store 前台缓冲，最后执行页面处理和绘制。
 - 页面读取 front buffer，避免服务任务与 UI 绘制读写同一份状态。
 - 当前 demo 用定时 heartbeat/progress/temperature 模拟真实服务数据，后续可替换为传感器、通信或设备状态服务。
+- 输入侧新增 `UI_InputEventQueue`，按键/旋钮/触摸 ISR 可统一投递 `ui_event_t`，由 UI Task 非阻塞消费。
+- Property Store 新增 dirty 查询/清除接口，`UI_PropertyBinding` 可把 property_id 绑定到局部矩形并自动失效。
+- Renderer `EndFrame()` 已改成 dirty region 驱动的 stripe 刷新，没有脏区时不触发 LCD flush。
 
-## 6. 后续查漏补缺清单
+## 6. 图层与高级组件
 
-- 输入设备：把真实按键、旋钮或触摸事件统一转换成 `ui_event_t`。
-- Dirty Region：当前保留接口，后续可将 Renderer EndFrame 从全屏 stripe 演进为脏区 stripe。
+- `UI_LayerManager` 固定 Base / Climate / FX Particle / Top Window 四层绘制顺序，保留跨库 Z-Index 语义。
+- `UI_ModalManager` 提供不透明顶层弹窗，激活时 PageManager 先交给 Modal 处理输入，阻断底层页面误操作。
+- `UI_FXEmitter` 使用静态粒子池和可注入行为函数，当前默认行为渲染轻量线段粒子。
+- `UI_Marquee` 提供视口内长文本滚动状态机，底层通过 Viewport 裁剪避免跨区污染。
+- `UI_VirtualList` 提供 `UI_ListProvider_t` 风格的数据回调、焦点索引、首可见行和可见行复用模型。
+
+## 7. 后续查漏补缺清单
+
+- 输入设备：把真实按键、旋钮或触摸驱动接到 `UI_InputEventQueue_Publish()`。
 - 字体：当前使用 EmbeddedGUI 的 Montserrat 12，后续可增加字号枚举到真实字体表。
 - 图片：当前 `DrawIconBox` 是文本占位，后续可补 `DrawBitmap/DrawImage` 并映射到 LVGL image source。
 - 主题：当前样式结构已抽象 text/muted/background/border/accent，可继续扩成主题表。

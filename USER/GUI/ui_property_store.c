@@ -145,3 +145,24 @@ const char *UI_PropertyStore_GetFrontString(uint16_t property_id, const char *de
 
   return slot->val.val_str;
 }
+
+uint8_t UI_PropertyStore_IsFrontDirty(uint16_t property_id)
+{
+  const ui_prop_slot_t *slot = UI_PropertyStore_FindReadableSlot(&g_prop_frontend_buffer, property_id);
+
+  return ((slot != NULL) && (slot->is_dirty != 0U)) ? 1U : 0U;
+}
+
+void UI_PropertyStore_ClearFrontDirty(uint16_t property_id)
+{
+  uint32_t i;
+
+  for (i = 0U; i < UI_MAX_PROPERTY_COUNT; ++i)
+  {
+    if (g_prop_frontend_buffer.slots[i].property_id == property_id)
+    {
+      g_prop_frontend_buffer.slots[i].is_dirty = 0U;
+      return;
+    }
+  }
+}
