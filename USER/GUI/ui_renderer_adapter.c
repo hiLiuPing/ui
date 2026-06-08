@@ -7,9 +7,11 @@
 
 #include <string.h>
 
-#define UI_RENDERER_COMMAND_CAPACITY 48U
-#define UI_RENDERER_TEXT_LENGTH      48U
+#define UI_RENDERER_COMMAND_CAPACITY 128U
+#define UI_RENDERER_TEXT_LENGTH      64U
 #define UI_RENDERER_STRIPE_HEIGHT    16U
+#define UI_RENDERER_FONT_WIDTH       7
+#define UI_RENDERER_FONT_HEIGHT      12
 
 typedef enum
 {
@@ -57,6 +59,44 @@ static int16_t UI_RendererAdapter_MaxInt16(int16_t a, int16_t b)
 static int16_t UI_RendererAdapter_MinInt16(int16_t a, int16_t b)
 {
   return (a < b) ? a : b;
+}
+
+static uint8_t UI_RendererAdapter_ClampPercent(uint8_t percent)
+{
+  return (percent > 100U) ? 100U : percent;
+}
+
+static int16_t UI_RendererAdapter_EstimateTextWidth(const char *text)
+{
+  uint16_t len;
+
+  if (text == NULL)
+  {
+    return 0;
+  }
+
+  len = (uint16_t)strlen(text);
+  if (len > 120U)
+  {
+    len = 120U;
+  }
+
+  return (int16_t)(len * UI_RENDERER_FONT_WIDTH);
+}
+
+static int16_t UI_RendererAdapter_ClampInt16(int32_t value, int16_t min_value, int16_t max_value)
+{
+  if (value < min_value)
+  {
+    return min_value;
+  }
+
+  if (value > max_value)
+  {
+    return max_value;
+  }
+
+  return (int16_t)value;
 }
 
 static int UI_RendererAdapter_ClipRect(const ui_viewport_t *viewport,
@@ -379,6 +419,11 @@ uint16_t UI_RendererAdapter_RGB565(uint8_t red, uint8_t green, uint8_t blue)
                     ((uint16_t)blue >> 3));
 }
 
+ui_color_t UI_RendererAdapter_Color(uint8_t red, uint8_t green, uint8_t blue)
+{
+  return UI_RendererAdapter_RGB565(red, green, blue);
+}
+
 void UI_RendererAdapter_DrawLabel(const ui_viewport_t *viewport, int16_t rx, int16_t ry, const char *text)
 {
   UI_RendererAdapter_DrawText(viewport, rx, ry, text, UI_RendererAdapter_RGB565(232U, 238U, 245U));
@@ -533,4 +578,303 @@ void UI_RendererAdapter_DrawLine(const ui_viewport_t *viewport,
   cmd->x2 = x2;
   cmd->y2 = y2;
   cmd->color = color;
+}
+
+void UI_RendererAdapter_DrawTextInRect(const ui_viewport_t *viewport,
+                                       const ui_rect_t *rect,
+                                       const char *text,
+                                       const ui_text_style_t *style)
+{
+  int16_t text_x;
+  int16_t text_y;
+  int16_t text_width;
+  uint16_t color;
+
+  if ((viewport == NULL) || (rect == NULL) || (text == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  (void)style->font_size;
+  text_width = UI_RendererAdapter_EstimateTextWidth(text);
+  text_x = rect->x + 4;
+
+  if (style->align == UI_TEXT_ALIGN_CENTER)
+  {
+    text_x = rect->x + (int16_t)((rect->width - text_width) / 2);
+  }
+  else if (style->align == UI_TEXT_ALIGN_RIGHT)
+  {
+    text_x = rect->x + rect->width - text_width - 4;
+  }
+
+  text_x = UI_RendererAdapter_ClampInt16(text_x, rect->x, (int16_t)(rect->x + rect->width - 1));
+  text_y = rect->y + (int16_t)((rect->height - UI_RENDERER_FONT_HEIGHT) / 2);
+  if (text_y < rect->y)
+  {
+    text_y = rect->y;
+  }
+
+  color = style->color;
+  UI_RendererAdapter_DrawText(viewport, text_x, text_y, text, color);
+}
+
+void UI_RendererAdapter_DrawPanel(const ui_viewport_t *viewport,
+                                  const ui_rect_t *rect,
+                                  const ui_render_style_t *style)
+{
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  (void)style->radius;
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, rect->width, rect->height, style->background);
+  if (style->border_width > 0U)
+  {
+    UI_RendererAdapter_DrawRect(viewport, rect->x, rect->y, rect->width, rect->height, style->border);
+  }
+}
+
+void UI_RendererAdapter_DrawButton(const ui_viewport_t *viewport,
+                                   const ui_rect_t *rect,
+                                   const char *text,
+                                   const ui_render_style_t *style,
+                                   uint8_t pressed)
+{
+  ui_text_style_t text_style;
+  ui_rect_t text_rect;
+  ui_color_t fill_color;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  fill_color = (pressed != 0U) ? style->accent : style->background;
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, rect->width, rect->height, fill_color);
+  UI_RendererAdapter_DrawRect(viewport, rect->x, rect->y, rect->width, rect->height, style->border);
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, 3, rect->height, style->accent);
+
+  text_style.color = style->text;
+  text_style.font_size = UI_FONT_SIZE_12;
+  text_style.align = UI_TEXT_ALIGN_CENTER;
+  text_rect = *rect;
+  UI_RendererAdapter_DrawTextInRect(viewport, &text_rect, text, &text_style);
+}
+
+void UI_RendererAdapter_DrawProgressBar(const ui_viewport_t *viewport,
+                                        const ui_rect_t *rect,
+                                        uint8_t percent,
+                                        const ui_render_style_t *style)
+{
+  int16_t fill_width;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  percent = UI_RendererAdapter_ClampPercent(percent);
+  fill_width = (int16_t)(((int32_t)(rect->width - 4) * percent) / 100);
+  if (fill_width < 0)
+  {
+    fill_width = 0;
+  }
+
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, rect->width, rect->height, style->background);
+  UI_RendererAdapter_DrawRect(viewport, rect->x, rect->y, rect->width, rect->height, style->border);
+  UI_RendererAdapter_DrawFillRect(viewport, (int16_t)(rect->x + 2), (int16_t)(rect->y + 2), fill_width, (int16_t)(rect->height - 4), style->accent);
+}
+
+void UI_RendererAdapter_DrawSlider(const ui_viewport_t *viewport,
+                                   const ui_rect_t *rect,
+                                   int32_t value,
+                                   int32_t min_value,
+                                   int32_t max_value,
+                                   const ui_render_style_t *style)
+{
+  int32_t range;
+  int16_t knob_x;
+  int16_t track_y;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL) || (max_value <= min_value))
+  {
+    return;
+  }
+
+  value = (value < min_value) ? min_value : value;
+  value = (value > max_value) ? max_value : value;
+  range = max_value - min_value;
+  track_y = rect->y + (int16_t)(rect->height / 2) - 2;
+  knob_x = rect->x + (int16_t)(((int32_t)(rect->width - 12) * (value - min_value)) / range);
+
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, track_y, rect->width, 4, style->background);
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, track_y, (int16_t)(knob_x - rect->x + 6), 4, style->accent);
+  UI_RendererAdapter_DrawRect(viewport, knob_x, (int16_t)(track_y - 4), 12, 12, style->border);
+  UI_RendererAdapter_DrawFillRect(viewport, (int16_t)(knob_x + 2), (int16_t)(track_y - 2), 8, 8, style->accent);
+}
+
+void UI_RendererAdapter_DrawToggle(const ui_viewport_t *viewport,
+                                   const ui_rect_t *rect,
+                                   uint8_t is_on,
+                                   const ui_render_style_t *style)
+{
+  int16_t knob_x;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  knob_x = (is_on != 0U) ? (int16_t)(rect->x + rect->width - rect->height + 2) : (int16_t)(rect->x + 2);
+
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, rect->width, rect->height, (is_on != 0U) ? style->accent : style->background);
+  UI_RendererAdapter_DrawRect(viewport, rect->x, rect->y, rect->width, rect->height, style->border);
+  UI_RendererAdapter_DrawFillRect(viewport, knob_x, (int16_t)(rect->y + 2), (int16_t)(rect->height - 4), (int16_t)(rect->height - 4), style->text);
+}
+
+void UI_RendererAdapter_DrawCheckbox(const ui_viewport_t *viewport,
+                                     const ui_rect_t *rect,
+                                     uint8_t is_checked,
+                                     const char *text,
+                                     const ui_render_style_t *style)
+{
+  ui_text_style_t text_style;
+  ui_rect_t label_rect;
+  int16_t box_size;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  box_size = (rect->height < 16) ? rect->height : 16;
+  UI_RendererAdapter_DrawRect(viewport, rect->x, (int16_t)(rect->y + 1), box_size, box_size, style->border);
+  if (is_checked != 0U)
+  {
+    UI_RendererAdapter_DrawLine(viewport, (int16_t)(rect->x + 3), (int16_t)(rect->y + 8), (int16_t)(rect->x + 7), (int16_t)(rect->y + 13), style->accent);
+    UI_RendererAdapter_DrawLine(viewport, (int16_t)(rect->x + 7), (int16_t)(rect->y + 13), (int16_t)(rect->x + 14), (int16_t)(rect->y + 4), style->accent);
+  }
+
+  label_rect.x = rect->x + box_size + 6;
+  label_rect.y = rect->y;
+  label_rect.width = rect->width - box_size - 6;
+  label_rect.height = rect->height;
+  text_style.color = style->text;
+  text_style.font_size = UI_FONT_SIZE_12;
+  text_style.align = UI_TEXT_ALIGN_LEFT;
+  UI_RendererAdapter_DrawTextInRect(viewport, &label_rect, text, &text_style);
+}
+
+void UI_RendererAdapter_DrawListItem(const ui_viewport_t *viewport,
+                                     const ui_rect_t *rect,
+                                     const char *title,
+                                     const char *subtitle,
+                                     uint8_t selected,
+                                     const ui_render_style_t *style)
+{
+  ui_color_t fill_color;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  fill_color = (selected != 0U) ? style->background : UI_RendererAdapter_RGB565(10U, 24U, 38U);
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, rect->width, rect->height, fill_color);
+  UI_RendererAdapter_DrawRect(viewport, rect->x, rect->y, rect->width, rect->height, style->border);
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, 3, rect->height, (selected != 0U) ? style->accent : style->border);
+  UI_RendererAdapter_DrawText(viewport, (int16_t)(rect->x + 10), (int16_t)(rect->y + 6), title, style->text);
+  UI_RendererAdapter_DrawText(viewport, (int16_t)(rect->x + 10), (int16_t)(rect->y + 22), subtitle, style->muted);
+}
+
+void UI_RendererAdapter_DrawBadge(const ui_viewport_t *viewport,
+                                  const ui_rect_t *rect,
+                                  const char *text,
+                                  const ui_render_style_t *style)
+{
+  ui_text_style_t text_style;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  UI_RendererAdapter_DrawFillRect(viewport, rect->x, rect->y, rect->width, rect->height, style->accent);
+  UI_RendererAdapter_DrawRect(viewport, rect->x, rect->y, rect->width, rect->height, style->border);
+  text_style.color = style->text;
+  text_style.font_size = UI_FONT_SIZE_12;
+  text_style.align = UI_TEXT_ALIGN_CENTER;
+  UI_RendererAdapter_DrawTextInRect(viewport, rect, text, &text_style);
+}
+
+void UI_RendererAdapter_DrawSparkline(const ui_viewport_t *viewport,
+                                      const ui_rect_t *rect,
+                                      const int16_t *values,
+                                      uint8_t count,
+                                      int16_t min_value,
+                                      int16_t max_value,
+                                      const ui_render_style_t *style)
+{
+  uint8_t i;
+  int32_t range;
+  int16_t prev_x;
+  int16_t prev_y;
+
+  if ((viewport == NULL) || (rect == NULL) || (values == NULL) || (style == NULL) || (count < 2U) || (max_value <= min_value))
+  {
+    return;
+  }
+
+  range = max_value - min_value;
+  UI_RendererAdapter_DrawRect(viewport, rect->x, rect->y, rect->width, rect->height, style->border);
+  prev_x = rect->x;
+  prev_y = rect->y + rect->height - 2 - (int16_t)(((int32_t)(rect->height - 4) * (values[0] - min_value)) / range);
+
+  for (i = 1U; i < count; ++i)
+  {
+    int16_t x = rect->x + (int16_t)(((int32_t)(rect->width - 2) * i) / (count - 1U));
+    int16_t y = rect->y + rect->height - 2 - (int16_t)(((int32_t)(rect->height - 4) * (values[i] - min_value)) / range);
+
+    y = UI_RendererAdapter_ClampInt16(y, (int16_t)(rect->y + 1), (int16_t)(rect->y + rect->height - 2));
+    UI_RendererAdapter_DrawLine(viewport, prev_x, prev_y, x, y, style->accent);
+    prev_x = x;
+    prev_y = y;
+  }
+}
+
+void UI_RendererAdapter_DrawIconBox(const ui_viewport_t *viewport,
+                                    const ui_rect_t *rect,
+                                    const char *icon_text,
+                                    const char *label,
+                                    const ui_render_style_t *style)
+{
+  ui_text_style_t text_style;
+  ui_rect_t icon_rect;
+  ui_rect_t label_rect;
+
+  if ((viewport == NULL) || (rect == NULL) || (style == NULL))
+  {
+    return;
+  }
+
+  UI_RendererAdapter_DrawPanel(viewport, rect, style);
+  icon_rect.x = rect->x + 6;
+  icon_rect.y = rect->y + 6;
+  icon_rect.width = 34;
+  icon_rect.height = rect->height - 12;
+  UI_RendererAdapter_DrawFillRect(viewport, icon_rect.x, icon_rect.y, icon_rect.width, icon_rect.height, style->accent);
+
+  text_style.color = style->text;
+  text_style.font_size = UI_FONT_SIZE_12;
+  text_style.align = UI_TEXT_ALIGN_CENTER;
+  UI_RendererAdapter_DrawTextInRect(viewport, &icon_rect, icon_text, &text_style);
+
+  label_rect.x = rect->x + 46;
+  label_rect.y = rect->y;
+  label_rect.width = rect->width - 50;
+  label_rect.height = rect->height;
+  text_style.align = UI_TEXT_ALIGN_LEFT;
+  UI_RendererAdapter_DrawTextInRect(viewport, &label_rect, label, &text_style);
 }

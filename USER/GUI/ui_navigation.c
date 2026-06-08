@@ -51,6 +51,52 @@ BaseType_t UI_Navigation_Push(ui_page_context_t *page)
   return pdPASS;
 }
 
+BaseType_t UI_Navigation_Replace(ui_page_context_t *page)
+{
+  ui_page_context_t *active;
+
+  if (page == NULL)
+  {
+    return pdFAIL;
+  }
+
+  if (g_navigation_stack.top_idx < 0)
+  {
+    return UI_Navigation_Push(page);
+  }
+
+  active = g_navigation_stack.stack[g_navigation_stack.top_idx];
+  if (active == page)
+  {
+    return pdPASS;
+  }
+
+  if ((active != NULL) && (active->exit != NULL))
+  {
+    active->exit(active);
+  }
+  if ((active != NULL) && (active->destroy != NULL))
+  {
+    active->destroy(active);
+    active->is_created = 0U;
+  }
+
+  g_navigation_stack.stack[g_navigation_stack.top_idx] = page;
+
+  if ((page->is_created == 0U) && (page->create != NULL))
+  {
+    page->create(page);
+    page->is_created = 1U;
+  }
+
+  if (page->enter != NULL)
+  {
+    page->enter(page);
+  }
+
+  return pdPASS;
+}
+
 BaseType_t UI_Navigation_Pop(void)
 {
   ui_page_context_t *page;

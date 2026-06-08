@@ -66,6 +66,30 @@ BaseType_t UI_PageManager_Push(uint16_t page_id)
   return pdPASS;
 }
 
+BaseType_t UI_PageManager_Replace(uint16_t page_id)
+{
+  ui_page_context_t *page;
+
+  if (g_page_factory == NULL)
+  {
+    return pdFAIL;
+  }
+
+  page = g_page_factory(page_id);
+  if (page == NULL)
+  {
+    return pdFAIL;
+  }
+
+  if (UI_Navigation_Replace(page) != pdPASS)
+  {
+    return pdFAIL;
+  }
+
+  UI_PageManager_SyncFocusRoot();
+  return pdPASS;
+}
+
 BaseType_t UI_PageManager_Pop(void)
 {
   BaseType_t result = UI_Navigation_Pop();

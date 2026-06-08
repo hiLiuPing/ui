@@ -1,6 +1,6 @@
-stm32l471/ui_renderer_adapter.o: ..\USER\GUI\ui_renderer_adapter.c \
+stm32l471\ui_renderer_adapter.o: ..\USER\GUI\ui_renderer_adapter.c \
   ..\USER\GUI\ui_renderer_adapter.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h ..\USER\GUI\ui_types.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h ..\USER\GUI\ui_types.h \
   ..\USER\BSP\OLED\lcd.h ..\USER\BSP\OLED\lcd_init.h ..\Core\Inc\main.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h \
   ..\Core\Inc\stm32l4xx_hal_conf.h \
@@ -12,12 +12,12 @@ stm32l471/ui_renderer_adapter.o: ..\USER\GUI\ui_renderer_adapter.c \
   ..\Drivers\CMSIS\Include\cmsis_version.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\Drivers\CMSIS\Include\cmsis_armclang.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_acle.h \
   ..\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32L4xx\Include\system_stm32l4xx.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc_ex.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio.h \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_gpio_ex.h \
@@ -38,9 +38,9 @@ stm32l471/ui_renderer_adapter.o: ..\USER\GUI\ui_renderer_adapter.c \
   ..\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h \
   ..\USER\MIDLE\EmbeddedGUI\src\canvas\egui_canvas.h \
   ..\USER\MIDLE\EmbeddedGUI\src\core\egui_common.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdbool.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdarg.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdio.h \
   ..\USER\MIDLE\EmbeddedGUI\src\core\egui_predefs.h \
   ..\USER\MIDLE\EmbeddedGUI\src\config\egui_config.h \
   ..\USER\GUI\app_egui_config.h \
@@ -58,8 +58,8 @@ stm32l471/ui_renderer_adapter.o: ..\USER\GUI\ui_renderer_adapter.c \
   ..\USER\MIDLE\EmbeddedGUI\src\core\egui_typedef.h \
   ..\USER\MIDLE\EmbeddedGUI\src\core\egui_oop.h \
   ..\USER\MIDLE\EmbeddedGUI\src\utils\egui_fixmath.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdlib.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\math.h \
   ..\USER\MIDLE\EmbeddedGUI\src\core\egui_region.h \
   ..\USER\MIDLE\EmbeddedGUI\src\mask\egui_mask.h \
   ..\USER\MIDLE\EmbeddedGUI\src\canvas\egui_canvas_gradient.h \
@@ -68,4 +68,4 @@ stm32l471/ui_renderer_adapter.o: ..\USER\GUI\ui_renderer_adapter.c \
   ..\USER\MIDLE\EmbeddedGUI\src\font\egui_font.h \
   ..\USER\MIDLE\EmbeddedGUI\src\font\egui_font_std.h \
   ..\USER\MIDLE\EmbeddedGUI\src\resource\egui_icon_material_symbols.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\string.h
